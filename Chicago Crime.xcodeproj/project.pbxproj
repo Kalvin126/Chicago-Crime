@@ -12,16 +12,18 @@
 		86A430341BDF3F6F00FF516F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430321BDF3F6F00FF516F /* Main.storyboard */; };
 		86A430361BDF3F6F00FF516F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86A430351BDF3F6F00FF516F /* Assets.xcassets */; };
 		86A430391BDF3F6F00FF516F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */; };
+		AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC1D5A1BDF44D300E56DCA /* Server.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		86A4302B1BDF3F6F00FF516F /* Chicago Crime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chicago Crime.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		86A430301BDF3F6F00FF516F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		86A430301BDF3F6F00FF516F /* ViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		86A430331BDF3F6F00FF516F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		86A430351BDF3F6F00FF516F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86A430381BDF3F6F00FF516F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +43,9 @@
 				86A4302D1BDF3F6F00FF516F /* Chicago Crime */,
 				86A4302C1BDF3F6F00FF516F /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		86A4302C1BDF3F6F00FF516F /* Products */ = {
 			isa = PBXGroup;
@@ -56,6 +60,7 @@
 			children = (
 				86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */,
 				86A430301BDF3F6F00FF516F /* ViewController.swift */,
+				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
 				86A430321BDF3F6F00FF516F /* Main.storyboard */,
 				86A430351BDF3F6F00FF516F /* Assets.xcassets */,
 				86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */,
@@ -137,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86A430311BDF3F6F00FF516F /* ViewController.swift in Sources */,
+				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
 				86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,6 +293,7 @@
 				86A4303F1BDF3F6F00FF516F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
