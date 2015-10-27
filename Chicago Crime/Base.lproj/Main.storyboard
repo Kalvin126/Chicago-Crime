@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="409" y="583"/>
         </scene>
-        <!--View Controller-->
+        <!--Title-->
         <scene sceneID="YGQ-r0-zlA">
             <objects>
-                <viewController id="v3Y-dc-WYZ" sceneMemberID="viewController">
+                <viewController id="v3Y-dc-WYZ" customClass="CrimeMapVC" customModule="Chicago_Crime" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VHV-el-sl7"/>
                         <viewControllerLayoutGuide type="bottom" id="PPV-Fg-qcF"/>
@@ -37,6 +37,9 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cn8-wQ-fbK">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <animations/>
+                                <connections>
+                                    <outlet property="delegate" destination="v3Y-dc-WYZ" id="fUD-xI-bgp"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <animations/>
@@ -48,7 +51,16 @@
                             <constraint firstItem="PPV-Fg-qcF" firstAttribute="top" secondItem="cn8-wQ-fbK" secondAttribute="bottom" id="xsj-xL-ess"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="q7c-OH-O3q"/>
+                    <navigationItem key="navigationItem" title="Title" id="mNu-V7-la7">
+                        <barButtonItem key="rightBarButtonItem" title="Button" id="TIe-J9-jyy">
+                            <connections>
+                                <action selector="pressedButton:" destination="v3Y-dc-WYZ" id="lcU-UX-1k9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="cn8-wQ-fbK" id="8qY-vE-fd0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCR-wt-Ajo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
