@@ -12,6 +12,7 @@
 		86A430341BDF3F6F00FF516F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430321BDF3F6F00FF516F /* Main.storyboard */; };
 		86A430361BDF3F6F00FF516F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86A430351BDF3F6F00FF516F /* Assets.xcassets */; };
 		86A430391BDF3F6F00FF516F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */; };
+		86A430411BDF5D0000FF516F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A430401BDF5D0000FF516F /* MapKit.framework */; };
 		AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC1D5A1BDF44D300E56DCA /* Server.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		86A430351BDF3F6F00FF516F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86A430381BDF3F6F00FF516F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
@@ -31,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86A430411BDF5D0000FF516F /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +44,7 @@
 			isa = PBXGroup;
 			children = (
 				86A4302D1BDF3F6F00FF516F /* Chicago Crime */,
+				86A430421BDF5D0500FF516F /* Frameworks */,
 				86A4302C1BDF3F6F00FF516F /* Products */,
 			);
 			indentWidth = 4;
@@ -59,14 +63,54 @@
 			isa = PBXGroup;
 			children = (
 				86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */,
-				86A430301BDF3F6F00FF516F /* ViewController.swift */,
-				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
-				86A430321BDF3F6F00FF516F /* Main.storyboard */,
-				86A430351BDF3F6F00FF516F /* Assets.xcassets */,
-				86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */,
-				86A4303A1BDF3F6F00FF516F /* Info.plist */,
+				86A430451BDF5D2900FF516F /* Controller */,
+				86A430441BDF5D2000FF516F /* View */,
+				86A430431BDF5D1A00FF516F /* Model */,
+				86A430461BDF5D4A00FF516F /* Resources */,
 			);
 			path = "Chicago Crime";
+			sourceTree = "<group>";
+		};
+		86A430421BDF5D0500FF516F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86A430401BDF5D0000FF516F /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		86A430431BDF5D1A00FF516F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		86A430441BDF5D2000FF516F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86A430321BDF3F6F00FF516F /* Main.storyboard */,
+				86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		86A430451BDF5D2900FF516F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				86A430301BDF3F6F00FF516F /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		86A430461BDF5D4A00FF516F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				86A430351BDF3F6F00FF516F /* Assets.xcassets */,
+				86A4303A1BDF3F6F00FF516F /* Info.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +301,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Chicago Crime/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "redpanda.Chicago-Crime";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -268,6 +313,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Chicago Crime/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "redpanda.Chicago-Crime";
 				PRODUCT_NAME = "$(TARGET_NAME)";
