@@ -13,9 +13,16 @@ class CrimeMapVC: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
 
+    var crimes:Array<report> = Array()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        func assign(elements:Array<report>) {
+            self.crimes = elements
+        }
+        
+        Server.shared.getstuff(assign)
     }
 
     override func didReceiveMemoryWarning() {

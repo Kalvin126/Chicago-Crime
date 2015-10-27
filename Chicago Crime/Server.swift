@@ -55,7 +55,7 @@ class report {
 class Server {
     static let shared = Server()
     
-    var rootDictionary:Dictionary<String,AnyObject> = Dictionary()
+    var rootArray:Array<report> = Array()
     
     func formatter()->NSDateFormatter {
         let f:NSDateFormatter = NSDateFormatter()
@@ -65,7 +65,7 @@ class Server {
         return f
     }
     
-    func getstuff(){
+    func getstuff(complete:(Array<report>->Void)){
         let sesh = NSURLSession.sharedSession()
         let datatask = sesh.dataTaskWithURL(API!) { data, response, error in
             var json:NSArray?
@@ -76,8 +76,9 @@ class Server {
             }
             for root in json! {
                 let info:Dictionary = (root as? Dictionary<String,AnyObject>)!
-                self.rootDictionary[info["id"] as! String] = report(info: info)
+                self.rootArray.append(report(info: info))
             }
+            complete(self.rootArray)
         }
         datatask.resume()
     }
