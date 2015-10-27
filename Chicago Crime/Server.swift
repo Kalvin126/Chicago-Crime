@@ -19,7 +19,11 @@ class report {
 class Server {
     static let shared = Server()
     
-    var rootDictionary = NSMutableDictionary()
+    var rootDictionary:Dictionary<String,AnyObject>
+    
+    init(){
+        rootDictionary = Dictionary()
+    }
     
     
     func getstuff(){
@@ -33,7 +37,7 @@ class Server {
             }
             for root in json! {
                 let info:Dictionary = (root as? Dictionary<String,AnyObject>)!
-                //rootDictionary.setObject(report(info: info), forKey: info["id"])
+                self.rootDictionary[info["id"] as! String] = report(info: info)
             }
         }
         datatask.resume()
