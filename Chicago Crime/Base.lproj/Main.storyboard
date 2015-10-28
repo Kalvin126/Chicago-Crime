@@ -145,7 +145,7 @@
                     <navigationItem key="navigationItem" title="Title" id="mNu-V7-la7">
                         <barButtonItem key="rightBarButtonItem" title="Button" id="TIe-J9-jyy">
                             <connections>
-                                <action selector="pressedButton:" destination="v3Y-dc-WYZ" id="lcU-UX-1k9"/>
+                                <action selector="pressedbutton:" destination="v3Y-dc-WYZ" id="G3q-fI-fZ9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
