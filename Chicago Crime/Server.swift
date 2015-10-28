@@ -69,11 +69,7 @@ class Server {
         let sesh = NSURLSession.sharedSession()
         let datatask = sesh.dataTaskWithURL(API!) { data, response, error in
             var json:NSArray?
-            do{
-               json  = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(rawValue: 0)) as? NSArray
-            } catch {
-                
-            }
+            json = JSON(data:data!).rawArray;
             for root in json! {
                 let info:Dictionary = (root as? Dictionary<String,AnyObject>)!
                 self.rootArray.append(report(info: info))

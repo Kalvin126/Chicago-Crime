@@ -14,6 +14,7 @@
 		86A430391BDF3F6F00FF516F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */; };
 		86A430411BDF5D0000FF516F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A430401BDF5D0000FF516F /* MapKit.framework */; };
 		86A430721BDF641700FF516F /* CrimeMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A430711BDF641700FF516F /* CrimeMapVC.swift */; };
+		AAE04FDD1BE17E4D00478026 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */; };
 		AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC1D5A1BDF44D300E56DCA /* Server.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		86A430711BDF641700FF516F /* CrimeMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeMapVC.swift; sourceTree = "<group>"; };
+		AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 		86A430431BDF5D1A00FF516F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */,
 				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
 			);
 			name = Model;
@@ -191,6 +194,7 @@
 				86A430311BDF3F6F00FF516F /* ViewController.swift in Sources */,
 				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
 				86A430721BDF641700FF516F /* CrimeMapVC.swift in Sources */,
+				AAE04FDD1BE17E4D00478026 /* SwiftyJSON.swift in Sources */,
 				86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
