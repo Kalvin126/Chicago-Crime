@@ -15,7 +15,14 @@ class CrimeMapVC: UIViewController, MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        // set initial mapView position
+        let center = CLLocationCoordinate2DMake(41.996101696641887, -87.950124889717827)
+        let span = MKCoordinateSpanMake(0.5, 1.0)
+        mapView.setRegion(MKCoordinateRegionMake(center, span), animated: false)
+
+        // add annotation
+        //mapView.addAnnotation(<#T##annotation: MKAnnotation##MKAnnotation#>)
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,7 +30,7 @@ class CrimeMapVC: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func pressedButton(sender: AnyObject) {
-
-    }
+//    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+//
+//    }
 }
