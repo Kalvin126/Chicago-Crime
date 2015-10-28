@@ -13,6 +13,8 @@ class CrimeMapVC: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
 
+    var crimes:Array<report> = Array()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
