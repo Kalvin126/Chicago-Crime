@@ -28,7 +28,7 @@
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		86A430711BDF641700FF516F /* CrimeMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeMapVC.swift; sourceTree = "<group>"; };
-		AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "Chicago Crime/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
@@ -79,6 +79,7 @@
 		86A430421BDF5D0500FF516F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */,
 				86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */,
 				86A430401BDF5D0000FF516F /* MapKit.framework */,
 			);
@@ -88,7 +89,6 @@
 		86A430431BDF5D1A00FF516F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */,
 				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
 			);
 			name = Model;
