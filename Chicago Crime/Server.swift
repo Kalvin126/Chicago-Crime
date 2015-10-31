@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 let API = NSURL(string:"https://data.cityofchicago.org/resource/ijzp-q8t2.json")
-let types:Array = ["ARSON","BATTERY","INTERFERENCE WITH PUBLIC OFFICER","HOMICIDE","OTHER OFFENSE","BURGLARY","PROSTITUTION","CRIM SEXUAL ASSAULT","SEX OFFENSE","KIDNAPPING","OFFENSE INVOLVING CHILDREN","NON - CRIMINAL","ASSAULT","THEFT","CRIMINAL DAMAGE","MOTOR VEHICLE THEFT","CRIMINAL TRESPASS","ROBBERY","WEAPONS VIOLATION","INTIMIDATION","PUBLIC PEACE VIOLATION","DECEPTIVE PRACTICE","NARCOTICS"]
+
 
 
 class Report: NSObject, MKAnnotation {
@@ -86,6 +86,19 @@ class Report: NSObject, MKAnnotation {
 
 }
 
+
+class Filter: NSObject {
+    
+    func setPrimaryTypeFilter(types:Array<PrimaryType>) {
+        
+    }
+    
+    func setPrimaryTypeFilter(types:Array<String>) {
+        
+    }
+    
+}
+
 class Server {
     static let shared = Server()
     
@@ -94,7 +107,6 @@ class Server {
     func formatter()->NSDateFormatter {
         let f:NSDateFormatter = NSDateFormatter()
         f.timeZone = NSTimeZone(abbreviation: "GMT")
-        //f.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)
         f.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
         return f
     }
