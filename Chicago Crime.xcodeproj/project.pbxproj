@@ -14,6 +14,11 @@
 		86A430391BDF3F6F00FF516F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */; };
 		86A430411BDF5D0000FF516F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A430401BDF5D0000FF516F /* MapKit.framework */; };
 		86A430721BDF641700FF516F /* CrimeMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A430711BDF641700FF516F /* CrimeMapVC.swift */; };
+		86A734FC1BE579D9006F7078 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A734FB1BE579D9006F7078 /* Types.swift */; };
+		86A734FE1BE593E0006F7078 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A734FD1BE593E0006F7078 /* MapVC.swift */; };
+		86A735001BE5941A006F7078 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A734FF1BE5941A006F7078 /* SplitViewController.swift */; };
+		86B5C2581BE6BA6100EA09E9 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5C2571BE6BA6100EA09E9 /* SettingsVC.swift */; };
+		86B5C25A1BE6BA7100EA09E9 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5C2591BE6BA7100EA09E9 /* FilterVC.swift */; };
 		AAE04FDD1BE17E4D00478026 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */; };
 		AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC1D5A1BDF44D300E56DCA /* Server.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +33,11 @@
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		86A430711BDF641700FF516F /* CrimeMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeMapVC.swift; sourceTree = "<group>"; };
+		86A734FB1BE579D9006F7078 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		86A734FD1BE593E0006F7078 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		86A734FF1BE5941A006F7078 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		86B5C2571BE6BA6100EA09E9 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		86B5C2591BE6BA7100EA09E9 /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
 		AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "Chicago Crime/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
@@ -90,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
+				86A734FB1BE579D9006F7078 /* Types.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -107,6 +118,10 @@
 			isa = PBXGroup;
 			children = (
 				86A430711BDF641700FF516F /* CrimeMapVC.swift */,
+				86A734FF1BE5941A006F7078 /* SplitViewController.swift */,
+				86A734FD1BE593E0006F7078 /* MapVC.swift */,
+				86B5C2591BE6BA7100EA09E9 /* FilterVC.swift */,
+				86B5C2571BE6BA6100EA09E9 /* SettingsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -193,8 +208,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
+				86A735001BE5941A006F7078 /* SplitViewController.swift in Sources */,
+				86A734FE1BE593E0006F7078 /* MapVC.swift in Sources */,
+				86B5C25A1BE6BA7100EA09E9 /* FilterVC.swift in Sources */,
 				86A430721BDF641700FF516F /* CrimeMapVC.swift in Sources */,
 				AAE04FDD1BE17E4D00478026 /* SwiftyJSON.swift in Sources */,
+				86B5C2581BE6BA6100EA09E9 /* SettingsVC.swift in Sources */,
+				86A734FC1BE579D9006F7078 /* Types.swift in Sources */,
 				86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
