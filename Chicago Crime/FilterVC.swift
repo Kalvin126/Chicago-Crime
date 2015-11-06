@@ -22,7 +22,7 @@ class FilterVC: UIViewController {
     var delegate: FilterDelegate?
 
     override func viewDidLoad() {
-        self.navigationItem.title = "Settings"
+        super.viewDidLoad()
     }
 
 }

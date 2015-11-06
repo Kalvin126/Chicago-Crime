@@ -19,9 +19,9 @@ class SplitViewController: UISplitViewController, SettingsDelegate {
         super.viewDidLoad()
 
         mapVC = self.viewControllers[0] as? MapVC
-        let nav = self.viewControllers[1] as! UINavigationController
-        let tabBarC = nav.viewControllers[0] as! UITabBarController
-        for vc in tabBarC.viewControllers! {
+        let tabBarC = self.viewControllers[1] as! UITabBarController
+        for navVC in tabBarC.viewControllers! {
+            let vc = (navVC as! UINavigationController).viewControllers[0]
             switch vc {
             case vc as FilterVC:
                 filterVC = vc as? FilterVC
@@ -33,7 +33,7 @@ class SplitViewController: UISplitViewController, SettingsDelegate {
                 break
             }
         }
-
+        
         settingVC?.delegate = self
     }
 

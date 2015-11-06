@@ -18,9 +18,6 @@ class SettingsVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // BUG: hmm this does not actually set the title nor does storyboard
-        self.navigationItem.title = "Settings"
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -32,8 +29,9 @@ class SettingsVC: UITableViewController {
 
         if indexPath.section == 0 {
 
-        }else if indexPath.section == 1{
+        } else if indexPath.section == 1 {
             let mapTypeStr:String = (cell?.textLabel?.text)!
+
             switch mapTypeStr {
             case "Standard":
                 delegate?.settings(self, didChangeMapType: .Standard)
@@ -44,7 +42,6 @@ class SettingsVC: UITableViewController {
             default:
                 break
             }
-
         }
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
