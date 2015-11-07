@@ -33,11 +33,11 @@
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		86A430711BDF641700FF516F /* CrimeMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeMapVC.swift; sourceTree = "<group>"; };
-		AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterVC.swift; path = "Chicago Crime/FilterVC.swift"; sourceTree = "<group>"; };
-		AA72A3481BEEB2240051312B /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapVC.swift; path = "Chicago Crime/MapVC.swift"; sourceTree = "<group>"; };
-		AA72A3491BEEB2240051312B /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsVC.swift; path = "Chicago Crime/SettingsVC.swift"; sourceTree = "<group>"; };
-		AA72A34A1BEEB2240051312B /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplitViewController.swift; path = "Chicago Crime/SplitViewController.swift"; sourceTree = "<group>"; };
-		AA72A34B1BEEB2240051312B /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "Chicago Crime/SwiftyJSON.swift"; sourceTree = "<group>"; };
+		AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
+		AA72A3481BEEB2240051312B /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		AA72A3491BEEB2240051312B /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		AA72A34A1BEEB2240051312B /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		AA72A34B1BEEB2240051312B /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		AABC7A521BE2BF9B002B62D9 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -59,11 +59,6 @@
 		86A430221BDF3F6F00FF516F = {
 			isa = PBXGroup;
 			children = (
-				AA72A3471BEEB2240051312B /* FilterVC.swift */,
-				AA72A3481BEEB2240051312B /* MapVC.swift */,
-				AA72A3491BEEB2240051312B /* SettingsVC.swift */,
-				AA72A34A1BEEB2240051312B /* SplitViewController.swift */,
-				AA72A34B1BEEB2240051312B /* SwiftyJSON.swift */,
 				86A4302D1BDF3F6F00FF516F /* Chicago Crime */,
 				86A430421BDF5D0500FF516F /* Frameworks */,
 				86A4302C1BDF3F6F00FF516F /* Products */,
@@ -105,6 +100,7 @@
 		86A430431BDF5D1A00FF516F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AA72A34B1BEEB2240051312B /* SwiftyJSON.swift */,
 				AABC7A521BE2BF9B002B62D9 /* Types.swift */,
 				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
 			);
@@ -123,6 +119,10 @@
 		86A430451BDF5D2900FF516F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AA72A3471BEEB2240051312B /* FilterVC.swift */,
+				AA72A3481BEEB2240051312B /* MapVC.swift */,
+				AA72A3491BEEB2240051312B /* SettingsVC.swift */,
+				AA72A34A1BEEB2240051312B /* SplitViewController.swift */,
 				86A430711BDF641700FF516F /* CrimeMapVC.swift */,
 			);
 			name = Controller;
