@@ -25,7 +25,7 @@ class Report: NSObject, MKAnnotation {
     var date:NSDate?
     var arrest:Bool
     var domestic:Bool
-    var locationDescription:String
+    var locationDescription:String?
     var caseNumber:String
 
     var coordinate: CLLocationCoordinate2D {
@@ -48,7 +48,9 @@ class Report: NSObject, MKAnnotation {
         arrest = info["arrest"] as! Bool
         domestic = info["domestic"] as! Bool
         
-        locationDescription = info["location_description"] as! String
+        if let ld = info["location_description"] as! String? {
+            locationDescription = ld
+        }
         caseNumber = info["case_number"] as! String
         super.init()
 
