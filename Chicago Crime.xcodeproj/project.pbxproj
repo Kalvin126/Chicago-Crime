@@ -81,6 +81,7 @@
 		86A430421BDF5D0500FF516F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */,
 				86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */,
 				86A430401BDF5D0000FF516F /* MapKit.framework */,
 			);
@@ -93,6 +94,7 @@
 				AABC7A521BE2BF9B002B62D9 /* Types.swift */,
 				AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */,
 				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
+				86A734FB1BE579D9006F7078 /* Types.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -110,6 +112,10 @@
 			isa = PBXGroup;
 			children = (
 				86A430711BDF641700FF516F /* CrimeMapVC.swift */,
+				86A734FF1BE5941A006F7078 /* SplitViewController.swift */,
+				86A734FD1BE593E0006F7078 /* MapVC.swift */,
+				86B5C2591BE6BA7100EA09E9 /* FilterVC.swift */,
+				86B5C2571BE6BA6100EA09E9 /* SettingsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -196,6 +202,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
+				86A735001BE5941A006F7078 /* SplitViewController.swift in Sources */,
+				86A734FE1BE593E0006F7078 /* MapVC.swift in Sources */,
+				86B5C25A1BE6BA7100EA09E9 /* FilterVC.swift in Sources */,
 				86A430721BDF641700FF516F /* CrimeMapVC.swift in Sources */,
 				AAE04FDD1BE17E4D00478026 /* SwiftyJSON.swift in Sources */,
 				AABC7A531BE2BF9B002B62D9 /* Types.swift in Sources */,
