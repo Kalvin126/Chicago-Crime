@@ -29,8 +29,33 @@ class MapVC: UIViewController, MKMapViewDelegate {
             mapView.addAnnotations(crimes)
             print("Plotted points")
         }
-
-        Server.shared.getstuff(assign)
+        
+        
+        //===============================================
+        // EXAMPLE OF FILTER TECHNIQUES DELETE AS NEEDED
+        //===============================================
+        let f:Filter = Filter()
+        let l:NSDateComponents = NSDateComponents()
+        let u:NSDateComponents = NSDateComponents()
+        
+        l.year = Int(2015)
+        l.month = Int(10)
+        l.day = Int(2)
+        l.hour = Int(0)
+        
+        u.year = Int(2015)
+        u.month = Int(10)
+        u.day = Int(5)
+        u.hour = Int(0)
+        
+        f.setLimit(20)
+        f.setDateRange(lowerBound: l, upperBound: u)
+        f.setPrimaryType(primarytype: PrimaryTypes[4])
+        //===============================================
+        //                END OF EXAMPLE
+        //===============================================
+        
+        Server.shared.getstuff(assign, params: f)
 
         // set initial mapView position
         let center = CLLocationCoordinate2DMake(41.8570092871228, -87.6975366951543)

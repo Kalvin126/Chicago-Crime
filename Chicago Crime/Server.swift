@@ -9,7 +9,12 @@
 import Foundation
 import MapKit
 
-let API = NSURL(string:"https://data.cityofchicago.org/resource/ijzp-q8t2.json")
+let API:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json"
+let APITest:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$where=(date+between+'2015-01-10T12:00:00'+and+'2015-01-10T14:00:00')&primary_type=BURGLARY"
+let APIWITHTOKEN:String = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$$app_token=\(APPTOKEN)"
+
+let APPTOKEN = "mhVvMlbuAc0Cx3SRZcoL8wuKP"
+let APPSECRET = "pfxRm9La0A4R1_s5N9O7rMrzJpqTqYFpkP2L"
 
 
 
@@ -42,8 +47,12 @@ class Report: NSObject, MKAnnotation {
         desc = info["description"] as! String
         block = info["block"] as! String
         primaryType = info["primary_type"] as! String
-        
-        date = Server.shared.formatter().dateFromString(info["date"] as! String)
+
+        // Date
+        var dateString:String = (info["date"] as! String)
+        let index = dateString.endIndex.advancedBy(-4)
+        dateString = dateString.substringToIndex(index)
+        date = Server.shared.formatter().dateFromString(dateString)!
         
         arrest = info["arrest"] as! Bool
         domestic = info["domestic"] as! Bool
@@ -91,12 +100,69 @@ class Report: NSObject, MKAnnotation {
 
 class Filter: NSObject {
     
-    func setPrimaryTypeFilter(types:Array<PrimaryType>) {
+    private var primaryType:String?
+    private var dateAsElementInWhere:String?
+    private var limit:Int?
+    
+    func url() -> String {
+        var url:String = API
         
+        if primaryType != nil || dateAsElementInWhere != nil {
+            url = url.stringByAppendingString("?")
+        }
+        
+        if let date = dateAsElementInWhere {
+            url = url.stringByAppendingString("$where=\(date)")
+        }
+        
+        if let type = primaryType {
+            if dateAsElementInWhere != nil {
+                url = url.stringByAppendingString("&")
+            }
+            url = url.stringByAppendingString(type)
+        }
+        
+        if let l = limit {
+            if dateAsElementInWhere != nil || primaryType != nil {
+                url = url.stringByAppendingString("&")
+            }
+            url = url.stringByAppendingString("$limit=\(l)")
+        }
+        
+        
+        
+        NSLog("requesting url \"\(url)\"")
+        return url
     }
     
-    func setPrimaryTypeFilter(types:Array<String>) {
+    func setDateRange(lowerBound l:NSDateComponents, upperBound u:NSDateComponents) {
+        // template
+        // $where=(date+between+'2015-01-10T12:00:00'+and+'2015-01-10T14:00:00')
         
+        
+        let afterWhere:String = String(format: "date+between+'\(l.year)-%02i-%02iT%02i:00:00'+and+'\(u.year)-%02i-%02iT%02i:00:00'", arguments: [l.month,l.day,l.hour,u.month,u.day,u.hour])
+        dateAsElementInWhere = afterWhere;
+        print("url after set func \(dateAsElementInWhere!)")
+    }
+    
+    func setPrimaryType(primarytype pt:String) -> Bool {
+        if PrimaryTypes.contains(pt) {
+            let urlType:String = pt.stringByReplacingOccurrencesOfString(" ", withString: "+")
+            primaryType = String(format:"primary_type=\(urlType)" , arguments:[])
+            return true
+        }
+        return false
+    }
+    
+    func setLimit(limit:Int) {
+        var l:Int
+        if limit > 50000 {
+            l = 50000
+        } else {
+            l = limit
+        }
+        
+        self.limit = l
     }
     
 }
@@ -104,20 +170,28 @@ class Filter: NSObject {
 class Server {
     static let shared = Server()
     
-    var rootArray:Array<Report> = Array()
+    private var rootArray:Array<Report> = Array()
     
-    func formatter()->NSDateFormatter {
+    private func formatter()->NSDateFormatter {
         let f:NSDateFormatter = NSDateFormatter()
         f.timeZone = NSTimeZone(abbreviation: "GMT")
         f.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
         return f
     }
     
-    func getstuff(complete:(Array<Report>->Void)){
+    func getstuff(complete:(Array<Report>->Void), params:Filter) {
+        self.rootArray.removeAll()
         let sesh = NSURLSession.sharedSession()
-        let datatask = sesh.dataTaskWithURL(API!) { data, response, error in
+        
+        let URL:NSURL! = NSURL(string: params.url())
+        let datatask = sesh.dataTaskWithURL(URL!) { data, response, error in
             var json:NSArray?
             json = JSON(data:data!).rawArray;
+            if let err = error {
+                print(err)
+                
+            }
+            
             for root in json! {
                 let info:Dictionary = (root as? Dictionary<String,AnyObject>)!
                 self.rootArray.append(Report(info: info))
@@ -125,6 +199,10 @@ class Server {
             complete(self.rootArray)
         }
         datatask.resume()
+    }
+    
+    func getstuff(complete:(Array<Report>->Void)){
+        getstuff(complete, params: Filter())
     }
     
 }
