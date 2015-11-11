@@ -101,48 +101,57 @@ class Report: NSObject, MKAnnotation {
 class Filter: NSObject {
     
     private var primaryType:String?
-    private var dateAsElementInWhere:String?
+    private var dateWindow:String?
     private var limit:Int?
+    private var year:Int?
     
     func url() -> String {
+        
         var url:String = API
         
-        if primaryType != nil || dateAsElementInWhere != nil {
+        if primaryType != nil || dateWindow != nil || year != nil || limit != nil {
             url = url.stringByAppendingString("?")
         }
         
-        if let date = dateAsElementInWhere {
+        if let date = dateWindow {
             url = url.stringByAppendingString("$where=\(date)")
         }
         
         if let type = primaryType {
-            if dateAsElementInWhere != nil {
+            if dateWindow != nil {
                 url = url.stringByAppendingString("&")
             }
             url = url.stringByAppendingString(type)
         }
         
         if let l = limit {
-            if dateAsElementInWhere != nil || primaryType != nil {
+            if dateWindow != nil || primaryType != nil {
                 url = url.stringByAppendingString("&")
             }
             url = url.stringByAppendingString("$limit=\(l)")
         }
         
         
+        if let y = year {
+            if dateWindow != nil || primaryType != nil || limit != nil {
+                url = url.stringByAppendingString("&")
+            }
+            url = url.stringByAppendingString("year=\(y)")
+        }
+        
         
         NSLog("requesting url \"\(url)\"")
         return url
     }
     
-    func setDateRange(lowerBound l:NSDateComponents, upperBound u:NSDateComponents) {
+    func setDateWindow(lowerBound l:NSDateComponents, upperBound u:NSDateComponents) {
         // template
         // $where=(date+between+'2015-01-10T12:00:00'+and+'2015-01-10T14:00:00')
         
         
         let afterWhere:String = String(format: "date+between+'\(l.year)-%02i-%02iT%02i:00:00'+and+'\(u.year)-%02i-%02iT%02i:00:00'", arguments: [l.month,l.day,l.hour,u.month,u.day,u.hour])
-        dateAsElementInWhere = afterWhere;
-        print("url after set func \(dateAsElementInWhere!)")
+        dateWindow = afterWhere;
+        print("url after set func \(dateWindow!)")
     }
     
     func setPrimaryType(primarytype pt:String) -> Bool {
@@ -165,6 +174,9 @@ class Filter: NSObject {
         self.limit = l
     }
     
+    func setYear(year:Int) {
+        self.year = year
+    }
 }
 
 class Server {

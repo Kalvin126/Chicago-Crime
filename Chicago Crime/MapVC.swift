@@ -49,7 +49,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         u.hour = Int(0)
         
         f.setLimit(20)
-        f.setDateRange(lowerBound: l, upperBound: u)
+        f.setDateWindow(lowerBound: l, upperBound: u)
         f.setPrimaryType(primarytype: PrimaryTypes[4])
         //===============================================
         //                END OF EXAMPLE
