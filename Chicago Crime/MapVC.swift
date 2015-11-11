@@ -39,7 +39,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         let u:NSDateComponents = NSDateComponents()
         
         l.year = Int(2015)
-        l.month = Int(10)
+        l.month = Int(8)
         l.day = Int(2)
         l.hour = Int(0)
         
@@ -48,9 +48,14 @@ class MapVC: UIViewController, MKMapViewDelegate {
         u.day = Int(5)
         u.hour = Int(0)
         
-        f.setLimit(20)
         f.setDateWindow(lowerBound: l, upperBound: u)
-        f.setPrimaryType(primarytype: PrimaryTypes[4])
+        //f.setPrimaryType(primarytype: PrimaryTypes[4])
+        
+        f.setLimit(10000)
+        
+        f.setTimeOfDay(14, lowerMinute: 0, upperHour24: 14, upperMinute: 59)
+        f.setDaysOfWeek([Day.Friday])
+        
         //===============================================
         //                END OF EXAMPLE
         //===============================================
