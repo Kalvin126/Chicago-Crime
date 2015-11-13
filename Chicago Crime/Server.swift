@@ -28,6 +28,9 @@ class Report: NSObject, MKAnnotation {
     var block:String
     var primaryType:String
     var date:NSDate?
+    var dateComp:NSDateComponents?
+    
+    
     var arrest:Bool
     var domestic:Bool
     var locationDescription:String?
@@ -53,6 +56,11 @@ class Report: NSObject, MKAnnotation {
         let index = dateString.endIndex.advancedBy(-4)
         dateString = dateString.substringToIndex(index)
         date = Server.shared.formatter().dateFromString(dateString)!
+        if date != nil {
+            let cal:NSCalendar = NSCalendar.currentCalendar()
+            cal.timeZone = NSTimeZone(abbreviation: "GMT")!
+            dateComp = cal.components([.Weekday,.Day,.Hour,.Minute,.Year], fromDate: date!)
+        }
         
         arrest = info["arrest"] as! Bool
         domestic = info["domestic"] as! Bool
@@ -101,48 +109,58 @@ class Report: NSObject, MKAnnotation {
 class Filter: NSObject {
     
     private var primaryType:String?
-    private var dateAsElementInWhere:String?
+    private var dateWindow:String?
     private var limit:Int?
+    private var year:Int?
+    private var timeFilter:((Array<Report>)->Array<Report>)?
+    private var dayOfWeekFilter:((Array<Report>)->Array<Report>)?
     
     func url() -> String {
+        
         var url:String = API
         
-        if primaryType != nil || dateAsElementInWhere != nil {
+        if primaryType != nil || dateWindow != nil || year != nil || limit != nil {
             url = url.stringByAppendingString("?")
         }
         
-        if let date = dateAsElementInWhere {
+        if let date = dateWindow {
             url = url.stringByAppendingString("$where=\(date)")
         }
         
         if let type = primaryType {
-            if dateAsElementInWhere != nil {
+            if dateWindow != nil {
                 url = url.stringByAppendingString("&")
             }
             url = url.stringByAppendingString(type)
         }
         
         if let l = limit {
-            if dateAsElementInWhere != nil || primaryType != nil {
+            if dateWindow != nil || primaryType != nil {
                 url = url.stringByAppendingString("&")
             }
             url = url.stringByAppendingString("$limit=\(l)")
         }
         
         
+        if let y = year {
+            if dateWindow != nil || primaryType != nil || limit != nil {
+                url = url.stringByAppendingString("&")
+            }
+            url = url.stringByAppendingString("year=\(y)")
+        }
+        
         
         NSLog("requesting url \"\(url)\"")
         return url
     }
     
-    func setDateRange(lowerBound l:NSDateComponents, upperBound u:NSDateComponents) {
+    func setDateWindow(lowerBound l:NSDateComponents, upperBound u:NSDateComponents) {
         // template
         // $where=(date+between+'2015-01-10T12:00:00'+and+'2015-01-10T14:00:00')
         
         
         let afterWhere:String = String(format: "date+between+'\(l.year)-%02i-%02iT%02i:00:00'+and+'\(u.year)-%02i-%02iT%02i:00:00'", arguments: [l.month,l.day,l.hour,u.month,u.day,u.hour])
-        dateAsElementInWhere = afterWhere;
-        print("url after set func \(dateAsElementInWhere!)")
+        dateWindow = afterWhere;
     }
     
     func setPrimaryType(primarytype pt:String) -> Bool {
@@ -165,6 +183,50 @@ class Filter: NSObject {
         self.limit = l
     }
     
+    func setYear(year:Int) {
+        self.year = year
+    }
+    
+    func setTimeOfDay(lowerHour24:Int,lowerMinute:Int,upperHour24:Int,upperMinute:Int) {
+        func filter(allCrimes:Array<Report>) -> Array<Report> {
+            var retVal:Array<Report> = Array<Report>()
+            
+            for oneCrime:Report in allCrimes {
+                let h:Int? = oneCrime.dateComp?.hour
+                let m:Int? = oneCrime.dateComp?.minute
+                if h <= upperHour24 && h >= lowerHour24 && m <= upperMinute && m >= lowerMinute {
+                    retVal.append(oneCrime)
+                }
+            }
+            print("time of day filter chose \(retVal.count) out of \(allCrimes.count)")
+
+            return retVal
+        }
+        timeFilter = filter
+    }
+    
+    func setDaysOfWeek(days:Array<Day>) {
+        func filter(allCrimes:Array<Report>) -> Array<Report> {
+            var retVal:Array<Report> = Array<Report>()
+            
+            
+            for oneCrime:Report in allCrimes {
+                
+                
+                let d:Int = (oneCrime.dateComp?.weekday)!
+                let dayOfCrime:Day = Day(rawValue: d)!
+                if days.contains(dayOfCrime) {
+                    retVal.append(oneCrime)
+                }
+            }
+            
+            print("day of week filter chose \(retVal.count) out of \(allCrimes.count)")
+            
+            return retVal
+        }
+        dayOfWeekFilter = filter
+    }
+    
 }
 
 class Server {
@@ -182,20 +244,33 @@ class Server {
     func getstuff(complete:(Array<Report>->Void), params:Filter) {
         self.rootArray.removeAll()
         let sesh = NSURLSession.sharedSession()
-        
-        let URL:NSURL! = NSURL(string: params.url())
-        let datatask = sesh.dataTaskWithURL(URL!) { data, response, error in
-            var json:NSArray?
-            json = JSON(data:data!).rawArray;
+        let timeStart:NSDate = NSDate()
+        let datatask = sesh.dataTaskWithURL(NSURL(string: params.url())!) { data, response, error in
+            let json:NSArray? = JSON(data:data!).rawArray;
             if let err = error {
                 print(err)
-                
             }
+            
+            let timeStop:NSDate = NSDate()
+            
+            let interval:NSTimeInterval = timeStop.timeIntervalSinceDate(timeStart)
+            
+            print("\(json!.count) crimes returned in \(interval) seconds")
             
             for root in json! {
                 let info:Dictionary = (root as? Dictionary<String,AnyObject>)!
                 self.rootArray.append(Report(info: info))
             }
+            
+            if let filter = params.dayOfWeekFilter {
+                self.rootArray = filter(self.rootArray)
+            }
+            if let filter = params.timeFilter {
+                self.rootArray = filter(self.rootArray)
+            }
+            
+            
+            
             complete(self.rootArray)
         }
         datatask.resume()
