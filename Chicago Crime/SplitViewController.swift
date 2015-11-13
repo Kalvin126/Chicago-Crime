@@ -12,13 +12,15 @@ import UIKit
 class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelegate {
 
     var mapVC:MapVC?
+    var tabBarC:UITabBarController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         mapVC = self.viewControllers[0] as? MapVC
-        let tabBarC = self.viewControllers[1] as! UITabBarController
-        for navVC in tabBarC.viewControllers! {
+        tabBarC = self.viewControllers[1] as? UITabBarController
+        
+        for navVC in tabBarC!.viewControllers! {
             let vc = (navVC as! UINavigationController).viewControllers[0]
             switch vc {
             case is FilterVC:
@@ -42,8 +44,8 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
         let screenWidth = self.view.frame.width
         let kMasterViewWidth:CGFloat = screenWidth - (screenWidth)/3
 
-        let masterViewController = self.viewControllers[0]
-        let detailViewController = self.viewControllers[1]
+        let masterViewController = mapVC!
+        let detailViewController = tabBarC!
 
         if detailViewController.view.frame.origin.x > 0.0 {
             // Adjust the width of the master view
@@ -58,6 +60,7 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
             detailViewFrame.size.width += deltaX
             detailViewController.view.frame = detailViewFrame
 
+            // Re evaluate Layouts
             masterViewController.view.setNeedsLayout()
             detailViewController.view.setNeedsLayout()
         }
@@ -66,7 +69,9 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
     // MARK: Filter VC Delegate
 
     func filter(filterVC: FilterVC, didCommitFilter results: Array<Report>) {
-        dispatch_async(dispatch_get_main_queue(), {                                         // We don't want to do view animation changes in the background
+        // We don't want to do view animation changes in the background
+        // other wise will lag/crash
+        dispatch_async(dispatch_get_main_queue(), {
             self.mapVC?.mapView.removeAnnotations((self.mapVC?.mapView.annotations)!)
             self.mapVC?.mapView.addAnnotations(results)
         })
@@ -78,5 +83,10 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
     func settings(settingsVC: SettingsVC, didChangeMapType mapType: MKMapType) {
         mapVC?.mapView.mapType = mapType
     }
-
+    /*
+    Color palete:   (City of chicago flag colors)
+    red #FF0000
+    sky blue #B3DDF2
+    white
+    */
 }

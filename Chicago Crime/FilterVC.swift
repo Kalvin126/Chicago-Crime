@@ -18,6 +18,8 @@ class FilterVC: UIViewController {
     var filter: Filter
     var delegate: FilterDelegate?
 
+    @IBOutlet weak var resultButton: UIBarButtonItem!
+
     @IBOutlet weak var limitTextField: UITextField!
 
     required init?(coder aDecoder: NSCoder) {
@@ -50,10 +52,16 @@ class FilterVC: UIViewController {
         u.hour = Int(0)
 
         filter.setLimit(Int(limitTextField.text!)!)
-        filter.setDateRange(lowerBound: l, upperBound: u)
+        filter.setDateWindow(lowerBound: l, upperBound: u)
         filter.setPrimaryType(primarytype: PrimaryTypes[4])
 
         func assign(elements:Array<Report>) {
+            if elements.count > 0 {
+                resultButton.title = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
+            }else{
+                resultButton.title = "No Results"
+            }
+
             delegate?.filter(self, didCommitFilter: elements)
         }
 

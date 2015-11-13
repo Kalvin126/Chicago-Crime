@@ -48,8 +48,8 @@
         <scene sceneID="7UJ-dv-hSz">
             <objects>
                 <navigationController id="Ito-Sa-LBn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="filter" id="ETn-JU-g4L">
-                        <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-7"/>
+                    <tabBarItem key="tabBarItem" title="" image="filter" selectedImage="filter_filled" id="ETn-JU-g4L">
+                        <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="-8"/>
                     </tabBarItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="450"/>
@@ -57,6 +57,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="barTintColor" red="0.70196078431372544" green="0.8666666666666667" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="3nQ-9y-iVK" kind="relationship" relationship="rootViewController" id="T6z-uT-MFr"/>
@@ -77,6 +81,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="Ito-Sa-LBn" kind="relationship" relationship="viewControllers" id="BkR-4L-oxR"/>
@@ -207,7 +212,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="911"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1h-Ur-GqH" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
+                                        <rect key="frame" x="0.0" y="-65" width="320" height="1024"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Limit: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akZ-31-PEK">
                                                 <rect key="frame" x="15" y="39" width="47" height="21"/>
@@ -225,7 +230,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHX-EZ-bUE">
                                                 <rect key="frame" x="0.0" y="294" width="320" height="64"/>
                                                 <animations/>
-                                                <color key="backgroundColor" red="0.78039215689999997" green="0.086274509799999996" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <state key="normal" title="Commit Filter">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -243,7 +248,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="E1h-Ur-GqH" secondAttribute="trailing" id="0fM-KP-EzN"/>
                                     <constraint firstItem="E1h-Ur-GqH" firstAttribute="leading" secondItem="uhn-YB-t5t" secondAttribute="leading" id="V2q-P4-jgT"/>
-                                    <constraint firstItem="E1h-Ur-GqH" firstAttribute="top" secondItem="uhn-YB-t5t" secondAttribute="top" id="e4r-yR-x1p"/>
+                                    <constraint firstItem="E1h-Ur-GqH" firstAttribute="top" secondItem="uhn-YB-t5t" secondAttribute="top" constant="-65" id="e4r-yR-x1p"/>
                                     <constraint firstAttribute="bottom" secondItem="E1h-Ur-GqH" secondAttribute="bottom" id="fdQ-GL-a7f"/>
                                 </constraints>
                             </scrollView>
@@ -275,6 +280,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad-1/3"/>
                     <connections>
                         <outlet property="limitTextField" destination="HO1-Ha-jTZ" id="qFI-qr-MTs"/>
+                        <outlet property="resultButton" destination="zXV-Jl-7YR" id="oLl-cb-kmE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5E-vd-RtH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -298,7 +304,7 @@
         <scene sceneID="09f-KH-xby">
             <objects>
                 <navigationController id="UqO-aq-KAE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="settings" id="dhz-cJ-P96">
+                    <tabBarItem key="tabBarItem" title="" image="settings" selectedImage="settings_filled" id="dhz-cJ-P96">
                         <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-7"/>
                     </tabBarItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -307,6 +313,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="barTintColor" red="0.70196078429999997" green="0.86666666670000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="0dx-sp-pMl" kind="relationship" relationship="rootViewController" id="WC9-p6-f0x"/>
@@ -319,6 +329,8 @@
     </scenes>
     <resources>
         <image name="filter" width="25" height="25"/>
+        <image name="filter_filled" width="25" height="25"/>
         <image name="settings" width="25" height="25"/>
+        <image name="settings_filled" width="25" height="25"/>
     </resources>
 </document>
