@@ -9,11 +9,9 @@
 import MapKit
 import UIKit
 
-class SplitViewController: UISplitViewController, SettingsDelegate {
+class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelegate {
 
     var mapVC:MapVC?
-    var filterVC:FilterVC?
-    var settingVC:SettingsVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +21,16 @@ class SplitViewController: UISplitViewController, SettingsDelegate {
         for navVC in tabBarC.viewControllers! {
             let vc = (navVC as! UINavigationController).viewControllers[0]
             switch vc {
-            case vc as FilterVC:
-                filterVC = vc as? FilterVC
+            case is FilterVC:
+                (vc as? FilterVC)?.delegate = self;
                 break
-            case vc as SettingsVC:
-                settingVC = vc as? SettingsVC
+            case is SettingsVC:
+                (vc as? SettingsVC)?.delegate = self;
                 break
             default:
                 break
             }
         }
-        
-        settingVC?.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,13 +57,23 @@ class SplitViewController: UISplitViewController, SettingsDelegate {
             detailViewFrame.origin.x -= deltaX
             detailViewFrame.size.width += deltaX
             detailViewController.view.frame = detailViewFrame
-            
+
             masterViewController.view.setNeedsLayout()
             detailViewController.view.setNeedsLayout()
         }
     }
 
-    // MARK: Settings Delegate
+    // MARK: Filter VC Delegate
+
+    func filter(filterVC: FilterVC, didCommitFilter results: Array<Report>) {
+        dispatch_async(dispatch_get_main_queue(), {                                         // We don't want to do view animation changes in the background
+            self.mapVC?.mapView.removeAnnotations((self.mapVC?.mapView.annotations)!)
+            self.mapVC?.mapView.addAnnotations(results)
+        })
+
+    }
+
+    // MARK: Settings VC Delegate
 
     func settings(settingsVC: SettingsVC, didChangeMapType mapType: MKMapType) {
         mapVC?.mapView.mapType = mapType

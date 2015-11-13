@@ -11,18 +11,57 @@ import Foundation
 import UIKit
 
 protocol FilterDelegate {
-    // this func is not yet finish in terms of purpose
-    // the string should be replaced by what ever type we want to pass filter types through
-    // i.e. the url appendage format so we can just append filterStr to the API url (...json?year=2014)
-    func filter(filterVC: FilterVC, didCommitFilter filterStr: String)
+    func filter(filterVC: FilterVC, didCommitFilter results:Array<Report> )
 }
 
 class FilterVC: UIViewController {
-
+    var filter: Filter
     var delegate: FilterDelegate?
+
+    @IBOutlet weak var limitTextField: UITextField!
+
+    required init?(coder aDecoder: NSCoder) {
+        filter = Filter()
+
+        super.init(coder: aDecoder)
+
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        limitTextField.text = "10"
+
+        commitFilter()
+    }
+
+    func commitFilter() {
+        let l:NSDateComponents = NSDateComponents()
+        let u:NSDateComponents = NSDateComponents()
+
+        l.year = Int(2015)
+        l.month = Int(10)
+        l.day = Int(2)
+        l.hour = Int(0)
+
+        u.year = Int(2015)
+        u.month = Int(10)
+        u.day = Int(5)
+        u.hour = Int(0)
+
+        filter.setLimit(Int(limitTextField.text!)!)
+        filter.setDateRange(lowerBound: l, upperBound: u)
+        filter.setPrimaryType(primarytype: PrimaryTypes[4])
+
+        func assign(elements:Array<Report>) {
+            delegate?.filter(self, didCommitFilter: elements)
+        }
+
+        Server.shared.getstuff(assign, params: filter)
+    }
+
+    @IBAction func pressedCommit(sender: AnyObject) {
+        commitFilter()
     }
 
 }

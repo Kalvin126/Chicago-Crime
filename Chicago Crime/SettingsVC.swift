@@ -17,6 +17,7 @@ class SettingsVC: UITableViewController {
     var delegate: SettingsDelegate?
 
     override func viewDidLoad() {
+        // tap hold area to drop a pin and find crimes happening in a x radius
         super.viewDidLoad()
     }
 
