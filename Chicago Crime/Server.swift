@@ -164,7 +164,7 @@ class Filter: NSObject {
     }
     
     func setPrimaryType(primarytype pt:String) -> Bool {
-        if PrimaryTypes.contains(pt) {
+        if PrimaryType.allRawValues.contains(pt) {
             let urlType:String = pt.stringByReplacingOccurrencesOfString(" ", withString: "+")
             primaryType = String(format:"primary_type=\(urlType)" , arguments:[])
             return true

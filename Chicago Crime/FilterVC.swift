@@ -22,15 +22,21 @@ class FilterVC: UIViewController {
 
     @IBOutlet weak var limitTextField: UITextField!
 
+    var tableVC:FilterTableVC?
+    @IBOutlet weak var tableContainerConstraint: NSLayoutConstraint!
+
     required init?(coder aDecoder: NSCoder) {
         filter = Filter()
 
         super.init(coder: aDecoder)
-
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? FilterTableVC
+        
+        self.automaticallyAdjustsScrollViewInsets = false
 
         limitTextField.text = "10"
 
@@ -38,26 +44,29 @@ class FilterVC: UIViewController {
     }
 
     func commitFilter() {
-        let l:NSDateComponents = NSDateComponents()
-        let u:NSDateComponents = NSDateComponents()
+        let calendar = NSCalendar.currentCalendar()
+        let l = NSDateComponents()
+        let u = NSDateComponents()
 
-        l.year = Int(2015)
-        l.month = Int(10)
-        l.day = Int(2)
-        l.hour = Int(0)
+        l.year = calendar.component(.Year, fromDate: (tableVC?.startTimeWindow)!)
+        l.month = calendar.component(.Month, fromDate: (tableVC?.startTimeWindow)!)
+        l.day = calendar.component(.Day, fromDate: (tableVC?.startTimeWindow)!)
+        l.hour = calendar.component(.Hour, fromDate: (tableVC?.startTimeWindow)!)
 
-        u.year = Int(2015)
-        u.month = Int(10)
-        u.day = Int(5)
-        u.hour = Int(0)
+        u.year = calendar.component(.Year, fromDate: (tableVC?.endTimeWindow)!)
+        u.month = calendar.component(.Month, fromDate: (tableVC?.endTimeWindow)!)
+        u.day = calendar.component(.Day, fromDate: (tableVC?.endTimeWindow)!)
+        u.hour = calendar.component(.Hour, fromDate: (tableVC?.endTimeWindow)!)
 
         filter.setLimit(Int(limitTextField.text!)!)
         filter.setDateWindow(lowerBound: l, upperBound: u)
-        filter.setPrimaryType(primarytype: PrimaryTypes[4])
+        filter.setPrimaryType(primarytype: PrimaryType.allRawValues[4])
 
         func assign(elements:Array<Report>) {
             if elements.count > 0 {
-                resultButton.title = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
+                // TODO: hmm this does not work...
+                let newTitle = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
+                self.navigationItem.rightBarButtonItem?.title = newTitle
             }else{
                 resultButton.title = "No Results"
             }
@@ -71,5 +80,7 @@ class FilterVC: UIViewController {
     @IBAction func pressedCommit(sender: AnyObject) {
         commitFilter()
     }
+
+
 
 }

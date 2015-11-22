@@ -19,7 +19,7 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
 
         mapVC = self.viewControllers[0] as? MapVC
         tabBarC = self.viewControllers[1] as? UITabBarController
-        
+
         for navVC in tabBarC!.viewControllers! {
             let vc = (navVC as! UINavigationController).viewControllers[0]
             switch vc {
@@ -42,7 +42,7 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
 
     override func viewDidLayoutSubviews() {
         let screenWidth = self.view.frame.width
-        let kMasterViewWidth:CGFloat = screenWidth - (screenWidth)/3
+        let kMasterViewWidth:CGFloat = screenWidth - (screenWidth)/3.5
 
         let masterViewController = mapVC!
         let detailViewController = tabBarC!
