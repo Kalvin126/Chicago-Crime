@@ -44,6 +44,16 @@ class FilterVC: UIViewController {
     }
 
     func commitFilter() {
+        if tableVC?.startTimeWindow.timeIntervalSinceDate((tableVC?.endTimeWindow)!) > 0 {
+            let alertController = UIAlertController(title: "Filter", message: "ERROR: Start time must be before end time", preferredStyle: .Alert)
+
+            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
+            alertController.addAction(OKAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            return
+        }
+
         let calendar = NSCalendar.currentCalendar()
         let l = NSDateComponents()
         let u = NSDateComponents()
@@ -80,7 +90,4 @@ class FilterVC: UIViewController {
     @IBAction func pressedCommit(sender: AnyObject) {
         commitFilter()
     }
-
-
-
 }

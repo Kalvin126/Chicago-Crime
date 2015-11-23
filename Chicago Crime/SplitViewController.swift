@@ -9,7 +9,7 @@
 import MapKit
 import UIKit
 
-class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelegate {
+class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDelegate, SettingsDelegate {
 
     var mapVC:MapVC?
     var tabBarC:UITabBarController?
@@ -18,6 +18,8 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
         super.viewDidLoad()
 
         mapVC = self.viewControllers[0] as? MapVC
+        mapVC?.mapView.delegate = self
+
         tabBarC = self.viewControllers[1] as? UITabBarController
 
         for navVC in tabBarC!.viewControllers! {
@@ -71,11 +73,10 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
     func filter(filterVC: FilterVC, didCommitFilter results: Array<Report>) {
         // We don't want to do view animation changes in the background
         // other wise will lag/crash
-        dispatch_async(dispatch_get_main_queue(), {
+        dispatch_async(dispatch_get_main_queue()) {
             self.mapVC?.mapView.removeAnnotations((self.mapVC?.mapView.annotations)!)
             self.mapVC?.mapView.addAnnotations(results)
-        })
-
+        }
     }
 
     // MARK: Settings VC Delegate
@@ -89,4 +90,21 @@ class SplitViewController: UISplitViewController, FilterDelegate, SettingsDelega
     sky blue #B3DDF2
     white
     */
+
+    // MARK: MKMapViewDelegate
+
+    func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
+        let report = annotView.annotation as? Report
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let reportDetailVC = storyboard.instantiateViewControllerWithIdentifier("reportDetail") as! ReportDetailVC
+        reportDetailVC.report = report
+
+        let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
+        selectedNav.presentViewController(reportDetailVC, animated: true, completion: nil)
+
+        self.tabBarC?.tabBar.hidden = true
+
+        annotView.highlighted = true
+    }
 }

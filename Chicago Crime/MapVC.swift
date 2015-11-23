@@ -13,7 +13,7 @@ protocol MapVCDelegate {
 
 }
 
-class MapVC: UIViewController, MKMapViewDelegate {
+class MapVC: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
@@ -32,9 +32,4 @@ class MapVC: UIViewController, MKMapViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    //    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-    //
-    //    }
 }

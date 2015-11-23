@@ -22,7 +22,7 @@ class FilterTableVC: UITableViewController {
         crimeTypesDropped = false
 
         // OK to hard code time since it is not being used for record
-        startTimeWindow = NSDate().dateByAddingTimeInterval(-604800.0)
+        startTimeWindow = NSDate().dateByAddingTimeInterval(-1209600.0)
         endTimeWindow = NSDate()
 
         super.init(coder: aDecoder)
@@ -73,7 +73,7 @@ class FilterTableVC: UITableViewController {
 
         if indexPath.section == 0 {
             let dateDialog = DatePickerDialog()
-            dateDialog.show("Select a \((cell.textLabel?.text!.lowercaseString)!) time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: UIDatePickerMode.DateAndTime)
+            dateDialog.show("Select a \((cell.textLabel?.text!.lowercaseString)!) time",  doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: (cell.textLabel?.text == "Start" ? startTimeWindow : endTimeWindow), datePickerMode: UIDatePickerMode.DateAndTime)
                 { (date) -> Void in
                     cell.detailTextLabel?.text = "\(date)"
 
