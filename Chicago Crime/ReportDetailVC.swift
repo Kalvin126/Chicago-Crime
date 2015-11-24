@@ -27,19 +27,19 @@ class ReportDetailVC: UIViewController {
         modalPresentationStyle = .CurrentContext
     }
 
-    override func viewDidLoad() {
-        caseNumberLabel.text = report!.caseNumber
-        primaryTypeLabel.text = report!.primaryType
+    func setup(withReport report:Report) {
+        self.report = report
 
-        dateLabel.text = "\(report?.date!)"
+        caseNumberLabel.text = report.caseNumber
+        primaryTypeLabel.text = report.primaryType
 
-        locationDesc.text = report?.locationDescription
-        descLabel.text = report?.desc
+        dateLabel.text = "\(report.date!)"
 
+        locationDesc.text = report.locationDescription
+        descLabel.text = report.desc
     }
 
     @IBAction func pressedClose(sender: AnyObject) {
-        (self.presentingViewController?.parentViewController as! UITabBarController).tabBar.hidden = false
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

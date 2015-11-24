@@ -16,11 +16,6 @@ protocol SettingsDelegate {
 class SettingsVC: UITableViewController {
     var delegate: SettingsDelegate?
 
-    override func viewDidLoad() {
-        // tap hold area to drop a pin and find crimes happening in a x radius
-        super.viewDidLoad()
-    }
-
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
 

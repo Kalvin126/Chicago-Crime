@@ -41,6 +41,16 @@ enum PrimaryType : String {
         "CRIMINAL TRESPASS", "DECEPTIVE PRACTICE", "HOMOCIDE", "INTERFERENCE WITH PUBLIC OFFICER", "INTIMIDATION",
         "KIDNAPPING", "NARCOTICS", "NON - CRIMINAL", "MOTOR VEHICLE THEFT", "OFFENSE INVOLVING CHILDREN", "OTHER OFFENSE",
         "PROSTITUTION", "PUBLIC PEACE VIOLATION", "ROBBERY", "SEX OFFENSE", "THEFT", "WEAPONS VIOLATION"]
+
+    static func valueForRawValue(rawValue:String) -> PrimaryType? {
+        for type in PrimaryType.allValues {
+            if rawValue.uppercaseString == type.rawValue {
+                return type
+            }
+        }
+
+        return nil
+    }
 }
 
 enum Day : Int {

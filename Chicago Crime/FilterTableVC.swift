@@ -15,6 +15,8 @@ class FilterTableVC: UITableViewController {
     var startTimeWindow:NSDate
     var endTimeWindow:NSDate
 
+    var selectedCrimeTypes:[PrimaryType] = []
+
     @IBOutlet weak var startWindowCell: UITableViewCell!
     @IBOutlet weak var endWindowCell: UITableViewCell!
 
@@ -83,12 +85,20 @@ class FilterTableVC: UITableViewController {
                     }else{
                         self.endTimeWindow = date
                         self.endWindowCell.detailTextLabel?.text = self.stringForDate(self.endTimeWindow)
-
                     }
             }
         }
         else if indexPath.section == 1 {
-            cell.accessoryType = cell.accessoryType == .None ? .Checkmark : .None
+            if cell.accessoryType == .None {
+                cell.accessoryType = .Checkmark
+
+                selectedCrimeTypes += [(PrimaryType.valueForRawValue((cell.textLabel?.text)!))!]
+            }else{
+                cell.accessoryType = .None
+
+                let typeIndex = selectedCrimeTypes.indexOf((PrimaryType.valueForRawValue((cell.textLabel?.text)!))!)
+                selectedCrimeTypes.removeAtIndex(typeIndex!)
+            }
         }
     }
 
@@ -103,8 +113,12 @@ class FilterTableVC: UITableViewController {
             let image = UIImage(named: "Detail Disclosure")
             button.setImage(image, forState: .Normal) // Need to make this aspect fit..
             button.imageView?.contentMode = .ScaleAspectFit // this does not work
-            button.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI / 2.0))
+            button.transform = CGAffineTransformMakeRotation(CGFloat(M_PI / 2.0))
             cell.accessoryView = button
+
+            cell.backgroundColor = UIColor(white: 2.9/3.0, alpha: 1.0)
+            cell.textLabel?.textColor = UIColor.darkTextColor()
+            cell.textLabel?.font = UIFont.boldSystemFontOfSize(17.0)
 
             let tapRecog = UITapGestureRecognizer(target: self, action: "tappedCrimeTypes:")
             cell.addGestureRecognizer(tapRecog)
@@ -116,10 +130,6 @@ class FilterTableVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 {
-            return CGFloat(43)
-        }
-
         return tableView.sectionHeaderHeight
     }
 
@@ -143,6 +153,10 @@ class FilterTableVC: UITableViewController {
         if indexPath.section == 1 {
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "crimeTypeCell")
             cell.textLabel?.text = PrimaryType.allRawValues[indexPath.row].capitalizedString
+
+            if selectedCrimeTypes.contains(PrimaryType.allValues[indexPath.row]) {
+                cell.accessoryType = .Checkmark
+            }
 
             return cell
         }

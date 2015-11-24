@@ -23,7 +23,6 @@ class FilterVC: UIViewController {
     @IBOutlet weak var limitTextField: UITextField!
 
     var tableVC:FilterTableVC?
-    @IBOutlet weak var tableContainerConstraint: NSLayoutConstraint!
 
     required init?(coder aDecoder: NSCoder) {
         filter = Filter()
@@ -35,12 +34,15 @@ class FilterVC: UIViewController {
         super.viewDidLoad()
 
         tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? FilterTableVC
-        
-        self.automaticallyAdjustsScrollViewInsets = false
 
         limitTextField.text = "10"
 
         commitFilter()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tabBarController?.tabBar.hidden = false
     }
 
     func commitFilter() {
@@ -73,15 +75,17 @@ class FilterVC: UIViewController {
         filter.setPrimaryType(primarytype: PrimaryType.allRawValues[4])
 
         func assign(elements:Array<Report>) {
-            if elements.count > 0 {
-                // TODO: hmm this does not work...
-                let newTitle = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
-                self.navigationItem.rightBarButtonItem?.title = newTitle
-            }else{
-                resultButton.title = "No Results"
-            }
+            // getstuff returns on a seperate thread must go back on main
+            dispatch_async(dispatch_get_main_queue()) {
+                if elements.count > 0 {
+                    let newTitle = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
+                    self.resultButton.title = newTitle
+                }else{
+                    self.resultButton.title = "No Results"
+                }
 
-            delegate?.filter(self, didCommitFilter: elements)
+                self.delegate?.filter(self, didCommitFilter: elements)
+            }
         }
 
         Server.shared.getstuff(assign, params: filter)

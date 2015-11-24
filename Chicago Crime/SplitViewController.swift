@@ -14,6 +14,8 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
     var mapVC:MapVC?
     var tabBarC:UITabBarController?
 
+    weak var reportDVC:ReportDetailVC?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,12 +39,9 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
         let screenWidth = self.view.frame.width
         let kMasterViewWidth:CGFloat = screenWidth - (screenWidth)/3.5
 
@@ -68,15 +67,31 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
         }
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: Funcs
+
+    func showReportDVC(forReport report:Report) {
+        if reportDVC == nil {
+            reportDVC = storyboard!.instantiateViewControllerWithIdentifier("reportDetail") as? ReportDetailVC
+
+            let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
+            selectedNav.presentViewController(reportDVC!, animated: true, completion: nil)
+        }
+
+        reportDVC?.setup(withReport: report)
+
+        tabBarC?.tabBar.hidden = true // can't animate this :(
+    }
+
     // MARK: Filter VC Delegate
 
     func filter(filterVC: FilterVC, didCommitFilter results: Array<Report>) {
-        // We don't want to do view animation changes in the background
-        // other wise will lag/crash
-        dispatch_async(dispatch_get_main_queue()) {
-            self.mapVC?.mapView.removeAnnotations((self.mapVC?.mapView.annotations)!)
-            self.mapVC?.mapView.addAnnotations(results)
-        }
+        mapVC?.mapView.removeAnnotations((mapVC?.mapView.annotations)!)
+        mapVC?.mapView.addAnnotations(results)
     }
 
     // MARK: Settings VC Delegate
@@ -94,16 +109,7 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
     // MARK: MKMapViewDelegate
 
     func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
-        let report = annotView.annotation as? Report
-
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let reportDetailVC = storyboard.instantiateViewControllerWithIdentifier("reportDetail") as! ReportDetailVC
-        reportDetailVC.report = report
-
-        let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
-        selectedNav.presentViewController(reportDetailVC, animated: true, completion: nil)
-
-        self.tabBarC?.tabBar.hidden = true
+        showReportDVC(forReport: (annotView.annotation as! Report))
 
         annotView.highlighted = true
     }
