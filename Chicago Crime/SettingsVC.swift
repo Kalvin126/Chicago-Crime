@@ -16,10 +16,6 @@ protocol SettingsDelegate {
 class SettingsVC: UITableViewController {
     var delegate: SettingsDelegate?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
 

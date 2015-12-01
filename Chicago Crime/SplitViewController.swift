@@ -9,45 +9,44 @@
 import MapKit
 import UIKit
 
-class SplitViewController: UISplitViewController, SettingsDelegate {
+class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDelegate, SettingsDelegate {
 
     var mapVC:MapVC?
-    var filterVC:FilterVC?
-    var settingVC:SettingsVC?
+    var tabBarC:UITabBarController?
+
+    weak var reportDVC:ReportDetailVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         mapVC = self.viewControllers[0] as? MapVC
-        let tabBarC = self.viewControllers[1] as! UITabBarController
-        for navVC in tabBarC.viewControllers! {
+        mapVC?.mapView.delegate = self
+
+        tabBarC = self.viewControllers[1] as? UITabBarController
+
+        for navVC in tabBarC!.viewControllers! {
             let vc = (navVC as! UINavigationController).viewControllers[0]
             switch vc {
-            case vc as FilterVC:
-                filterVC = vc as? FilterVC
+            case is FilterVC:
+                (vc as? FilterVC)?.delegate = self;
                 break
-            case vc as SettingsVC:
-                settingVC = vc as? SettingsVC
+            case is SettingsVC:
+                (vc as? SettingsVC)?.delegate = self;
                 break
             default:
                 break
             }
         }
-        
-        settingVC?.delegate = self
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func viewDidLayoutSubviews() {
-        let screenWidth = self.view.frame.width
-        let kMasterViewWidth:CGFloat = screenWidth - (screenWidth)/3
+        super.viewDidLayoutSubviews()
 
-        let masterViewController = self.viewControllers[0]
-        let detailViewController = self.viewControllers[1]
+        let screenWidth = self.view.frame.width
+        let kMasterViewWidth:CGFloat = screenWidth - (screenWidth)/3.5
+
+        let masterViewController = mapVC!
+        let detailViewController = tabBarC!
 
         if detailViewController.view.frame.origin.x > 0.0 {
             // Adjust the width of the master view
@@ -61,16 +60,57 @@ class SplitViewController: UISplitViewController, SettingsDelegate {
             detailViewFrame.origin.x -= deltaX
             detailViewFrame.size.width += deltaX
             detailViewController.view.frame = detailViewFrame
-            
+
+            // Re evaluate Layouts
             masterViewController.view.setNeedsLayout()
             detailViewController.view.setNeedsLayout()
         }
     }
 
-    // MARK: Settings Delegate
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: Funcs
+
+    func showReportDVC(forReport report:Report) {
+        if reportDVC == nil {
+            reportDVC = storyboard!.instantiateViewControllerWithIdentifier("reportDetail") as? ReportDetailVC
+
+            let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
+            selectedNav.presentViewController(reportDVC!, animated: true, completion: nil)
+        }
+
+        reportDVC?.setup(withReport: report)
+
+        tabBarC?.tabBar.hidden = true // can't animate this :(
+    }
+
+    // MARK: Filter VC Delegate
+
+    func filter(filterVC: FilterVC, didCommitFilter results: Array<Report>) {
+        mapVC?.mapView.removeAnnotations((mapVC?.mapView.annotations)!)
+        mapVC?.mapView.addAnnotations(results)
+    }
+
+    // MARK: Settings VC Delegate
 
     func settings(settingsVC: SettingsVC, didChangeMapType mapType: MKMapType) {
         mapVC?.mapView.mapType = mapType
     }
+    /*
+    Color palete:   (City of chicago flag colors)
+    red #FF0000
+    sky blue #B3DDF2
+    white
+    */
 
+    // MARK: MKMapViewDelegate
+
+    func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
+        showReportDVC(forReport: (annotView.annotation as! Report))
+
+        annotView.highlighted = true
+    }
 }

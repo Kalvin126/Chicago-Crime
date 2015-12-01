@@ -7,23 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8609C91E1C01331E00FF6026 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C91D1C01331E00FF6026 /* DatePickerDialog.swift */; };
+		8609C9221C0137AE00FF6026 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C9211C0137AE00FF6026 /* SwiftyJSON.swift */; };
+		8609C9241C013BBF00FF6026 /* FilterTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C9231C013BBF00FF6026 /* FilterTableVC.swift */; };
+		8689E6A21C027ECB0057F94F /* ReportDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */; };
 		86986C7D1BE1714C003EB8E6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */; };
 		86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */; };
 		86A430341BDF3F6F00FF516F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430321BDF3F6F00FF516F /* Main.storyboard */; };
 		86A430361BDF3F6F00FF516F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86A430351BDF3F6F00FF516F /* Assets.xcassets */; };
 		86A430391BDF3F6F00FF516F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */; };
 		86A430411BDF5D0000FF516F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A430401BDF5D0000FF516F /* MapKit.framework */; };
-		86A430721BDF641700FF516F /* CrimeMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A430711BDF641700FF516F /* CrimeMapVC.swift */; };
 		AA72A34C1BEEB2240051312B /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3471BEEB2240051312B /* FilterVC.swift */; };
 		AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3481BEEB2240051312B /* MapVC.swift */; };
 		AA72A34E1BEEB2240051312B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3491BEEB2240051312B /* SettingsVC.swift */; };
 		AA72A34F1BEEB2240051312B /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A34A1BEEB2240051312B /* SplitViewController.swift */; };
-		AA72A3501BEEB2240051312B /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A34B1BEEB2240051312B /* SwiftyJSON.swift */; };
 		AABC7A531BE2BF9B002B62D9 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC7A521BE2BF9B002B62D9 /* Types.swift */; };
 		AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC1D5A1BDF44D300E56DCA /* Server.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8609C91D1C01331E00FF6026 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
+		8609C9211C0137AE00FF6026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "Chicago Crime/SwiftyJSON.swift"; sourceTree = "<group>"; };
+		8609C9231C013BBF00FF6026 /* FilterTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableVC.swift; sourceTree = "<group>"; };
+		8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportDetailVC.swift; sourceTree = "<group>"; };
 		86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86A4302B1BDF3F6F00FF516F /* Chicago Crime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chicago Crime.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,14 +38,11 @@
 		86A430381BDF3F6F00FF516F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		86A430711BDF641700FF516F /* CrimeMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeMapVC.swift; sourceTree = "<group>"; };
 		AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
 		AA72A3481BEEB2240051312B /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		AA72A3491BEEB2240051312B /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		AA72A34A1BEEB2240051312B /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
-		AA72A34B1BEEB2240051312B /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		AABC7A521BE2BF9B002B62D9 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
@@ -79,9 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */,
-				86A430451BDF5D2900FF516F /* Controller */,
-				86A430441BDF5D2000FF516F /* View */,
 				86A430431BDF5D1A00FF516F /* Model */,
+				86A430441BDF5D2000FF516F /* View */,
+				86A430451BDF5D2900FF516F /* Controller */,
 				86A430461BDF5D4A00FF516F /* Resources */,
 			);
 			path = "Chicago Crime";
@@ -90,7 +93,8 @@
 		86A430421BDF5D0500FF516F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AAE04FDC1BE17E4D00478026 /* SwiftyJSON.swift */,
+				8609C91D1C01331E00FF6026 /* DatePickerDialog.swift */,
+				8609C9211C0137AE00FF6026 /* SwiftyJSON.swift */,
 				86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */,
 				86A430401BDF5D0000FF516F /* MapKit.framework */,
 			);
@@ -100,7 +104,6 @@
 		86A430431BDF5D1A00FF516F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AA72A34B1BEEB2240051312B /* SwiftyJSON.swift */,
 				AABC7A521BE2BF9B002B62D9 /* Types.swift */,
 				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
 			);
@@ -119,11 +122,12 @@
 		86A430451BDF5D2900FF516F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				AA72A3471BEEB2240051312B /* FilterVC.swift */,
-				AA72A3481BEEB2240051312B /* MapVC.swift */,
-				AA72A3491BEEB2240051312B /* SettingsVC.swift */,
 				AA72A34A1BEEB2240051312B /* SplitViewController.swift */,
-				86A430711BDF641700FF516F /* CrimeMapVC.swift */,
+				AA72A3481BEEB2240051312B /* MapVC.swift */,
+				AA72A3471BEEB2240051312B /* FilterVC.swift */,
+				8609C9231C013BBF00FF6026 /* FilterTableVC.swift */,
+				AA72A3491BEEB2240051312B /* SettingsVC.swift */,
+				8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -209,15 +213,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8609C9241C013BBF00FF6026 /* FilterTableVC.swift in Sources */,
 				AA72A34C1BEEB2240051312B /* FilterVC.swift in Sources */,
 				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
-				86A430721BDF641700FF516F /* CrimeMapVC.swift in Sources */,
-				AA72A3501BEEB2240051312B /* SwiftyJSON.swift in Sources */,
+				8609C9221C0137AE00FF6026 /* SwiftyJSON.swift in Sources */,
 				AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */,
 				AA72A34F1BEEB2240051312B /* SplitViewController.swift in Sources */,
 				AA72A34E1BEEB2240051312B /* SettingsVC.swift in Sources */,
 				AABC7A531BE2BF9B002B62D9 /* Types.swift in Sources */,
 				86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */,
+				8609C91E1C01331E00FF6026 /* DatePickerDialog.swift in Sources */,
+				8689E6A21C027ECB0057F94F /* ReportDetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +341,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "redpanda.Chicago-Crime";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -347,6 +354,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "redpanda.Chicago-Crime";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

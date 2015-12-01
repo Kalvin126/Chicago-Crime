@@ -8,73 +8,52 @@
 
 import Foundation
 
+enum PrimaryType : String {
+    case ARSON                  = "ARSON"
+    case ASSAULT                = "ASSAULT"
+    case BATTERY                = "BATTERY"
+    case BURGLARY               = "BURGLARY"
+    case CRIM_DAMAGE            = "CRIMINAL DAMAGE"
+    case CRIM_SEXUAL_ASSAULT    = "CRIMINAL SEXUAL ASSAULT"
+    case CRIM_TRESPASS          = "CRIMINAL TRESPASS"
+    case DECEPTIVE_PRACTICE     = "DECEPTIVE PRACTICE"
+    case HOMOCIDE               = "HOMOCIDE"
+    case INTERFERENCE_OFFICER   = "INTERFERENCE WITH PUBLIC OFFICER"
+    case INTIMIDATION           = "INTIMIDATION"
+    case KIDNAPPING             = "KIDNAPPING"
+    case NARCOTICS              = "NARCOTICS"
+    case NON_CRIMINAL           = "NON - CRIMINAL"
+    case MOTOR_THEFT            = "MOTOR VEHICLE THEFT"
+    case OFFENSE_CHILDREN       = "OFFENSE INVOLVING CHILDREN"
+    case OTHER_OFFENSE          = "OTHER OFFENSE"
+    case PROSTITUTION           = "PROSTITUTION"
+    case PUBLIC_PEACE_VIOLATION = "PUBLIC PEACE VIOLATION"
+    case ROBBERY                = "ROBBERY"
+    case SEX_OFFENSE            = "SEX OFFENSE"
+    case THEFT                  = "THEFT"
+    case WEAPONS_VIOLATION      = "WEAPONS VIOLATION"
 
+    static let allValues = [ARSON, ASSAULT, BATTERY, BURGLARY, CRIM_DAMAGE, CRIM_SEXUAL_ASSAULT, CRIM_TRESPASS,
+        DECEPTIVE_PRACTICE, HOMOCIDE, INTERFERENCE_OFFICER, INTIMIDATION, KIDNAPPING, NARCOTICS,
+        NON_CRIMINAL, MOTOR_THEFT, OFFENSE_CHILDREN, OTHER_OFFENSE, PROSTITUTION, PUBLIC_PEACE_VIOLATION,
+        ROBBERY, SEX_OFFENSE, THEFT, WEAPONS_VIOLATION]
+    static let allRawValues = ["ARSON", "ASSAULT", "BATTERY", "BURGLARY", "CRIMINAL DAMAGE", "CRIMINAL SEXUAL ASSAULT",
+        "CRIMINAL TRESPASS", "DECEPTIVE PRACTICE", "HOMOCIDE", "INTERFERENCE WITH PUBLIC OFFICER", "INTIMIDATION",
+        "KIDNAPPING", "NARCOTICS", "NON - CRIMINAL", "MOTOR VEHICLE THEFT", "OFFENSE INVOLVING CHILDREN", "OTHER OFFENSE",
+        "PROSTITUTION", "PUBLIC PEACE VIOLATION", "ROBBERY", "SEX OFFENSE", "THEFT", "WEAPONS VIOLATION"]
 
-let PrimaryTypes:Array<String> = ["ARSON",
-    "ASSAULT",
-    "BATTERY",
-    "BURGLARY",
-    "CRIMINAL DAMAGE",
-    "CRIMINAL SEXUAL ASSAULT",
-    "CRIMINAL TRESPASS",
-    "DECEPTIVE PRACTICE",
-    "HOMOCIDE",
-    "INTERFERENCE WITH PUBLIC OFFICER",
-    "INTIMIDATION",
-    "KIDNAPPING",
-    "NARCOTICS",
-    "NON - CRIMINAL",
-    "MOTOR VEHICLE THEFT",
-    "OFFENSE INVOLVING CHILDREN",
-    "OTHER OFFENSE",
-    "PROSTITUTION",
-    "PUBLIC PEACE VIOLATION",
-    "ROBBERY",
-    "SEX OFFENSE",
-    "THEFT",
-    "WEAPONS VIOLATION"]
+    static func valueForRawValue(rawValue:String) -> PrimaryType? {
+        for type in PrimaryType.allValues {
+            if rawValue.uppercaseString == type.rawValue {
+                return type
+            }
+        }
 
-enum PrimaryType {
-    case ARSON
-    case BATTERY
-    case BURGLARY
-    case CRIM_DAMAGE
-    case CRIM_SEXUAL_ASSAULT
-    case CRIM_TRESPASS
-    case DECEPTIVE_PRACTICE
-    case HOMOCIDE
-    case INTERFERENCE_OFFICER
-    case INTIMIDATION
-    case KIDNAPPING
-    case NARCOTICS
-    case NON_CRIMINAL
-    case MOTOR_THEFT
-    case OFFENSE_CHILDREN
-    case OTHER_OFFENSE
-    case PROSTITUTION
-    case PUBLIC_PEACE_VIOLATION
-    case ROBBERY
-    case SEX_OFFENSE
-    case THEFT
-    case WEAPONS_VIOLATION
+        return nil
+    }
 }
 
 enum Day : Int {
     
     case Sunday=1,Monday,Tuesday, Wednesday,Thursday,Friday,Saturday
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
