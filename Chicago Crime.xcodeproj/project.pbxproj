@@ -21,6 +21,8 @@
 		AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3481BEEB2240051312B /* MapVC.swift */; };
 		AA72A34E1BEEB2240051312B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3491BEEB2240051312B /* SettingsVC.swift */; };
 		AA72A34F1BEEB2240051312B /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A34A1BEEB2240051312B /* SplitViewController.swift */; };
+		AA7CE15A1C0E388400B83535 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7CE1591C0E388400B83535 /* Filter.swift */; };
+		AA7CE15C1C0E393300B83535 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7CE15B1C0E393300B83535 /* Report.swift */; };
 		AABC7A531BE2BF9B002B62D9 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC7A521BE2BF9B002B62D9 /* Types.swift */; };
 		AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC1D5A1BDF44D300E56DCA /* Server.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,8 @@
 		AA72A3481BEEB2240051312B /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		AA72A3491BEEB2240051312B /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		AA72A34A1BEEB2240051312B /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		AA7CE1591C0E388400B83535 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		AA7CE15B1C0E393300B83535 /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		AABC7A521BE2BF9B002B62D9 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		AAEC1D5A1BDF44D300E56DCA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
@@ -106,6 +110,8 @@
 			children = (
 				AABC7A521BE2BF9B002B62D9 /* Types.swift */,
 				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
+				AA7CE15B1C0E393300B83535 /* Report.swift */,
+				AA7CE1591C0E388400B83535 /* Filter.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -214,9 +220,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8609C9241C013BBF00FF6026 /* FilterTableVC.swift in Sources */,
+				AA7CE15A1C0E388400B83535 /* Filter.swift in Sources */,
 				AA72A34C1BEEB2240051312B /* FilterVC.swift in Sources */,
 				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
 				8609C9221C0137AE00FF6026 /* SwiftyJSON.swift in Sources */,
+				AA7CE15C1C0E393300B83535 /* Report.swift in Sources */,
 				AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */,
 				AA72A34F1BEEB2240051312B /* SplitViewController.swift in Sources */,
 				AA72A34E1BEEB2240051312B /* SettingsVC.swift in Sources */,

@@ -24,7 +24,7 @@ class FilterTableVC: UITableViewController {
         crimeTypesDropped = false
 
         // OK to hard code time since it is not being used for record
-        startTimeWindow = NSDate().dateByAddingTimeInterval(-1209600.0)
+        startTimeWindow = NSDate().dateByAddingTimeInterval(-31536000)
         endTimeWindow = NSDate()
 
         super.init(coder: aDecoder)

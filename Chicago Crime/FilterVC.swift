@@ -72,7 +72,7 @@ class FilterVC: UIViewController {
 
         filter.setLimit(Int(limitTextField.text!)!)
         filter.setDateWindow(lowerBound: l, upperBound: u)
-        filter.setPrimaryType(primarytype: PrimaryType.allRawValues[4])
+        filter.setPrimaryType(primarytypes: (tableVC?.selectedCrimeTypes)!)
 
         func assign(elements:Array<Report>) {
             // getstuff returns on a seperate thread must go back on main
