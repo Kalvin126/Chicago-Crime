@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 let API:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json"
-let APITest:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$where=(date+between+'2015-01-10T12:00:00'+and+'2015-01-10T14:00:00')&primary_type=BURGLARY"
+let APITest:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$where=date+between+'2015-10-02T00:00:00'+and+'2015-10-02T20:00:00'+AND+primary_type+in('THEFT','ROBBERY')"
 let APIWITHTOKEN:String = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$$app_token=\(APPTOKEN)"
 
 let APPTOKEN = "mhVvMlbuAc0Cx3SRZcoL8wuKP"
@@ -50,6 +50,7 @@ class Report: NSObject, MKAnnotation {
         desc = info["description"] as! String
         block = info["block"] as! String
         primaryType = info["primary_type"] as! String
+        print(primaryType)
 
         // Date
         var dateString:String = (info["date"] as! String)
@@ -61,6 +62,7 @@ class Report: NSObject, MKAnnotation {
             cal.timeZone = NSTimeZone(abbreviation: "GMT")!
             dateComp = cal.components([.Weekday,.Day,.Hour,.Minute,.Year], fromDate: date!)
         }
+        print(date)
         
         arrest = info["arrest"] as! Bool
         domestic = info["domestic"] as! Bool
@@ -163,12 +165,25 @@ class Filter: NSObject {
         dateWindow = afterWhere;
     }
     
-    func setPrimaryType(primarytype pt:String) -> Bool {
-        if PrimaryTypes.contains(pt) {
-            let urlType:String = pt.stringByReplacingOccurrencesOfString(" ", withString: "+")
-            primaryType = String(format:"primary_type=\(urlType)" , arguments:[])
-            return true
+    func setPrimaryType(primarytypes pt:Array<String>) -> Bool {
+        //    primary_type+in('THEFT','ROBBERY')
+        var allTypes:Array<String> = Array<String>()
+        for type:String in pt {
+            if PrimaryTypes.contains(type) {
+                let urlType:String = type.stringByReplacingOccurrencesOfString(" ", withString: "+")
+                allTypes.append(urlType);
+                return true
+            }
         }
+        
+        var url:String = "primary_type+in('"
+        
+        for type:String in allTypes {
+            url+=type
+            url+="'+'"
+        }
+        
+        url+="')"
         return false
     }
     
@@ -245,7 +260,7 @@ class Server {
         self.rootArray.removeAll()
         let sesh = NSURLSession.sharedSession()
         let timeStart:NSDate = NSDate()
-        let datatask = sesh.dataTaskWithURL(NSURL(string: params.url())!) { data, response, error in
+        let datatask = sesh.dataTaskWithURL(NSURL(string: APITest /*params.url()*/)!) { data, response, error in
             let json:NSArray? = JSON(data:data!).rawArray;
             if let err = error {
                 print(err)
