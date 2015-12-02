@@ -15,7 +15,7 @@ protocol FilterDelegate {
 }
 
 class FilterVC: UIViewController {
-    var filter: Filter
+    var filter: CrimeFilter
     var delegate: FilterDelegate?
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
@@ -25,7 +25,7 @@ class FilterVC: UIViewController {
     var tableVC:FilterTableVC?
 
     required init?(coder aDecoder: NSCoder) {
-        filter = Filter()
+        filter = CrimeFilter()
 
         super.init(coder: aDecoder)
     }
@@ -88,7 +88,7 @@ class FilterVC: UIViewController {
             }
         }
 
-        Server.shared.getstuff(assign, params: filter)
+        Server.shared.getCrimes(assign, params: filter)
     }
 
     @IBAction func pressedCommit(sender: AnyObject) {

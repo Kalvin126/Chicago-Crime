@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Filter: NSObject {
+class CrimeFilter: NSObject {
     
     private var primaryType:String?
     private var dateWindow:String?
@@ -19,7 +19,7 @@ class Filter: NSObject {
     
     func url() -> String {
         
-        var url:String = API
+        var url:String = CrimeAPI
         
         if primaryType != nil || dateWindow != nil || year != nil || limit != nil {
             url = url.stringByAppendingString("?")
