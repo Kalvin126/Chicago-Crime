@@ -15,7 +15,7 @@ protocol FilterDelegate {
 }
 
 class FilterVC: UIViewController {
-    var filter: Filter
+    var filter: CrimeFilter
     var delegate: FilterDelegate?
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
@@ -25,7 +25,7 @@ class FilterVC: UIViewController {
     var tableVC:FilterTableVC?
 
     required init?(coder aDecoder: NSCoder) {
-        filter = Filter()
+        filter = CrimeFilter()
 
         super.init(coder: aDecoder)
     }
@@ -72,7 +72,7 @@ class FilterVC: UIViewController {
 
         filter.setLimit(Int(limitTextField.text!)!)
         filter.setDateWindow(lowerBound: l, upperBound: u)
-        filter.setPrimaryType(primarytype: PrimaryType.allRawValues[4])
+        filter.setPrimaryType(primarytypes: (tableVC?.selectedCrimeTypes)!)
 
         func assign(elements:Array<Report>) {
             // getstuff returns on a seperate thread must go back on main
@@ -88,7 +88,7 @@ class FilterVC: UIViewController {
             }
         }
 
-        Server.shared.getstuff(assign, params: filter)
+        Server.shared.getCrimes(assign, params: filter)
     }
 
     @IBAction func pressedCommit(sender: AnyObject) {
