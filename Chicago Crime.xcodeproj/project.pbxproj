@@ -17,11 +17,12 @@
 		86A430361BDF3F6F00FF516F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86A430351BDF3F6F00FF516F /* Assets.xcassets */; };
 		86A430391BDF3F6F00FF516F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A430371BDF3F6F00FF516F /* LaunchScreen.storyboard */; };
 		86A430411BDF5D0000FF516F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A430401BDF5D0000FF516F /* MapKit.framework */; };
-		AA126E2D1C0FAE670066E326 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2C1C0FAE670066E326 /* School.swift */; };
-		AA126E2F1C0FAE760066E326 /* SchoolFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */; };
+		86D649011C0FFDE8002ADE22 /* SchoolFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D649001C0FFDE8002ADE22 /* SchoolFilterVC.swift */; };
+		86D649031C0FFE0F002ADE22 /* SchoolFilterTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D649021C0FFE0F002ADE22 /* SchoolFilterTableVC.swift */; };
+        AA126E2D1C0FAE670066E326 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2C1C0FAE670066E326 /* School.swift */; };
+        AA126E2F1C0FAE760066E326 /* SchoolFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */; };
 		AA72A34C1BEEB2240051312B /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3471BEEB2240051312B /* FilterVC.swift */; };
 		AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3481BEEB2240051312B /* MapVC.swift */; };
-		AA72A34E1BEEB2240051312B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3491BEEB2240051312B /* SettingsVC.swift */; };
 		AA72A34F1BEEB2240051312B /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A34A1BEEB2240051312B /* SplitViewController.swift */; };
 		AA7CE15A1C0E388400B83535 /* CrimeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7CE1591C0E388400B83535 /* CrimeFilter.swift */; };
 		AA7CE15C1C0E393300B83535 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7CE15B1C0E393300B83535 /* Report.swift */; };
@@ -42,11 +43,13 @@
 		86A430381BDF3F6F00FF516F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86A4303A1BDF3F6F00FF516F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		AA126E2C1C0FAE670066E326 /* School.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
-		AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilter.swift; sourceTree = "<group>"; };
-		AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FilterVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		86D649001C0FFDE8002ADE22 /* SchoolFilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilterVC.swift; sourceTree = "<group>"; };
+		86D649021C0FFE0F002ADE22 /* SchoolFilterTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilterTableVC.swift; sourceTree = "<group>"; };
+		AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
+        AA126E2C1C0FAE670066E326 /* School.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
+        AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilter.swift; sourceTree = "<group>"; };
+        AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FilterVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		AA72A3481BEEB2240051312B /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
-		AA72A3491BEEB2240051312B /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		AA72A34A1BEEB2240051312B /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		AA7CE1591C0E388400B83535 /* CrimeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CrimeFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		AA7CE15B1C0E393300B83535 /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
@@ -138,7 +141,8 @@
 				AA72A3481BEEB2240051312B /* MapVC.swift */,
 				AA72A3471BEEB2240051312B /* FilterVC.swift */,
 				8609C9231C013BBF00FF6026 /* FilterTableVC.swift */,
-				AA72A3491BEEB2240051312B /* SettingsVC.swift */,
+				86D649001C0FFDE8002ADE22 /* SchoolFilterVC.swift */,
+				86D649021C0FFE0F002ADE22 /* SchoolFilterTableVC.swift */,
 				8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */,
 			);
 			name = Controller;
@@ -229,12 +233,13 @@
 				AA7CE15A1C0E388400B83535 /* CrimeFilter.swift in Sources */,
 				AA72A34C1BEEB2240051312B /* FilterVC.swift in Sources */,
 				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
+				86D649031C0FFE0F002ADE22 /* SchoolFilterTableVC.swift in Sources */,
+				86D649011C0FFDE8002ADE22 /* SchoolFilterVC.swift in Sources */,
 				8609C9221C0137AE00FF6026 /* SwiftyJSON.swift in Sources */,
 				AA7CE15C1C0E393300B83535 /* Report.swift in Sources */,
 				AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */,
 				AA126E2D1C0FAE670066E326 /* School.swift in Sources */,
 				AA72A34F1BEEB2240051312B /* SplitViewController.swift in Sources */,
-				AA72A34E1BEEB2240051312B /* SettingsVC.swift in Sources */,
 				AABC7A531BE2BF9B002B62D9 /* Types.swift in Sources */,
 				AA126E2F1C0FAE760066E326 /* SchoolFilter.swift in Sources */,
 				86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */,
