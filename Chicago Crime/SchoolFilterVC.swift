@@ -13,7 +13,7 @@ protocol School1FilterDelegate {
 }
 
 class SchoolFilterVC: UIViewController {
-    var filter: Filter
+    var filter: SchoolFilter
     var delegate: School1FilterDelegate?
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
@@ -23,7 +23,7 @@ class SchoolFilterVC: UIViewController {
     var tableVC:SchoolFilterTableVC?
 
     required init?(coder aDecoder: NSCoder) {
-        filter = Filter()
+        filter = SchoolFilter()
 
         super.init(coder: aDecoder)
     }
@@ -46,21 +46,21 @@ class SchoolFilterVC: UIViewController {
     func commitFilter() {
 
 
-        func assign(elements:Array<Report>) {
-            // getstuff returns on a seperate thread must go back on main
-            dispatch_async(dispatch_get_main_queue()) {
-                if elements.count > 0 {
-                    let newTitle = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
-                    self.resultButton.title = newTitle
-                }else{
-                    self.resultButton.title = "No Results"
-                }
-
-                //self.delegate?.filter(self, didCommitFilter: elements)
-            }
-        }
-
-        Server.shared.getstuff(assign, params: filter)
+//        func assign(elements:Array<Report>) {
+//            // getstuff returns on a seperate thread must go back on main
+//            dispatch_async(dispatch_get_main_queue()) {
+//                if elements.count > 0 {
+//                    let newTitle = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
+//                    self.resultButton.title = newTitle
+//                }else{
+//                    self.resultButton.title = "No Results"
+//                }
+//
+//                //self.delegate?.filter(self, didCommitFilter: elements)
+//            }
+//        }
+//
+//        Server.shared.getstuff(assign, params: filter)
     }
     
     @IBAction func pressedCommit(sender: AnyObject) {
