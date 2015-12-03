@@ -1,5 +1,5 @@
 //
-//  FilterVC.swift
+//  CrimeFilterVC.swift
 //  Chicago Crime
 //
 //  Created by Kalvin Loc on 11/1/15.
@@ -10,19 +10,19 @@ import Foundation
 
 import UIKit
 
-protocol FilterDelegate {
-    func filter(filterVC: FilterVC, didCommitFilter results:Array<Report> )
+protocol CrimeFilterDelegate {
+    func crimeFilter(filterVC: CrimeFilterVC, didCommitFilterWithResult results:Array<Report> )
 }
 
-class FilterVC: UIViewController {
+class CrimeFilterVC: UIViewController {
     var filter: CrimeFilter
-    var delegate: FilterDelegate?
+    var delegate: CrimeFilterDelegate?
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
 
     @IBOutlet weak var limitTextField: UITextField!
 
-    var tableVC:FilterTableVC?
+    var tableVC:CrimeFilterTableVC?
 
     required init?(coder aDecoder: NSCoder) {
         filter = CrimeFilter()
@@ -33,7 +33,7 @@ class FilterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? FilterTableVC
+        tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? CrimeFilterTableVC
 
         limitTextField.text = "10"
 
@@ -74,21 +74,18 @@ class FilterVC: UIViewController {
         filter.setDateWindow(lowerBound: l, upperBound: u)
         filter.setPrimaryType(primarytypes: (tableVC?.selectedCrimeTypes)!)
 
-        func assign(elements:Array<Report>) {
-            // getstuff returns on a seperate thread must go back on main
+        Server.shared.getCrimes(filter) { (result: Array<Report>) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
-                if elements.count > 0 {
-                    let newTitle = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
+                if result.count > 0 {
+                    let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
                     self.resultButton.title = newTitle
                 }else{
                     self.resultButton.title = "No Results"
                 }
 
-                self.delegate?.filter(self, didCommitFilter: elements)
+                self.delegate?.crimeFilter(self, didCommitFilterWithResult: result)
             }
         }
-
-        Server.shared.getCrimes(assign, params: filter)
     }
 
     @IBAction func pressedCommit(sender: AnyObject) {

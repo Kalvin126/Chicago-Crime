@@ -31,7 +31,7 @@ class Server {
         return f
     }
     
-    func getSchools(complete:(Array<School>->Void), params:SchoolFilter) {
+    func getSchools(params:SchoolFilter, complete: (result: Array<School>) -> Void) {
         self.schoolArray.removeAll()
         let sesh = NSURLSession.sharedSession()
         let timeStart:NSDate = NSDate()
@@ -51,16 +51,16 @@ class Server {
                 self.schoolArray.append(School(info: info))
             }
             
-            complete(self.schoolArray)
+            complete(result: self.schoolArray)
         }
         datatask.resume()
     }
     
-    func getSchools(complete:(Array<School>->Void)){
-        getSchools(complete, params: SchoolFilter())
+    func getSchools(complete:(result: Array<School>) -> Void) {
+        getSchools(SchoolFilter(), complete: complete)
     }
     
-    func getCrimes(complete:(Array<Report>->Void), params:CrimeFilter) {
+    func getCrimes(params:CrimeFilter, complete: (result: Array<Report>) -> Void) {
         self.crimeArray.removeAll()
         let sesh = NSURLSession.sharedSession()
         let timeStart:NSDate = NSDate()
@@ -88,15 +88,13 @@ class Server {
                 self.crimeArray = filter(self.crimeArray)
             }
             
-            
-            
-            complete(self.crimeArray)
+            complete(result: self.crimeArray)
         }
         datatask.resume()
     }
     
-    func getCrimes(complete:(Array<Report>->Void)){
-        getCrimes(complete, params: CrimeFilter())
+    func getCrimes(complete: (result: Array<Report>)->Void) {
+        getCrimes(CrimeFilter(), complete: complete)
     }
     
 }

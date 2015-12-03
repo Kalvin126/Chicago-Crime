@@ -9,7 +9,6 @@
 import UIKit
 
 class ReportDetailVC: UIViewController {
-
     var report: Report?
 
     @IBOutlet weak var caseNumberLabel: UILabel!

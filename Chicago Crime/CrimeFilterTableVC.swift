@@ -1,5 +1,5 @@
 //
-//  FilterTableVC.swift
+//  CrimeFilterTableVC.swift
 //  Chicago Crime
 //
 //  Created by Kalvin Loc on 11/21/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterTableVC: UITableViewController {
+class CrimeFilterTableVC: UITableViewController {
     var crimeTypesDropped:Bool
     var selectedCrimeTypes:[PrimaryType] = []
 
@@ -128,7 +128,7 @@ class FilterTableVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 37.0
+        return 44.0
     }
 
     override func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {

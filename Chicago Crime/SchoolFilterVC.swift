@@ -9,7 +9,7 @@
 import UIKit
 
 protocol School1FilterDelegate {
-    func filter(filterVC: FilterVC, didCommitFilter results:Array<Report> )
+    func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results:Array<School> )
 }
 
 class SchoolFilterVC: UIViewController {
@@ -44,23 +44,18 @@ class SchoolFilterVC: UIViewController {
     }
 
     func commitFilter() {
+        Server.shared.getSchools(filter) { (result: Array<School>) -> Void in
+            dispatch_async(dispatch_get_main_queue()) {
+                if result.count > 0 {
+                    let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
+                    self.resultButton.title = newTitle
+                }else{
+                    self.resultButton.title = "No Results"
+                }
 
-
-//        func assign(elements:Array<Report>) {
-//            // getstuff returns on a seperate thread must go back on main
-//            dispatch_async(dispatch_get_main_queue()) {
-//                if elements.count > 0 {
-//                    let newTitle = String(elements.count) + (elements.count > 1 ? " Results" : " Result")
-//                    self.resultButton.title = newTitle
-//                }else{
-//                    self.resultButton.title = "No Results"
-//                }
-//
-//                //self.delegate?.filter(self, didCommitFilter: elements)
-//            }
-//        }
-//
-//        Server.shared.getstuff(assign, params: filter)
+                self.delegate?.schoolFilterVC(self, didCommitFilterWithResults: result)
+            }
+        }
     }
     
     @IBAction func pressedCommit(sender: AnyObject) {

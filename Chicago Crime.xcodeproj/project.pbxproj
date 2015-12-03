@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8609C91E1C01331E00FF6026 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C91D1C01331E00FF6026 /* DatePickerDialog.swift */; };
 		8609C9221C0137AE00FF6026 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C9211C0137AE00FF6026 /* SwiftyJSON.swift */; };
-		8609C9241C013BBF00FF6026 /* FilterTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C9231C013BBF00FF6026 /* FilterTableVC.swift */; };
+		8609C9241C013BBF00FF6026 /* CrimeFilterTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C9231C013BBF00FF6026 /* CrimeFilterTableVC.swift */; };
 		8689E6A21C027ECB0057F94F /* ReportDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */; };
 		86986C7D1BE1714C003EB8E6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */; };
 		86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */; };
@@ -19,9 +19,10 @@
 		86A430411BDF5D0000FF516F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A430401BDF5D0000FF516F /* MapKit.framework */; };
 		86D649011C0FFDE8002ADE22 /* SchoolFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D649001C0FFDE8002ADE22 /* SchoolFilterVC.swift */; };
 		86D649031C0FFE0F002ADE22 /* SchoolFilterTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D649021C0FFE0F002ADE22 /* SchoolFilterTableVC.swift */; };
-        AA126E2D1C0FAE670066E326 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2C1C0FAE670066E326 /* School.swift */; };
-        AA126E2F1C0FAE760066E326 /* SchoolFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */; };
-		AA72A34C1BEEB2240051312B /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3471BEEB2240051312B /* FilterVC.swift */; };
+		86FE4F701C10C164008D46F8 /* SchoolDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FE4F6F1C10C164008D46F8 /* SchoolDetailVC.swift */; };
+		AA126E2D1C0FAE670066E326 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2C1C0FAE670066E326 /* School.swift */; };
+		AA126E2F1C0FAE760066E326 /* SchoolFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */; };
+		AA72A34C1BEEB2240051312B /* CrimeFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3471BEEB2240051312B /* CrimeFilterVC.swift */; };
 		AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A3481BEEB2240051312B /* MapVC.swift */; };
 		AA72A34F1BEEB2240051312B /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA72A34A1BEEB2240051312B /* SplitViewController.swift */; };
 		AA7CE15A1C0E388400B83535 /* CrimeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7CE1591C0E388400B83535 /* CrimeFilter.swift */; };
@@ -33,7 +34,7 @@
 /* Begin PBXFileReference section */
 		8609C91D1C01331E00FF6026 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		8609C9211C0137AE00FF6026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "Chicago Crime/SwiftyJSON.swift"; sourceTree = "<group>"; };
-		8609C9231C013BBF00FF6026 /* FilterTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FilterTableVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		8609C9231C013BBF00FF6026 /* CrimeFilterTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CrimeFilterTableVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportDetailVC.swift; sourceTree = "<group>"; };
 		86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86A4302B1BDF3F6F00FF516F /* Chicago Crime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chicago Crime.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,10 +46,10 @@
 		86A430401BDF5D0000FF516F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		86D649001C0FFDE8002ADE22 /* SchoolFilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilterVC.swift; sourceTree = "<group>"; };
 		86D649021C0FFE0F002ADE22 /* SchoolFilterTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilterTableVC.swift; sourceTree = "<group>"; };
-		AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
-        AA126E2C1C0FAE670066E326 /* School.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
-        AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilter.swift; sourceTree = "<group>"; };
-        AA72A3471BEEB2240051312B /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FilterVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		86FE4F6F1C10C164008D46F8 /* SchoolDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolDetailVC.swift; sourceTree = "<group>"; };
+		AA126E2C1C0FAE670066E326 /* School.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
+		AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolFilter.swift; sourceTree = "<group>"; };
+		AA72A3471BEEB2240051312B /* CrimeFilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CrimeFilterVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		AA72A3481BEEB2240051312B /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		AA72A34A1BEEB2240051312B /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		AA7CE1591C0E388400B83535 /* CrimeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CrimeFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -116,9 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				AABC7A521BE2BF9B002B62D9 /* Types.swift */,
-				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
 				AA7CE15B1C0E393300B83535 /* Report.swift */,
 				AA126E2C1C0FAE670066E326 /* School.swift */,
+				AAEC1D5A1BDF44D300E56DCA /* Server.swift */,
 				AA7CE1591C0E388400B83535 /* CrimeFilter.swift */,
 				AA126E2E1C0FAE760066E326 /* SchoolFilter.swift */,
 			);
@@ -139,11 +140,12 @@
 			children = (
 				AA72A34A1BEEB2240051312B /* SplitViewController.swift */,
 				AA72A3481BEEB2240051312B /* MapVC.swift */,
-				AA72A3471BEEB2240051312B /* FilterVC.swift */,
-				8609C9231C013BBF00FF6026 /* FilterTableVC.swift */,
+				AA72A3471BEEB2240051312B /* CrimeFilterVC.swift */,
+				8609C9231C013BBF00FF6026 /* CrimeFilterTableVC.swift */,
 				86D649001C0FFDE8002ADE22 /* SchoolFilterVC.swift */,
 				86D649021C0FFE0F002ADE22 /* SchoolFilterTableVC.swift */,
 				8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */,
+				86FE4F6F1C10C164008D46F8 /* SchoolDetailVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -229,12 +231,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8609C9241C013BBF00FF6026 /* FilterTableVC.swift in Sources */,
+				8609C9241C013BBF00FF6026 /* CrimeFilterTableVC.swift in Sources */,
 				AA7CE15A1C0E388400B83535 /* CrimeFilter.swift in Sources */,
-				AA72A34C1BEEB2240051312B /* FilterVC.swift in Sources */,
+				AA72A34C1BEEB2240051312B /* CrimeFilterVC.swift in Sources */,
 				AAEC1D5B1BDF44D300E56DCA /* Server.swift in Sources */,
 				86D649031C0FFE0F002ADE22 /* SchoolFilterTableVC.swift in Sources */,
 				86D649011C0FFDE8002ADE22 /* SchoolFilterVC.swift in Sources */,
+				86FE4F701C10C164008D46F8 /* SchoolDetailVC.swift in Sources */,
 				8609C9221C0137AE00FF6026 /* SwiftyJSON.swift in Sources */,
 				AA7CE15C1C0E393300B83535 /* Report.swift in Sources */,
 				AA72A34D1BEEB2240051312B /* MapVC.swift in Sources */,

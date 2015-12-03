@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+
 class School : NSObject, MKAnnotation {
     
     // basic info

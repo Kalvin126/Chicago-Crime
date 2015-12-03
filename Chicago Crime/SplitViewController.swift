@@ -9,12 +9,13 @@
 import MapKit
 import UIKit
 
-class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDelegate, School1FilterDelegate {
+class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilterDelegate, School1FilterDelegate {
 
     var mapVC:MapVC?
     var tabBarC:UITabBarController?
 
     weak var reportDVC:ReportDetailVC?
+    weak var schoolDVC:SchoolDetailVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +28,8 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
         for navVC in tabBarC!.viewControllers! {
             let vc = (navVC as! UINavigationController).viewControllers[0]
             switch vc {
-            case is FilterVC:
-                (vc as? FilterVC)?.delegate = self;
+            case is CrimeFilterVC:
+                (vc as? CrimeFilterVC)?.delegate = self;
                 break
             case is SchoolFilterVC:
                 (vc as? SchoolFilterVC)?.delegate = self;
@@ -98,11 +99,32 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
         }
     }
 
+    func detailViewShowing() -> Bool {
+        let topVC = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!].presentedViewController
+
+        switch topVC {
+        case is ReportDetailVC:
+            fallthrough
+        case is SchoolDetailVC:
+            return true
+
+        default:
+            break
+        }
+
+        return false
+    }
+
     func showReportDVC(forReport report:Report) {
         if reportDVC == nil {
             reportDVC = storyboard!.instantiateViewControllerWithIdentifier("reportDetail") as? ReportDetailVC
 
             let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
+
+            if detailViewShowing() {
+                selectedNav.dismissViewControllerAnimated(true, completion: nil)
+            }
+
             selectedNav.presentViewController(reportDVC!, animated: true, completion: nil)
         }
 
@@ -111,18 +133,38 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
         tabBarC?.tabBar.hidden = true // can't animate this :(
     }
 
-    // MARK: Filter VC Delegate
+    func showSchoolDVC(forSchool school:School) {
+        if schoolDVC == nil {
+            schoolDVC = storyboard!.instantiateViewControllerWithIdentifier("schoolDetail") as? SchoolDetailVC
 
-    func filter(filterVC: FilterVC, didCommitFilter results: Array<Report>) {
+            let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
+
+            if detailViewShowing() {
+                selectedNav.dismissViewControllerAnimated(true, completion: nil)
+            }
+
+            selectedNav.presentViewController(schoolDVC!, animated: true, completion: nil)
+        }
+
+        schoolDVC?.setup(withSchool: school)
+
+        tabBarC?.tabBar.hidden = true // can't UIView animate this :(
+    }
+
+    // MARK: CrimeFilterVCDelegate
+
+    func crimeFilter(filterVC: CrimeFilterVC, didCommitFilterWithResult results: Array<Report>) {
         mapVC?.mapView.removeAnnotations((mapVC?.mapView.annotations)!)
         mapVC?.mapView.addAnnotations(results)
     }
 
     // MARK: SchoolFilterVC Delegate
 
-//    func settings(settingsVC: SettingsVC, didChangeMapType mapType: MKMapType) {
-//        mapVC?.mapView.mapType = mapType
-//    }
+    func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results: Array<School>) {
+        mapVC?.mapView.removeAnnotations((mapVC?.mapView.annotations)!)
+        mapVC?.mapView.addAnnotations(results)
+    }
+
     /*
     Color palete:   (City of chicago flag colors)
     red #FF0000
@@ -133,7 +175,20 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
     // MARK: MKMapViewDelegate
 
     func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
-        showReportDVC(forReport: (annotView.annotation as! Report))
+        let element = annotView.annotation
+
+        switch element {
+        case is Report:
+            showReportDVC(forReport: element as! Report)
+            break
+
+        case is School:
+            showSchoolDVC(forSchool: element as! School)
+            break
+
+        default: break
+        }
+
 
         annotView.highlighted = true
     }
