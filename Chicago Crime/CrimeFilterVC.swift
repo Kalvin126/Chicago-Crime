@@ -22,6 +22,9 @@ class CrimeFilterVC: UIViewController {
 
     @IBOutlet weak var limitTextField: UITextField!
 
+    @IBOutlet weak var commitButton: UIButton!
+    @IBOutlet weak var commitActivtyView: UIActivityIndicatorView!
+
     var tableVC:CrimeFilterTableVC?
 
     required init?(coder aDecoder: NSCoder) {
@@ -33,9 +36,11 @@ class CrimeFilterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        commitButton.backgroundColor = UIColor.blackColor()
+
         tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? CrimeFilterTableVC
 
-        limitTextField.text = "10"
+        limitTextField.text = "1000"
 
         commitFilter()
     }
@@ -46,6 +51,10 @@ class CrimeFilterVC: UIViewController {
     }
 
     func commitFilter() {
+        commitButton.titleLabel?.removeFromSuperview()
+        commitButton.userInteractionEnabled = false
+        commitActivtyView.startAnimating()
+
         if tableVC?.startTimeWindow.timeIntervalSinceDate((tableVC?.endTimeWindow)!) > 0 {
             let alertController = UIAlertController(title: "Filter", message: "ERROR: Start time must be before end time", preferredStyle: .Alert)
 
@@ -84,6 +93,10 @@ class CrimeFilterVC: UIViewController {
                 }
 
                 self.delegate?.crimeFilter(self, didCommitFilterWithResult: result)
+
+                self.commitActivtyView.stopAnimating()
+                self.commitButton.addSubview(self.commitButton.titleLabel!)
+                self.commitButton.userInteractionEnabled = true
             }
         }
     }

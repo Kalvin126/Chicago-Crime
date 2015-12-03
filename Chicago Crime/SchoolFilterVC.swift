@@ -18,7 +18,8 @@ class SchoolFilterVC: UIViewController {
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
 
-    @IBOutlet weak var limitTextField: UITextField!
+    @IBOutlet weak var commitButton: UIButton!
+    @IBOutlet weak var commitActivtyView: UIActivityIndicatorView!
 
     var tableVC:SchoolFilterTableVC?
 
@@ -31,11 +32,11 @@ class SchoolFilterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        commitButton.backgroundColor = UIColor.blueColor()
+
         tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? SchoolFilterTableVC
 
-        limitTextField.text = "100"
-        // TODO: Connect!
-        //commitFilter()
+        commitFilter()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -44,6 +45,14 @@ class SchoolFilterVC: UIViewController {
     }
 
     func commitFilter() {
+        commitButton.titleLabel?.removeFromSuperview()
+        commitButton.userInteractionEnabled = false
+        commitActivtyView.startAnimating()
+
+        if tableVC?.selectedSchoolLevels.count != 0 {
+            filter.setSchoolLevel((tableVC?.selectedSchoolLevels[0])!)
+        }
+
         Server.shared.getSchools(filter) { (result: Array<School>) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
                 if result.count > 0 {
@@ -54,6 +63,10 @@ class SchoolFilterVC: UIViewController {
                 }
 
                 self.delegate?.schoolFilterVC(self, didCommitFilterWithResults: result)
+
+                self.commitActivtyView.stopAnimating()
+                self.commitButton.addSubview(self.commitButton.titleLabel!)
+                self.commitButton.userInteractionEnabled = true
             }
         }
     }

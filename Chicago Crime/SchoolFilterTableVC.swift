@@ -54,11 +54,11 @@ class SchoolFilterTableVC: UITableViewController {
             if cell.accessoryType == .None {
                 cell.accessoryType = .Checkmark
 
-                selectedSchoolLevels += [(SchoolLevel.valueForRawValue((cell.textLabel?.text)!))!]
+                selectedSchoolLevels += [(SchoolLevel(rawValue:(cell.textLabel?.text)!))!]
             }else{
                 cell.accessoryType = .None
 
-                let typeIndex = selectedSchoolLevels.indexOf((SchoolLevel.valueForRawValue((cell.textLabel?.text)!))!)
+                let typeIndex = selectedSchoolLevels.indexOf(SchoolLevel(rawValue: (cell.textLabel?.text)!)!)
                 selectedSchoolLevels.removeAtIndex(typeIndex!)
             }
         }
@@ -114,7 +114,7 @@ class SchoolFilterTableVC: UITableViewController {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "schoolTypeCell")
             cell.textLabel?.text = SchoolLevel.allRawValues[indexPath.row]
-            
+            //SchoolLevel.ra
             if selectedSchoolLevels.contains(SchoolLevel.allValues[indexPath.row]) {
                 cell.accessoryType = .Checkmark
             }

@@ -90,11 +90,11 @@ class CrimeFilterTableVC: UITableViewController {
             if cell.accessoryType == .None {
                 cell.accessoryType = .Checkmark
 
-                selectedCrimeTypes += [(PrimaryType.valueForRawValue((cell.textLabel?.text)!))!]
+                selectedCrimeTypes += [PrimaryType(rawValue: (cell.textLabel?.text?.uppercaseString)!)!]
             }else{
                 cell.accessoryType = .None
 
-                let typeIndex = selectedCrimeTypes.indexOf((PrimaryType.valueForRawValue((cell.textLabel?.text)!))!)
+                let typeIndex = selectedCrimeTypes.indexOf(PrimaryType(rawValue:(cell.textLabel?.text?.uppercaseString)!)!)
                 selectedCrimeTypes.removeAtIndex(typeIndex!)
             }
         }
