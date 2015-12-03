@@ -7,12 +7,12 @@
 //
 
 import Foundation
-
-class School : NSObject {
+import MapKit
+class School : NSObject, MKAnnotation {
     
     // basic info
-    var lat:Double
-    var lon:Double
+    var lat:Double?
+    var lon:Double?
     var name:String
     var schoolType:String
     var address:String
@@ -53,7 +53,14 @@ class School : NSObject {
     
     var algebraTaking:Int?
     var algebraPassing:Double
-    
+    var coordinate: CLLocationCoordinate2D {
+        guard let latitude = lat, longitude = lon else {
+            //print("opps, Report has no lat/long for case \(caseNumber)")
+            return CLLocationCoordinate2D(latitude: 0, longitude: 0);
+        }
+        
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
     
     
     init(info:Dictionary<String,AnyObject>) {
@@ -110,12 +117,22 @@ class School : NSObject {
         
         cpsPerformanceLvl = info["cps_performance_policy_level"] as! String
         
-        
-        
-        print("done")
     }
     
     
+    func mapAnnotationView() -> MKAnnotationView {
+        let annot = MKPinAnnotationView(annotation: self, reuseIdentifier: "annot")
+        annot.enabled = true
+        annot.canShowCallout = true
+        annot.tintColor = UIColor.blueColor()
+        
+        // disclosure button
+        let discButton = UIButton(type:.DetailDisclosure)
+        discButton.addTarget(self, action: "discButtonPressed:", forControlEvents: .TouchUpInside)
+        annot.rightCalloutAccessoryView = discButton as UIView
+        
+        return annot
+    }
     
     
 }
