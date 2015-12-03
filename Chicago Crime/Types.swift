@@ -57,3 +57,21 @@ enum Day : Int {
     
     case Sunday=1,Monday,Tuesday, Wednesday,Thursday,Friday,Saturday
 }
+
+enum SchoolLevel : String {
+    case Elementary = "Elementary"
+    case JuniorHigh = "Junior High"
+    case HighSchool = "High School"
+
+    static let allValues = [Elementary, JuniorHigh, HighSchool]
+    static let allRawValues = ["Elementary", "Junior High", "High School"]
+
+    static func valueForRawValue(rawValue:String) -> SchoolLevel? {
+        for type in SchoolLevel.allValues {
+            if rawValue == type.rawValue {
+                return type
+            }
+        }
+        return nil
+    }
+}

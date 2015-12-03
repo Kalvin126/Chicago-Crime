@@ -9,7 +9,7 @@
 import MapKit
 import UIKit
 
-class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDelegate, SettingsDelegate {
+class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDelegate, School1FilterDelegate {
 
     var mapVC:MapVC?
     var tabBarC:UITabBarController?
@@ -30,13 +30,27 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
             case is FilterVC:
                 (vc as? FilterVC)?.delegate = self;
                 break
-            case is SettingsVC:
-                (vc as? SettingsVC)?.delegate = self;
+            case is SchoolFilterVC:
+                (vc as? SchoolFilterVC)?.delegate = self;
                 break
             default:
                 break
             }
         }
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
 
     override func viewDidLayoutSubviews() {
@@ -74,6 +88,16 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
 
     // MARK: Funcs
 
+    func keyboardWillToggle(notification:NSNotification) {
+        var frame = tabBarC!.tabBar.frame
+        let keyboard = notification.userInfo!["UIKeyboardFrameEndUserInfoKey"]?.CGRectValue
+
+        frame.origin.y = keyboard!.origin.y - frame.size.height
+        UIView.animateWithDuration(Double((notification.userInfo!["UIKeyboardAnimationDurationUserInfoKey"]?.floatValue)!)) { () -> Void in
+            self.tabBarC?.tabBar.frame = frame
+        }
+    }
+
     func showReportDVC(forReport report:Report) {
         if reportDVC == nil {
             reportDVC = storyboard!.instantiateViewControllerWithIdentifier("reportDetail") as? ReportDetailVC
@@ -94,11 +118,11 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, FilterDeleg
         mapVC?.mapView.addAnnotations(results)
     }
 
-    // MARK: Settings VC Delegate
+    // MARK: SchoolFilterVC Delegate
 
-    func settings(settingsVC: SettingsVC, didChangeMapType mapType: MKMapType) {
-        mapVC?.mapView.mapType = mapType
-    }
+//    func settings(settingsVC: SettingsVC, didChangeMapType mapType: MKMapType) {
+//        mapVC?.mapView.mapType = mapType
+//    }
     /*
     Color palete:   (City of chicago flag colors)
     red #FF0000

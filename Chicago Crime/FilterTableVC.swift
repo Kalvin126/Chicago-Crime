@@ -9,13 +9,11 @@
 import UIKit
 
 class FilterTableVC: UITableViewController {
-
     var crimeTypesDropped:Bool
+    var selectedCrimeTypes:[PrimaryType] = []
 
     var startTimeWindow:NSDate
     var endTimeWindow:NSDate
-
-    var selectedCrimeTypes:[PrimaryType] = []
 
     @IBOutlet weak var startWindowCell: UITableViewCell!
     @IBOutlet weak var endWindowCell: UITableViewCell!
@@ -38,11 +36,11 @@ class FilterTableVC: UITableViewController {
     }
 
     func tappedCrimeTypes(recognizer: UITapGestureRecognizer) {
-        let button = (recognizer.view as! UITableViewCell).accessoryView as! UIButton
+        let button = recognizer.view!.viewWithTag(3) as! UIButton
 
         crimeTypesDropped = !crimeTypesDropped
         UIView.animateWithDuration(0.3) { () -> Void in
-            button.transform = CGAffineTransformMakeRotation((self.crimeTypesDropped ? -1 : 1)*CGFloat(M_PI / 2.0))
+            button.transform = CGAffineTransformMakeRotation((self.crimeTypesDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
         }
 
         var crimeTypeCells:[NSIndexPath] = []
@@ -102,44 +100,42 @@ class FilterTableVC: UITableViewController {
         }
     }
 
-    // MARK: UITableViewDataSource
-
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = storyboard?.instantiateViewControllerWithIdentifier("filterVCHeader").view
+        let label = headerView?.viewWithTag(1) as! UILabel
+        let querySwitch = headerView?.viewWithTag(2) as! UISwitch
+        let discButton = headerView?.viewWithTag(3) as! UIButton
+        headerView!.backgroundColor = UIColor(white: 2.9/3.0, alpha: 1.0)
+
+        label.textColor = UIColor.darkTextColor()
+        label.font = UIFont.boldSystemFontOfSize(17.0)
+
         if section == 1 {
-            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "CrimeTypesView")
-            cell.textLabel!.text = "Crime Types"
-
-            let button = UIButton(type: .DetailDisclosure)
-            let image = UIImage(named: "Detail Disclosure")
-            button.setImage(image, forState: .Normal) // Need to make this aspect fit..
-            button.imageView?.contentMode = .ScaleAspectFit // this does not work
-            button.transform = CGAffineTransformMakeRotation(CGFloat(M_PI / 2.0))
-            cell.accessoryView = button
-
-            cell.backgroundColor = UIColor(white: 2.9/3.0, alpha: 1.0)
-            cell.textLabel?.textColor = UIColor.darkTextColor()
-            cell.textLabel?.font = UIFont.boldSystemFontOfSize(17.0)
+            label.text = "Crime Types"
+            discButton.transform = CGAffineTransformMakeRotation((self.crimeTypesDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
 
             let tapRecog = UITapGestureRecognizer(target: self, action: "tappedCrimeTypes:")
-            cell.addGestureRecognizer(tapRecog)
+            headerView!.addGestureRecognizer(tapRecog)
 
-            return cell
+            return headerView
         }
 
         return nil
     }
 
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableView.sectionHeaderHeight
+        return 40.0
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 43.0;
+        return 37.0
     }
 
     override func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
         return 0;
     }
+
+    // MARK: UITableViewDataSource
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
@@ -160,7 +156,7 @@ class FilterTableVC: UITableViewController {
 
             return cell
         }
-
+        
         return super.tableView(tableView, cellForRowAtIndexPath:indexPath)
     }
 }
