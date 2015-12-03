@@ -35,7 +35,7 @@ class Server {
         self.schoolArray.removeAll()
         let sesh = NSURLSession.sharedSession()
         let timeStart:NSDate = NSDate()
-        let datatask = sesh.dataTaskWithURL(NSURL(string: SchoolAPI)!) { data, response, error in
+        let datatask = sesh.dataTaskWithURL(NSURL(string: params.url())!) { data, response, error in
             let json:NSArray? = JSON(data:data!).rawArray;
             if let err = error {
                 print(err)

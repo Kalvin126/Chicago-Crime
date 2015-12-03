@@ -22,7 +22,7 @@ class CrimeFilter: NSObject {
         var url:String = CrimeAPI
         
         if primaryType != nil || dateWindow != nil || year != nil || limit != nil {
-            url = url.stringByAppendingString("?")
+            url+="?"
         }
         
         if let date = dateWindow {

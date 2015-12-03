@@ -68,9 +68,9 @@ enum Day : Int {
 }
 
 enum SchoolLevel : String {
-    case Elementary = "Elementary"
-    case JuniorHigh = "Junior High"
-    case HighSchool = "High School"
+    case Elementary = "ES"
+    case JuniorHigh = "MS"
+    case HighSchool = "HS"
 
     static let allValues = [Elementary, JuniorHigh, HighSchool]
     static let allRawValues = ["Elementary", "Junior High", "High School"]
