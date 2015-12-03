@@ -10,6 +10,113 @@ import Foundation
 
 class School : NSObject {
     
+    // basic info
+    var lat:Double
+    var lon:Double
+    var name:String
+    var schoolType:String
+    var address:String
+    var phone:String
+    
+    // student report
+    var actScore:Double?
+    
+    // graduation/college
+    var collegeEligibility:Double?
+    var graduationRate:Double?
+    var collegeEnrollRate:Double?
+    var collegeEnrollNum:Int?
+    
+    // school report
+    var adequateYearlyProgress:String
+    var cpsPerformanceLvl:String
+    
+    var safetyIcon:Icon
+    var safetyScore:Double?
+    
+    var familyInvolveIcon:Icon
+    var familyInvolveScore:Double?
+    
+    var instructionIcon:Icon
+    var instructionScore:Double?
+    
+    var teacherIcon:Icon
+    var teacherScore:Double?
+    
+    var parentEngIcon:Icon
+    var parentEngScore:Double?
+    
+    var avgStudentAttend:Double
+    var misconduct100:Double?
+    
+    var teacherAttend:Double
+    
+    var algebraTaking:Int?
+    var algebraPassing:Double
+    
+    
+    
+    init(info:Dictionary<String,AnyObject>) {
+        func textToDouble(text:String) -> Double? {
+            if text == "NDA" {
+                return nil;
+            } else {
+                return Double(text)
+            }
+        }
+        
+        // basic info
+        lat = Double(info["latitude"] as! String)!
+        lon = Double(info["longitude"] as! String)!
+        phone = info["phone_number"] as! String
+        name = info["name_of_school"] as! String
+        schoolType = info["elementary_or_high_school"] as! String
+        address = info["street_address"] as! String
+        
+        // college things
+        
+        collegeEligibility = textToDouble(info["college_eligibility_"] as! String)
+        graduationRate = textToDouble(info["graduation_rate_"] as! String)
+        collegeEnrollNum = Int(info["college_enrollment_number_of_students_"] as! String)
+        
+        
+        // school report
+        familyInvolveIcon = Icon(rawValue: info["family_involvement_icon"] as! String)!
+        familyInvolveScore = textToDouble(info["family_involvement_score"] as! String)
+        
+        teacherScore = textToDouble(info["teachers_score"] as! String)
+        teacherIcon = Icon(rawValue: info["teachers_icon_"] as! String)!
+        
+        parentEngIcon = Icon(rawValue: info["parent_engagement_icon_"] as! String)!
+        parentEngScore = textToDouble(info["parent_engagement_score"] as! String)
+        
+        instructionIcon = Icon(rawValue: info["instruction_icon_"] as! String)!
+        instructionScore = textToDouble(info["instruction_score"] as! String)
+        
+        safetyScore = textToDouble(info["safety_score"] as! String)
+        safetyIcon = Icon(rawValue: info["safety_icon_"] as! String)!
+
+        // non score icon duos
+        
+        adequateYearlyProgress = info["adequate_yearly_progress_made_"] as! String
+        
+        algebraPassing = Double(info["students_passing_algebra"] as! String)!
+        algebraTaking = Int(info["students_taking_algebra"] as! String)
+        
+        misconduct100 = Double(info["rate_of_misconducts_per_100_students_"] as! String)
+        avgStudentAttend = Double(info["average_student_attendance"] as! String)!
+        teacherAttend = Double(info["average_teacher_attendance"] as! String)!
+        
+        
+        cpsPerformanceLvl = info["cps_performance_policy_level"] as! String
+        
+        
+        
+        print("done")
+    }
+    
+    
+    
     
 }
 

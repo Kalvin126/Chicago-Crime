@@ -8,6 +8,15 @@
 
 import Foundation
 
+enum Icon : String {
+    case VERYWEAK = "Very Weak"
+    case WEAK = "Weak"
+    case AVERAGE = "Average"
+    case STRONG = "Strong"
+    case VERYSTRONG = "Very Strong"
+    case NDA = "NDA"
+}
+
 enum PrimaryType : String {
     case ARSON                  = "ARSON"
     case ASSAULT                = "ASSAULT"
