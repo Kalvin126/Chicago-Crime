@@ -133,17 +133,21 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
     func showReportDVC(forReport report:Report) {
         if reportDVC == nil {
             reportDVC = storyboard!.instantiateViewControllerWithIdentifier("reportDetail") as? ReportDetailVC
-
-            let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
-
-            if detailViewShowing() {
-                selectedNav.dismissViewControllerAnimated(true, completion: nil)
-            }
-
-            selectedNav.presentViewController(reportDVC!, animated: true, completion: nil)
         }
 
-        reportDVC?.setup(withReport: report)
+        let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
+        if let _ = selectedNav.presentedViewController as? SchoolDetailVC {
+            selectedNav.dismissViewControllerAnimated(true, completion: nil)
+            selectedNav.presentViewController(reportDVC!, animated: true) { () -> Void in
+                self.reportDVC?.setup(withReport: report)
+            }
+        }else if selectedNav.presentedViewController == nil {
+            selectedNav.presentViewController(reportDVC!, animated: true) { () -> Void in
+                self.reportDVC?.setup(withReport: report)
+            }
+        }else{
+            reportDVC?.setup(withReport: report)
+        }
 
         tabBarC?.tabBar.hidden = true // can't animate this :(
     }
@@ -151,18 +155,23 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
     func showSchoolDVC(forSchool school:School) {
         if schoolDVC == nil {
             schoolDVC = storyboard!.instantiateViewControllerWithIdentifier("schoolDetail") as? SchoolDetailVC
-
-            let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
-
-            if detailViewShowing() {
-                selectedNav.dismissViewControllerAnimated(true, completion: nil)
-            }
-
-            selectedNav.presentViewController(schoolDVC!, animated: true, completion: nil)
         }
 
-        schoolDVC?.setup(withSchool: school)
+        let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
 
+        if let _ = selectedNav.presentedViewController as? ReportDetailVC {
+            selectedNav.dismissViewControllerAnimated(true, completion: nil)
+            selectedNav.presentViewController(schoolDVC!, animated: true) { () -> Void in
+                self.schoolDVC?.setup(withSchool: school)
+            }
+        }else if selectedNav.presentedViewController == nil {
+            selectedNav.presentViewController(schoolDVC!, animated: true) { () -> Void in
+                self.schoolDVC?.setup(withSchool: school)
+            }
+        }else{
+            schoolDVC?.setup(withSchool: school)
+        }
+        
         tabBarC?.tabBar.hidden = true // can't UIView animate this :(
     }
 
@@ -218,7 +227,6 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
 
         default: break
         }
-
 
         annotView.highlighted = true
     }
