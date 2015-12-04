@@ -23,9 +23,10 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
         super.viewDidLoad()
 
         schoolGradient = CAGradientLayer()
-        schoolGradient!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
-        schoolGradient!.locations = [0.0 ,0.3333,0.6666, 1.0]
-        
+        schoolGradient!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
+        schoolGradient!.locations = [0.0 ,0.3,0.65,0.68, 1.0]
+        schoolGradient?.startPoint = CGPoint(x: 0.0, y: 0.5)
+        schoolGradient?.endPoint = CGPoint(x: 1.0, y: 0.5)
         
         
         mapVC = self.viewControllers[0] as? MapVC
@@ -50,11 +51,12 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let view:UIView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 30))
-        view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.1)
-        view.layer.insertSublayer(schoolGradient!, above: view.layer)
+        let gradientView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 30))
+        gradientView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.1)
+        schoolGradient?.frame = gradientView.bounds
+        gradientView.layer.insertSublayer(schoolGradient!, above: view.layer)
         
-        mapVC!.view.insertSubview(view, aboveSubview: mapVC!.view)
+        mapVC!.view.insertSubview(gradientView, aboveSubview: mapVC!.view)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillHideNotification, object: nil)
@@ -191,7 +193,11 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
             return (annotation as! Report).mapAnnotationView()
 
         case is School:
-            return (annotation as! School).mapAnnotationView()
+            let anno:MKPinAnnotationView = (annotation as! School).mapAnnotationView() as! MKPinAnnotationView
+            
+            //var pinColor:UIColor = schoolGradient?.colorForRatio(getFloatForAttribute())
+            //anno.pinTintColor = pinColor
+            return anno
 
         default:
             return nil
