@@ -255,15 +255,24 @@
                                     <segue destination="ji8-0i-eG5" kind="embed" id="8ly-Cr-dXm"/>
                                 </connections>
                             </containerView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="fFo-wX-bzT">
+                                <rect key="frame" x="0.0" y="337" width="320" height="64"/>
+                                <animations/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="fFo-wX-bzT" firstAttribute="height" secondItem="bHX-EZ-bUE" secondAttribute="height" id="0Ds-Cj-Rt0"/>
                             <constraint firstItem="4kI-8q-rgH" firstAttribute="leading" secondItem="52e-c4-Pgl" secondAttribute="leading" id="29c-D9-qP4"/>
                             <constraint firstItem="HO1-Ha-jTZ" firstAttribute="top" secondItem="4kI-8q-rgH" secondAttribute="bottom" constant="15" id="9x3-jf-hq3"/>
                             <constraint firstItem="4kI-8q-rgH" firstAttribute="top" secondItem="RAa-lp-AAj" secondAttribute="bottom" id="JTC-bd-3De"/>
                             <constraint firstItem="bHX-EZ-bUE" firstAttribute="leading" secondItem="52e-c4-Pgl" secondAttribute="leading" id="L8S-xK-SDR"/>
                             <constraint firstAttribute="trailing" secondItem="bHX-EZ-bUE" secondAttribute="trailing" id="NBd-Zw-hbQ"/>
+                            <constraint firstItem="fFo-wX-bzT" firstAttribute="leading" secondItem="52e-c4-Pgl" secondAttribute="leading" id="QlM-ba-59t"/>
+                            <constraint firstItem="fFo-wX-bzT" firstAttribute="width" secondItem="bHX-EZ-bUE" secondAttribute="width" id="S9P-6h-17C"/>
+                            <constraint firstItem="fFo-wX-bzT" firstAttribute="centerY" secondItem="bHX-EZ-bUE" secondAttribute="centerY" id="Znc-9Z-wIl"/>
                             <constraint firstItem="HO1-Ha-jTZ" firstAttribute="leading" secondItem="akZ-31-PEK" secondAttribute="trailing" constant="8" id="knk-NW-3Bg"/>
                             <constraint firstItem="HO1-Ha-jTZ" firstAttribute="centerY" secondItem="akZ-31-PEK" secondAttribute="centerY" id="ouW-hP-oYh"/>
                             <constraint firstItem="akZ-31-PEK" firstAttribute="leading" secondItem="52e-c4-Pgl" secondAttribute="leadingMargin" id="qaf-7B-h9R"/>
@@ -278,6 +287,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="450"/>
                     <connections>
+                        <outlet property="commitActivtyView" destination="fFo-wX-bzT" id="vdl-9b-IBm"/>
+                        <outlet property="commitButton" destination="bHX-EZ-bUE" id="ccT-nY-sxu"/>
                         <outlet property="limitTextField" destination="HO1-Ha-jTZ" id="qFI-qr-MTs"/>
                         <outlet property="resultButton" destination="zXV-Jl-7YR" id="oLl-cb-kmE"/>
                     </connections>
@@ -482,17 +493,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Limit: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yFL-tr-A2v">
-                                <rect key="frame" x="16" y="301" width="47" height="21"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="47" id="q0y-sv-7Cv"/>
-                                    <constraint firstAttribute="height" constant="21" id="yEh-YI-gEw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URC-k6-u5K">
                                 <rect key="frame" x="0.0" y="337" width="320" height="64"/>
                                 <animations/>
@@ -508,37 +508,32 @@
                                     <action selector="pressedCommit:" destination="3c3-26-GXa" eventType="touchUpInside" id="VXx-F3-UlM"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oxk-u9-Mlw">
-                                <rect key="frame" x="71" y="297" width="82" height="30"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="82" id="ukB-kB-Y9P"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fr1-4H-DtR">
-                                <rect key="frame" x="0.0" y="64" width="320" height="218"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="273"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="qZ9-ey-xJC" kind="embed" id="Ivz-yW-c31"/>
                                 </connections>
                             </containerView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="vPv-CK-l0g">
+                                <rect key="frame" x="0.0" y="337" width="320" height="64"/>
+                                <animations/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vPv-CK-l0g" firstAttribute="width" secondItem="URC-k6-u5K" secondAttribute="width" id="BJk-tE-t3Q"/>
                             <constraint firstItem="Fr1-4H-DtR" firstAttribute="leading" secondItem="uN3-OQ-sy2" secondAttribute="leading" id="EU9-gK-rOS"/>
                             <constraint firstItem="Fr1-4H-DtR" firstAttribute="top" secondItem="VLM-AY-U31" secondAttribute="bottom" id="PGD-P7-bSn"/>
-                            <constraint firstItem="oxk-u9-Mlw" firstAttribute="top" secondItem="Fr1-4H-DtR" secondAttribute="bottom" constant="15" id="ROU-kb-CDy"/>
-                            <constraint firstItem="yFL-tr-A2v" firstAttribute="leading" secondItem="uN3-OQ-sy2" secondAttribute="leadingMargin" id="XrB-Lk-Tl3"/>
-                            <constraint firstItem="oxk-u9-Mlw" firstAttribute="centerY" secondItem="yFL-tr-A2v" secondAttribute="centerY" id="YlN-58-pp3"/>
-                            <constraint firstItem="URC-k6-u5K" firstAttribute="top" secondItem="yFL-tr-A2v" secondAttribute="bottom" constant="15" id="ejC-Pd-FPO"/>
+                            <constraint firstItem="vPv-CK-l0g" firstAttribute="height" secondItem="URC-k6-u5K" secondAttribute="height" id="RNz-Rf-X7I"/>
+                            <constraint firstItem="vPv-CK-l0g" firstAttribute="centerY" secondItem="URC-k6-u5K" secondAttribute="centerY" id="STu-P6-kna"/>
+                            <constraint firstItem="vPv-CK-l0g" firstAttribute="leading" secondItem="uN3-OQ-sy2" secondAttribute="leading" id="drJ-Rc-aXR"/>
                             <constraint firstItem="URC-k6-u5K" firstAttribute="leading" secondItem="uN3-OQ-sy2" secondAttribute="leading" id="ikz-q4-ABj"/>
                             <constraint firstAttribute="trailing" secondItem="Fr1-4H-DtR" secondAttribute="trailing" id="kTx-hG-4Nn"/>
                             <constraint firstAttribute="trailing" secondItem="URC-k6-u5K" secondAttribute="trailing" id="pXM-ER-8co"/>
                             <constraint firstItem="y6r-7m-FYJ" firstAttribute="top" secondItem="URC-k6-u5K" secondAttribute="bottom" id="rvo-IG-kpW"/>
-                            <constraint firstItem="oxk-u9-Mlw" firstAttribute="leading" secondItem="yFL-tr-A2v" secondAttribute="trailing" constant="8" id="xVn-Rm-D5O"/>
+                            <constraint firstItem="vPv-CK-l0g" firstAttribute="top" secondItem="Fr1-4H-DtR" secondAttribute="bottom" id="xj0-vU-5qo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Schools" id="3YL-lU-Unh">
@@ -547,7 +542,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="450"/>
                     <connections>
-                        <outlet property="limitTextField" destination="oxk-u9-Mlw" id="5Nk-UF-gjJ"/>
+                        <outlet property="commitActivtyView" destination="vPv-CK-l0g" id="bcx-KR-F1a"/>
+                        <outlet property="commitButton" destination="URC-k6-u5K" id="Oue-Nv-sP1"/>
                         <outlet property="resultButton" destination="XG8-mt-Rav" id="Rvj-vF-ft9"/>
                     </connections>
                 </viewController>

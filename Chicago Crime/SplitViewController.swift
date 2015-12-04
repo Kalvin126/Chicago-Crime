@@ -167,15 +167,13 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
     // MARK: CrimeFilterVCDelegate
 
     func crimeFilter(filterVC: CrimeFilterVC, didCommitFilterWithResult results: Array<Report>) {
-        mapVC?.mapView.removeAnnotations((mapVC?.mapView.annotations)!)
-        mapVC?.mapView.addAnnotations(results)
+        mapVC?.addReports(results)
     }
 
     // MARK: SchoolFilterVC Delegate
 
     func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results: Array<School>) {
-        mapVC?.mapView.removeAnnotations((mapVC?.mapView.annotations)!)
-        mapVC?.mapView.addAnnotations(results)
+        mapVC?.addSchools(results)
     }
 
     /*
@@ -186,6 +184,19 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
     */
 
     // MARK: MKMapViewDelegate
+
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        switch annotation {
+        case is Report:
+            return (annotation as! Report).mapAnnotationView()
+
+        case is School:
+            return (annotation as! School).mapAnnotationView()
+
+        default:
+            return nil
+        }
+    }
 
     func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
         let element = annotView.annotation

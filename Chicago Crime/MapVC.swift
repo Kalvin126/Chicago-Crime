@@ -17,7 +17,8 @@ class MapVC: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
-    var crimes:Array<Report> = Array()
+    var crimes:Array<Report> = []
+    var schools:Array<School> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,5 +32,19 @@ class MapVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func addReports(reports: Array<Report>) {
+        mapView.removeAnnotations(self.crimes)
+
+        crimes += reports
+        mapView.addAnnotations(reports)
+    }
+
+    func addSchools(schools: Array<School>) {
+        mapView.removeAnnotations(self.schools)
+
+        self.schools += schools
+        mapView.addAnnotations(schools)
     }
 }

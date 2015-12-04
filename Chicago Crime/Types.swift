@@ -50,16 +50,6 @@ enum PrimaryType : String {
         "CRIMINAL TRESPASS", "DECEPTIVE PRACTICE", "HOMICIDE", "INTERFERENCE WITH PUBLIC OFFICER", "INTIMIDATION",
         "KIDNAPPING", "NARCOTICS", "NON - CRIMINAL", "MOTOR VEHICLE THEFT", "OFFENSE INVOLVING CHILDREN", "OTHER OFFENSE",
         "PROSTITUTION", "PUBLIC PEACE VIOLATION", "ROBBERY", "SEX OFFENSE", "THEFT", "WEAPONS VIOLATION"]
-
-    static func valueForRawValue(rawValue:String) -> PrimaryType? {
-        for type in PrimaryType.allValues {
-            if rawValue.uppercaseString == type.rawValue {
-                return type
-            }
-        }
-
-        return nil
-    }
 }
 
 enum Day : Int {
@@ -73,14 +63,5 @@ enum SchoolLevel : String {
     case HighSchool = "HS"
 
     static let allValues = [Elementary, JuniorHigh, HighSchool]
-    static let allRawValues = ["Elementary", "Junior High", "High School"]
-
-    static func valueForRawValue(rawValue:String) -> SchoolLevel? {
-        for type in SchoolLevel.allValues {
-            if rawValue == type.rawValue {
-                return type
-            }
-        }
-        return nil
-    }
+    static let allRawValues = ["ES", "MS", "HS"]
 }
