@@ -11,9 +11,17 @@ import Foundation
 class SchoolFilter : NSObject {
     
     private var schoolLvl:SchoolLevel?
+    private var cpsLvl:String?
     
     func setSchoolLevel(lvl:SchoolLevel) {
         schoolLvl = lvl;
+    }
+    
+    func setCPSLevl(lvl:String) {
+        let arr = ["Level 1","Level 2","Level 3"]
+        if arr.contains(lvl) {
+            
+        }
     }
     
     func url() ->String {

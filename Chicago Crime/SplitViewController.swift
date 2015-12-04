@@ -16,10 +16,18 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
 
     weak var reportDVC:ReportDetailVC?
     weak var schoolDVC:SchoolDetailVC?
+    
+    var schoolGradient:CAGradientLayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        schoolGradient = CAGradientLayer()
+        schoolGradient!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
+        schoolGradient!.locations = [0.0 ,0.3333,0.6666, 1.0]
+        
+        
+        
         mapVC = self.viewControllers[0] as? MapVC
         mapVC?.mapView.delegate = self
 
@@ -42,6 +50,11 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        let view:UIView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 30))
+        view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.1)
+        view.layer.insertSublayer(schoolGradient!, above: view.layer)
+        
+        mapVC!.view.insertSubview(view, aboveSubview: mapVC!.view)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillHideNotification, object: nil)

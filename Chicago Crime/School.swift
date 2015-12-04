@@ -9,7 +9,34 @@
 import Foundation
 import MapKit
 
-class School : NSObject, MKAnnotation {
+
+internal extension CALayer {
+    func colorForRatio(ratio:CGFloat)->UIColor {
+        
+        let point:CGPoint = CGPoint(x: self.frame.width*ratio, y: 2)
+        
+        var pixel:[CUnsignedChar] = [0,0,0,0]
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
+        let context = CGBitmapContextCreate(&pixel, 1, 1, 8, 4, colorSpace, bitmapInfo.rawValue)
+        
+        CGContextTranslateCTM(context, -point.x, -point.y)
+        
+        self.renderInContext(context!)
+        
+        let red:CGFloat = CGFloat(pixel[0])/255.0
+        let green:CGFloat = CGFloat(pixel[1])/255.0
+        let blue:CGFloat = CGFloat(pixel[2])/255.0
+        let alpha:CGFloat = CGFloat(pixel[3])/255.0
+        
+        //println("red:\(red) green:\(green) blue:\(blue)")
+        
+        return UIColor(red:red, green: green, blue:blue, alpha:alpha)
+    }
+}
+
+internal class School : NSObject, MKAnnotation {
     
     // basic info
     var lat:Double?
