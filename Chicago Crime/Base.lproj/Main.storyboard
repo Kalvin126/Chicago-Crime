@@ -548,6 +548,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Muu-EU-lPs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationBar contentMode="scaleToFill" id="R0X-4j-gqP">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <items>
+                        <navigationItem title="Title" id="EUb-ja-ZG8"/>
+                    </items>
+                </navigationBar>
             </objects>
             <point key="canvasLocation" x="-4956" y="-7347"/>
         </scene>
