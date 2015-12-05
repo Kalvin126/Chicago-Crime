@@ -56,11 +56,21 @@ class SchoolFilterVC: UIViewController {
         }
         
         Server.shared.getSchools(filter) { (result: Array<School>, interval: NSTimeInterval) -> Void in
-            if result.count > 0 {
-                let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
-                self.resultButton.title = newTitle
-            }else{
-                self.resultButton.title = "No Results"
+            dispatch_async(dispatch_get_main_queue()) {
+                if result.count > 0 {
+                    let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
+                    self.resultButton.title = newTitle
+                }else{
+                    self.resultButton.title = "No Results"
+                }
+
+                 self.fetchTimeLabel.text = "\(result.count) schools fetched in " + String(format: "%.4f", interval) + " seconds"
+
+                self.delegate?.schoolFilterVC(self, didCommitFilterWithResults: result)
+
+                self.commitActivtyView.stopAnimating()
+                self.commitButton.addSubview(self.commitButton.titleLabel!)
+                self.commitButton.userInteractionEnabled = true
             }
             
             self.fetchTimeLabel.text = "\(result.count) crimes fetched in " + String(format: "%.4f", interval) + " seconds"
