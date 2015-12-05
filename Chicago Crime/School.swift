@@ -51,6 +51,7 @@ internal class School : NSObject, MKAnnotation {
     var schoolType:String
     var address:String
     var phone:String
+    var networkManager:String
     
     // student report
     var actScore:Double?
@@ -116,6 +117,7 @@ internal class School : NSObject, MKAnnotation {
         name = info["name_of_school"] as! String
         schoolType = info["elementary_or_high_school"] as! String
         address = info["street_address"] as! String
+        networkManager = info["network_manager"] as! String
         
 //        print(name)
 //        print("school type \(schoolType)")

@@ -26,7 +26,7 @@ class CrimeFilter: NSObject {
         }
         
         if let date = dateWindow {
-            url = url.stringByAppendingString("$where=\(date)")
+            url+="$where=\(date)"
         }
         
         if let type = primaryType {
