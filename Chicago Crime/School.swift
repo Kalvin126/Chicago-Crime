@@ -218,10 +218,10 @@ internal class School : NSObject, MKAnnotation {
     }
     
     func mapAnnotationView() -> MKAnnotationView {
-        let annot = MKPinAnnotationView(annotation: self, reuseIdentifier: "annot")
+        let annot = MKAnnotationView(annotation: self, reuseIdentifier: "annot")
         annot.enabled = true
         annot.canShowCallout = false
-        annot.pinTintColor = UIColor.blueColor()
+        annot.image = UIImage(named: "School_Icon")
         
         // disclosure button
         let discButton = UIButton(type:.DetailDisclosure)
