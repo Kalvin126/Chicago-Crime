@@ -17,6 +17,9 @@ class CrimeFilter: NSObject {
     var timeFilter:((Array<Report>)->Array<Report>)?
     var dayOfWeekFilter:((Array<Report>)->Array<Report>)?
     
+    private var buffer:School?
+    private var radius:Int?
+    
     func url() -> String {
         
         var url:String = CrimeAPI
@@ -38,6 +41,17 @@ class CrimeFilter: NSObject {
             url+=type
         }
         
+        if let school = buffer, r = radius {
+            if dateWindow == nil && primaryType == nil {
+                url+="$where="
+            } else {
+                url+="+and+"
+            }
+            
+            url+="within_circle(location,+\(school.coordinate.latitude),+\(school.coordinate.longitude),+\(r))"
+        }
+        
+        
         if let l = limit {
             if url.characters.last != "=" {
                 url+="&"
@@ -56,6 +70,11 @@ class CrimeFilter: NSObject {
         
         NSLog("requesting url \"\(url)\"")
         return url
+    }
+    
+    func setSchoolWithRadius(school s:School, radius r:Int) {
+        buffer = s
+        radius = r
     }
     
     func setDateWindow(lowerBound l:NSDateComponents, upperBound u:NSDateComponents) {
