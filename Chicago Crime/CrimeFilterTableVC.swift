@@ -12,6 +12,7 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
     var crimeTypesDropped:Bool = true
 
     var selectedCrimeTypes:[PrimaryType] = []
+    var typeFilterOn:Bool = false
 
     var startTimeWindow:NSDate
     var endTimeWindow:NSDate
@@ -63,6 +64,10 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
         formatter.dateFormat = "MMM d, ha"
 
         return formatter.stringFromDate(date)
+    }
+
+    func toggledTypeFilter(sender: UISwitch!) {
+        typeFilterOn = sender.on
     }
 
     // MARK: UITextFieldDelegate
@@ -122,6 +127,7 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
         let label = headerView?.viewWithTag(1) as! UILabel
         let querySwitch = headerView?.viewWithTag(2) as! UISwitch
         let discButton = headerView?.viewWithTag(3) as! UIButton
+
         headerView!.backgroundColor = UIColor(white: 2.9/3.0, alpha: 1.0)
 
         label.textColor = UIColor.darkTextColor()
@@ -133,6 +139,8 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
 
             let tapRecog = UITapGestureRecognizer(target: self, action: "tappedCrimeTypes:")
             headerView!.addGestureRecognizer(tapRecog)
+
+            querySwitch.addTarget(self, action: "toggledTypeFilter:", forControlEvents: .TouchUpInside)
 
             return headerView
         }

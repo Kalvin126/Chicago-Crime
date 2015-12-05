@@ -11,7 +11,8 @@ import Foundation
 import UIKit
 
 protocol CrimeFilterDelegate {
-    func crimeFilter(filterVC: CrimeFilterVC, didCommitFilterWithResult results:Array<Report> )
+    func crimeFilter(filterVC: CrimeFilterVC, didCommitFilterWithResult results:Array<Report>)
+    func crimeFilterVCDidClearFilter()
 }
 
 class CrimeFilterVC: UIViewController {
@@ -22,6 +23,7 @@ class CrimeFilterVC: UIViewController {
 
     @IBOutlet weak var limitTextField: UITextField!
 
+    @IBOutlet weak var fetchTimeLabel: UILabel!
     @IBOutlet weak var commitButton: UIButton!
     @IBOutlet weak var commitActivtyView: UIActivityIndicatorView!
 
@@ -60,7 +62,7 @@ class CrimeFilterVC: UIViewController {
 
             let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
             alertController.addAction(OKAction)
-            
+
             self.presentViewController(alertController, animated: true, completion: nil)
             return
         }
@@ -75,9 +77,11 @@ class CrimeFilterVC: UIViewController {
         filter.setLimit(Int(limitTextField.text!)!)
         filter.setDateWindow(lowerBound: l, upperBound: u)
 
-        filter.setPrimaryType(primarytypes: (tableVC?.selectedCrimeTypes)!)
+        if tableVC!.typeFilterOn {
+            filter.setPrimaryType(primarytypes: tableVC!.selectedCrimeTypes)
+        }
 
-        Server.shared.getCrimes(filter) { (result: Array<Report>) -> Void in
+        Server.shared.getCrimes(filter) { (result: Array<Report>, interval: NSTimeInterval) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
                 if result.count > 0 {
                     let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
@@ -86,6 +90,8 @@ class CrimeFilterVC: UIViewController {
                     self.resultButton.title = "No Results"
                 }
 
+                self.fetchTimeLabel.text = "\(result.count) crimes fetched in " + String(format: "%.4f", interval) + " seconds"
+
                 self.delegate?.crimeFilter(self, didCommitFilterWithResult: result)
 
                 self.commitActivtyView.stopAnimating()
@@ -93,6 +99,10 @@ class CrimeFilterVC: UIViewController {
                 self.commitButton.userInteractionEnabled = true
             }
         }
+    }
+
+    @IBAction func pressedClearFilter(sender: AnyObject) {
+        delegate?.crimeFilterVCDidClearFilter()
     }
 
     @IBAction func pressedCommit(sender: AnyObject) {

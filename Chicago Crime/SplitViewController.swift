@@ -169,10 +169,18 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
         mapVC?.addReports(results)
     }
 
+    func crimeFilterVCDidClearFilter() {
+        mapVC?.clearReports()
+    }
+
     // MARK: SchoolFilterVC Delegate
 
     func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results: Array<School>) {
         mapVC?.addSchools(results)
+    }
+
+    func schoolFilterVCDidClearFilter() {
+        mapVC?.clearSchools()
     }
 
     /*
