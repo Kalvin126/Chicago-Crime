@@ -10,6 +10,8 @@
 		8609C91E1C01331E00FF6026 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C91D1C01331E00FF6026 /* DatePickerDialog.swift */; };
 		8609C9221C0137AE00FF6026 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C9211C0137AE00FF6026 /* SwiftyJSON.swift */; };
 		8609C9241C013BBF00FF6026 /* CrimeFilterTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609C9231C013BBF00FF6026 /* CrimeFilterTableVC.swift */; };
+		868892591C12390500A91A14 /* chicago_boundaries_neighborhood.json in Resources */ = {isa = PBXBuildFile; fileRef = 868892571C12390500A91A14 /* chicago_boundaries_neighborhood.json */; };
+		8688925A1C12390500A91A14 /* chicago_boundaries.json in Resources */ = {isa = PBXBuildFile; fileRef = 868892581C12390500A91A14 /* chicago_boundaries.json */; };
 		8689E6A21C027ECB0057F94F /* ReportDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */; };
 		86986C7D1BE1714C003EB8E6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */; };
 		86A4302F1BDF3F6F00FF516F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A4302E1BDF3F6F00FF516F /* AppDelegate.swift */; };
@@ -35,6 +37,8 @@
 		8609C91D1C01331E00FF6026 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		8609C9211C0137AE00FF6026 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "Chicago Crime/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		8609C9231C013BBF00FF6026 /* CrimeFilterTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CrimeFilterTableVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		868892571C12390500A91A14 /* chicago_boundaries_neighborhood.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chicago_boundaries_neighborhood.json; sourceTree = "<group>"; };
+		868892581C12390500A91A14 /* chicago_boundaries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chicago_boundaries.json; sourceTree = "<group>"; };
 		8689E6A11C027ECB0057F94F /* ReportDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportDetailVC.swift; sourceTree = "<group>"; };
 		86986C7C1BE1714C003EB8E6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86A4302B1BDF3F6F00FF516F /* Chicago Crime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chicago Crime.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +157,8 @@
 		86A430461BDF5D4A00FF516F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				868892571C12390500A91A14 /* chicago_boundaries_neighborhood.json */,
+				868892581C12390500A91A14 /* chicago_boundaries.json */,
 				86A430351BDF3F6F00FF516F /* Assets.xcassets */,
 				86A4303A1BDF3F6F00FF516F /* Info.plist */,
 			);
@@ -218,6 +224,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				868892591C12390500A91A14 /* chicago_boundaries_neighborhood.json in Resources */,
+				8688925A1C12390500A91A14 /* chicago_boundaries.json in Resources */,
 				86A430391BDF3F6F00FF516F /* LaunchScreen.storyboard in Resources */,
 				86A430361BDF3F6F00FF516F /* Assets.xcassets in Resources */,
 				86A430341BDF3F6F00FF516F /* Main.storyboard in Resources */,

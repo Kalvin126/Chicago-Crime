@@ -46,10 +46,7 @@ enum PrimaryType : String {
         DECEPTIVE_PRACTICE, HOMICIDE, INTERFERENCE_OFFICER, INTIMIDATION, KIDNAPPING, NARCOTICS,
         NON_CRIMINAL, MOTOR_THEFT, OFFENSE_CHILDREN, OTHER_OFFENSE, PROSTITUTION, PUBLIC_PEACE_VIOLATION,
         ROBBERY, SEX_OFFENSE, THEFT, WEAPONS_VIOLATION]
-    static let allRawValues = ["ARSON", "ASSAULT", "BATTERY", "BURGLARY", "CRIMINAL DAMAGE", "CRIMINAL SEXUAL ASSAULT",
-        "CRIMINAL TRESPASS", "DECEPTIVE PRACTICE", "HOMICIDE", "INTERFERENCE WITH PUBLIC OFFICER", "INTIMIDATION",
-        "KIDNAPPING", "NARCOTICS", "NON - CRIMINAL", "MOTOR VEHICLE THEFT", "OFFENSE INVOLVING CHILDREN", "OTHER OFFENSE",
-        "PROSTITUTION", "PUBLIC PEACE VIOLATION", "ROBBERY", "SEX OFFENSE", "THEFT", "WEAPONS VIOLATION"]
+    static let allRawValues = PrimaryType.allValues.map{ $0.rawValue }
 }
 
 enum Day : Int {
@@ -63,5 +60,5 @@ enum SchoolLevel : String {
     case HighSchool = "HS"
 
     static let allValues = [Elementary, JuniorHigh, HighSchool]
-    static let allRawValues = ["ES", "MS", "HS"]
+    static let allRawValues = SchoolLevel.allValues.map{ $0.rawValue }
 }

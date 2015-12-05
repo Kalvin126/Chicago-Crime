@@ -30,12 +30,7 @@ class SchoolFilterTableVC: UITableViewController {
             button.transform = CGAffineTransformMakeRotation((self.schoolLevelsDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
         }
 
-        var schoolLevelCells:[NSIndexPath] = []
-        for i in 0...SchoolLevel.allRawValues.count-1 {
-            let index = NSIndexPath(forRow: i, inSection: 0)
-
-            schoolLevelCells += [index]
-        }
+        let schoolLevelCells = (0...SchoolLevel.allRawValues.count-1).map{ NSIndexPath(forRow: $0, inSection: 0) }
 
         if schoolLevelsDropped {
             tableView.insertRowsAtIndexPaths(schoolLevelCells, withRowAnimation: .Fade)
@@ -114,7 +109,7 @@ class SchoolFilterTableVC: UITableViewController {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "schoolTypeCell")
             cell.textLabel?.text = SchoolLevel.allRawValues[indexPath.row]
-            //SchoolLevel.ra
+
             if selectedSchoolLevels.contains(SchoolLevel.allValues[indexPath.row]) {
                 cell.accessoryType = .Checkmark
             }

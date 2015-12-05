@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CrimeFilterTableVC: UITableViewController {
+class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
     var crimeTypesDropped:Bool
     var selectedCrimeTypes:[PrimaryType] = []
 
@@ -17,6 +17,7 @@ class CrimeFilterTableVC: UITableViewController {
 
     @IBOutlet weak var startWindowCell: UITableViewCell!
     @IBOutlet weak var endWindowCell: UITableViewCell!
+    @IBOutlet weak var yearTextField: UITextField!
 
     required init?(coder aDecoder: NSCoder) {
         crimeTypesDropped = false
@@ -33,6 +34,8 @@ class CrimeFilterTableVC: UITableViewController {
 
         startWindowCell.detailTextLabel?.text = stringForDate(startTimeWindow)
         endWindowCell.detailTextLabel?.text = stringForDate(endTimeWindow)
+
+        yearTextField.delegate = self
     }
 
     func tappedCrimeTypes(recognizer: UITapGestureRecognizer) {
@@ -43,12 +46,7 @@ class CrimeFilterTableVC: UITableViewController {
             button.transform = CGAffineTransformMakeRotation((self.crimeTypesDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
         }
 
-        var crimeTypeCells:[NSIndexPath] = []
-        for i in 0...PrimaryType.allRawValues.count-1 {
-            let index = NSIndexPath(forRow: i, inSection: 1)
-
-            crimeTypeCells += [index]
-        }
+        let crimeTypeCells = (0...PrimaryType.allRawValues.count-1).map{ NSIndexPath(forItem: $0, inSection: 1)}
 
         if crimeTypesDropped {
             tableView.insertRowsAtIndexPaths(crimeTypeCells, withRowAnimation: .Fade)
@@ -60,9 +58,19 @@ class CrimeFilterTableVC: UITableViewController {
 
     func stringForDate(date:NSDate) -> String {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "MMM d, yyyy ha"
+        formatter.dateFormat = "MMM d, ha"
 
         return formatter.stringFromDate(date)
+    }
+
+    // MARK: UITextFieldDelegate
+
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let inverseSet = NSCharacterSet(charactersInString:"0123456789").invertedSet
+        let components = string.componentsSeparatedByCharactersInSet(inverseSet)
+        let filtered = components.joinWithSeparator("")
+
+        return string == filtered
     }
 
     // MARK: UITableViewDelegate
@@ -72,6 +80,10 @@ class CrimeFilterTableVC: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.section == 0 {
+            if indexPath.row == 2 {
+                return
+            }
+
             let dateDialog = DatePickerDialog()
             dateDialog.show("Select a \((cell.textLabel?.text!.lowercaseString)!) time",  doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: (cell.textLabel?.text == "Start" ? startTimeWindow : endTimeWindow), datePickerMode: UIDatePickerMode.DateAndTime)
                 { (date) -> Void in

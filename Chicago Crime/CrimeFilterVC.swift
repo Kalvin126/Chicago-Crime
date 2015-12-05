@@ -40,7 +40,7 @@ class CrimeFilterVC: UIViewController {
 
         tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? CrimeFilterTableVC
 
-        limitTextField.text = "1000"
+        limitTextField.text = "100"
 
         commitFilter()
     }
@@ -81,6 +81,8 @@ class CrimeFilterVC: UIViewController {
 
         filter.setLimit(Int(limitTextField.text!)!)
         filter.setDateWindow(lowerBound: l, upperBound: u)
+        filter.setYear(Int(tableVC!.yearTextField.text!)!)
+
         filter.setPrimaryType(primarytypes: (tableVC?.selectedCrimeTypes)!)
 
         Server.shared.getCrimes(filter) { (result: Array<Report>) -> Void in

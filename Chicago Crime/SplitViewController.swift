@@ -9,7 +9,7 @@
 import MapKit
 import UIKit
 
-class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilterDelegate, School1FilterDelegate {
+class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDelegate, School1FilterDelegate {
 
     var mapVC:MapVC?
     var tabBarC:UITabBarController?
@@ -21,7 +21,7 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
         super.viewDidLoad()
 
         mapVC = self.viewControllers[0] as? MapVC
-        mapVC?.mapView.delegate = self
+        mapVC!.delegate = self
 
         tabBarC = self.viewControllers[1] as? UITabBarController
 
@@ -99,22 +99,6 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
         }
     }
 
-    func detailViewShowing() -> Bool {
-        let topVC = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!].presentedViewController
-
-        switch topVC {
-        case is ReportDetailVC:
-            fallthrough
-        case is SchoolDetailVC:
-            return true
-
-        default:
-            break
-        }
-
-        return false
-    }
-
     func showReportDVC(forReport report:Report) {
         if reportDVC == nil {
             reportDVC = storyboard!.instantiateViewControllerWithIdentifier("reportDetail") as? ReportDetailVC
@@ -156,8 +140,24 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
         }else{
             schoolDVC?.setup(withSchool: school)
         }
-        
+
         tabBarC?.tabBar.hidden = true // can't UIView animate this :(
+    }
+
+    // MARK: MapVCDelegate
+
+    func mapVC(mapVC: MapVC, showDetailVCForAnnotation annotation: MKAnnotation) {
+        switch annotation {
+        case is Report:
+            showReportDVC(forReport: annotation as! Report)
+            break
+
+        case is School:
+            showSchoolDVC(forSchool: annotation as! School)
+            break
+
+        default: break
+        }
     }
 
     // MARK: CrimeFilterVCDelegate
@@ -178,37 +178,4 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
     sky blue #B3DDF2
     white
     */
-
-    // MARK: MKMapViewDelegate
-
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        switch annotation {
-        case is Report:
-            return (annotation as! Report).mapAnnotationView()
-
-        case is School:
-            return (annotation as! School).mapAnnotationView()
-
-        default:
-            return nil
-        }
-    }
-
-    func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
-        let element = annotView.annotation
-
-        switch element {
-        case is Report:
-            showReportDVC(forReport: element as! Report)
-            break
-
-        case is School:
-            showSchoolDVC(forSchool: element as! School)
-            break
-
-        default: break
-        }
-
-        annotView.highlighted = true
-    }
 }
