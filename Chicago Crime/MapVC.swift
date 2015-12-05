@@ -153,7 +153,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
     }
 
     func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
-        //delegate?.mapVC(self, showDetailVCForAnnotation: annotView.annotation!)
+        delegate?.mapVC(self, showDetailVCForAnnotation: annotView.annotation!)
         let anno:MKAnnotation = annotView.annotation!
         
         if anno is School {
