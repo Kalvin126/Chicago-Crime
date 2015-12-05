@@ -125,7 +125,7 @@ internal class School : NSObject, MKAnnotation {
         collegeEligibility = textToDouble(info["college_eligibility_"] as? String)
         graduationRate = textToDouble(info["graduation_rate_"] as? String)
         collegeEnrollNum = Int(info["college_enrollment_number_of_students_"] as! String)
-        
+        collegeEnrollRate = textToDouble(info["college_enrollment_rate"] as? String)
         
         // school report
         familyInvolveIcon = Icon(rawValue: info["family_involvement_icon"] as! String)!
@@ -212,6 +212,10 @@ internal class School : NSObject, MKAnnotation {
                 selectedFloat = CGFloat(algebraPassing!/100)
             }
             break
+        case .GRADUATION_RATE:
+            if graduationRate != nil {
+                selectedFloat = CGFloat(algebraPassing!/100)
+            }
         }
     }
     static let imgBorder:UIImage = UIImage(named: "School_Icon_Border")!

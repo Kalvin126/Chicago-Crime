@@ -9,7 +9,7 @@
 import Foundation
 
 let CrimeAPI:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json"
-let CrimeAPITest:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$where=date+between+'2013-10-02T00:00:00'+and+'2015-10-02T20:00:00'+AND+primary_type+in('THEFT','ROBBERY')&year=2014"
+let CrimeAPITest:String = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$where=date+between+'2013-10-02T00:00:00'+and+'2015-10-02T20:00:00'+AND+primary_type+in('THEFT','ROBBERY')+AND+within_circle(location,%2041.82814609,%20-87.63279369,%201609)&year=2014"
 let CrimeAPIWITHTOKEN:String = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$$app_token=\(APPTOKEN)"
 
 let SchoolAPI:String = "https://data.cityofchicago.org/resource/9xs2-f89t.json"
@@ -67,10 +67,7 @@ class Server {
                 print(err)
             }
             
-            let timeStop:NSDate = NSDate()
-            
-            let interval:NSTimeInterval = timeStop.timeIntervalSinceDate(timeStart)
-            
+            let interval:NSTimeInterval = NSDate().timeIntervalSinceDate(timeStart)
             print("\(json!.count) crimes returned in \(interval) seconds")
             
             for root in json! {
