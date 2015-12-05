@@ -17,6 +17,10 @@ enum Icon : String {
     case NDA = "NDA"
 }
 
+enum SchoolAttribute {
+    case SAFETY_SCORE, PARENT_ENG_SCORE, FAMILY_INVOLV_SCORE, INSTRUCTION_SCORE, TEACHER_SCORE, STUDENT_ATD_SCORE, TEACHER_ATD_SCORE, ALGEBRA_PASSING
+}
+
 enum PrimaryType : String {
     case ARSON                  = "ARSON"
     case ASSAULT                = "ASSAULT"
