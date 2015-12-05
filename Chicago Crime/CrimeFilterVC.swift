@@ -80,24 +80,22 @@ class CrimeFilterVC: UIViewController {
         if tableVC!.typeFilterOn {
             filter.setPrimaryType(primarytypes: tableVC!.selectedCrimeTypes)
         }
-
+        
         Server.shared.getCrimes(filter) { (result: Array<Report>, interval: NSTimeInterval) -> Void in
-            dispatch_async(dispatch_get_main_queue()) {
-                if result.count > 0 {
-                    let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
-                    self.resultButton.title = newTitle
-                }else{
-                    self.resultButton.title = "No Results"
-                }
-
-                self.fetchTimeLabel.text = "\(result.count) crimes fetched in " + String(format: "%.4f", interval) + " seconds"
-
-                self.delegate?.crimeFilter(self, didCommitFilterWithResult: result)
-
-                self.commitActivtyView.stopAnimating()
-                self.commitButton.addSubview(self.commitButton.titleLabel!)
-                self.commitButton.userInteractionEnabled = true
+            if result.count > 0 {
+                let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
+                self.resultButton.title = newTitle
+            }else{
+                self.resultButton.title = "No Results"
             }
+            
+            self.fetchTimeLabel.text = "\(result.count) crimes fetched in " + String(format: "%.4f", interval) + " seconds"
+            
+            self.delegate?.crimeFilter(self, didCommitFilterWithResult: result)
+            
+            self.commitActivtyView.stopAnimating()
+            self.commitButton.addSubview(self.commitButton.titleLabel!)
+            self.commitButton.userInteractionEnabled = true
         }
     }
 

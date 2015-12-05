@@ -31,7 +31,7 @@ class SchoolDetailVC: UIViewController {
         schoolNameLabel.text = school.name
         actScoreLabel.text = "\(school.actScore)"
         cpsPerformanceLabel.text = school.cpsPerformanceLvl
-
+        
     }
 
     @IBAction func pressedClose(sender: AnyObject) {

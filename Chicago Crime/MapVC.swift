@@ -9,6 +9,7 @@
 import MapKit
 import UIKit
 
+
 protocol MapVCDelegate {
     func mapVC(mapVC: MapVC, showDetailVCForAnnotation annotation:MKAnnotation)
 }
@@ -21,6 +22,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     var crimes:Array<Report> = []
     var schools:Array<School> = []
+    var schoolRadius:Double = 1609 // meters
 
     var schoolGradient:CAGradientLayer?
 
@@ -112,6 +114,23 @@ class MapVC: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    func addRadiusCircle(location: CLLocationCoordinate2D){
+        
+        for over:MKOverlay in mapView.overlays {
+            if over is MKCircle {
+                let c = (over as! MKCircle).coordinate
+                if c.latitude == location.latitude && c.longitude == location.longitude  {
+                    // we found an overlay equal to the one we're trying to add so remove
+                    mapView.removeOverlay(over)
+                    return
+                }
+            }
+        }
+        
+        let circle = MKCircle(centerCoordinate: location, radius: schoolRadius as CLLocationDistance)
+        self.mapView.addOverlay(circle)
+    }
 
     // MARK: MKMapViewDelegate
 
@@ -127,15 +146,23 @@ class MapVC: UIViewController, MKMapViewDelegate {
             
             annoView.tintColor = colorTint
             return annoView
-
+            
         default:
             return nil
         }
     }
 
     func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
-        delegate?.mapVC(self, showDetailVCForAnnotation: annotView.annotation!)
-        print("selected school annot")
+        //delegate?.mapVC(self, showDetailVCForAnnotation: annotView.annotation!)
+        let anno:MKAnnotation = annotView.annotation!
+        
+        if anno is School {
+            let school:School = annotView.annotation as! School
+            addRadiusCircle(school.coordinate)
+        }
+        
+        
+        
         annotView.highlighted = true
     }
 
@@ -147,6 +174,12 @@ class MapVC: UIViewController, MKMapViewDelegate {
             renderer.lineWidth = 2
 
             return renderer
+        } else  if overlay is MKCircle {
+            let circle = MKCircleRenderer(overlay: overlay)
+            circle.strokeColor = UIColor.redColor()
+            circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+            circle.lineWidth = 1
+            return circle
         }
         
         return MKOverlayRenderer()
