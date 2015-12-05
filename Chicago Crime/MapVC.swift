@@ -60,18 +60,30 @@ class MapVC: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: Helper
+
     func addReports(reports: Array<Report>) {
-        mapView.removeAnnotations(crimes)
+        clearReports()
 
         crimes += reports
         mapView.addAnnotations(reports)
     }
 
+    func clearReports() {
+        mapView.removeAnnotations(crimes)
+        crimes.removeAll()
+    }
+
     func addSchools(schools: Array<School>) {
-        mapView.removeAnnotations(self.schools)
+        clearSchools()
 
         self.schools += schools
         mapView.addAnnotations(schools)
+    }
+
+    func clearSchools() {
+        mapView.removeAnnotations(schools)
+        schools.removeAll()
     }
 
     func showBoundaryWithDataSet(set: String) {

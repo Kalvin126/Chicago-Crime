@@ -9,7 +9,8 @@
 import UIKit
 
 protocol School1FilterDelegate {
-    func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results:Array<School> )
+    func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results:Array<School>)
+    func schoolFilterVCDidClearFilter()
 }
 
 class SchoolFilterVC: UIViewController {
@@ -18,6 +19,7 @@ class SchoolFilterVC: UIViewController {
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
 
+    @IBOutlet weak var fetchTimeLabel: UILabel!
     @IBOutlet weak var commitButton: UIButton!
     @IBOutlet weak var commitActivtyView: UIActivityIndicatorView!
 
@@ -53,7 +55,7 @@ class SchoolFilterVC: UIViewController {
             filter.setSchoolLevel((tableVC?.selectedSchoolLevels[0])!)
         }
 
-        Server.shared.getSchools(filter) { (result: Array<School>) -> Void in
+        Server.shared.getSchools(filter) { (result: Array<School>, interval: NSTimeInterval) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
                 if result.count > 0 {
                     let newTitle = String(result.count) + (result.count > 1 ? " Results" : " Result")
@@ -62,6 +64,8 @@ class SchoolFilterVC: UIViewController {
                     self.resultButton.title = "No Results"
                 }
 
+                 self.fetchTimeLabel.text = "\(result.count) crimes fetched in " + String(format: "%.4f", interval) + " seconds"
+
                 self.delegate?.schoolFilterVC(self, didCommitFilterWithResults: result)
 
                 self.commitActivtyView.stopAnimating()
@@ -69,6 +73,10 @@ class SchoolFilterVC: UIViewController {
                 self.commitButton.userInteractionEnabled = true
             }
         }
+    }
+
+    @IBAction func pressedClearFilter(sender: UIBarButtonItem) {
+        delegate?.schoolFilterVCDidClearFilter()
     }
     
     @IBAction func pressedCommit(sender: AnyObject) {

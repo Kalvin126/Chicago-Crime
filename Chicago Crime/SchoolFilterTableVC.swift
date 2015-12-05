@@ -10,7 +10,9 @@ import UIKit
 
 class SchoolFilterTableVC: UITableViewController {
     var schoolLevelsDropped:Bool
+
     var selectedSchoolLevels:[SchoolLevel] = []
+    var levelFilterOn = true
 
     required init?(coder aDecoder: NSCoder) {
         schoolLevelsDropped = true
@@ -39,6 +41,11 @@ class SchoolFilterTableVC: UITableViewController {
             tableView.deleteRowsAtIndexPaths(schoolLevelCells, withRowAnimation: .Fade)
         }
     }
+
+    func toggledLevelFilter(sender: UISwitch!) {
+        levelFilterOn = sender.on
+    }
+
     // MARK: UITableViewDelegate
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -75,6 +82,8 @@ class SchoolFilterTableVC: UITableViewController {
 
             let tapRecog = UITapGestureRecognizer(target: self, action: "tappedSchoolLevels:")
             headerView!.addGestureRecognizer(tapRecog)
+
+            querySwitch.addTarget(self, action: "toggledLevelFilter", forControlEvents: .TouchUpInside)
 
             return headerView
 
