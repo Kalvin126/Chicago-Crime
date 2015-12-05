@@ -22,8 +22,16 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var crimes:Array<Report> = []
     var schools:Array<School> = []
 
+    var schoolGradient:CAGradientLayer?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        schoolGradient = CAGradientLayer()
+        schoolGradient!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
+        schoolGradient!.locations = [0.0 ,0.3,0.65,0.68, 1.0]
+        schoolGradient?.startPoint = CGPoint(x: 0.0, y: 0.5)
+        schoolGradient?.endPoint = CGPoint(x: 1.0, y: 0.5)
 
         mapView.delegate = self
 //        mapView.mapType = .Hybrid
@@ -35,6 +43,16 @@ class MapVC: UIViewController, MKMapViewDelegate {
         mapView.setRegion(MKCoordinateRegionMake(center, span), animated: false)
 
         showBoundaryWithDataSet("chicago_boundaries_neighborhood")
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let gradientView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 30))
+        gradientView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.1)
+        schoolGradient?.frame = gradientView.bounds
+        gradientView.layer.insertSublayer(schoolGradient!, above: view.layer)
+
+        view.insertSubview(gradientView, aboveSubview: view)
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,7 +109,11 @@ class MapVC: UIViewController, MKMapViewDelegate {
             return (annotation as! Report).mapAnnotationView()
 
         case is School:
-            return (annotation as! School).mapAnnotationView()
+            let annoView:MKPinAnnotationView = (annotation as! School).mapAnnotationView() as! MKPinAnnotationView
+
+            let pinColor:UIColor = schoolGradient!.colorForRatio((annotation as! School).selectedAttributeFloat())
+            annoView.pinTintColor = pinColor
+            return annoView
 
         default:
             return nil
