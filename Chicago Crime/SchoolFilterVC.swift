@@ -64,7 +64,7 @@ class SchoolFilterVC: UIViewController {
                     self.resultButton.title = "No Results"
                 }
 
-                 self.fetchTimeLabel.text = "\(result.count) crimes fetched in " + String(format: "%.4f", interval) + " seconds"
+                 self.fetchTimeLabel.text = "\(result.count) schools fetched in " + String(format: "%.4f", interval) + " seconds"
 
                 self.delegate?.schoolFilterVC(self, didCommitFilterWithResults: result)
 

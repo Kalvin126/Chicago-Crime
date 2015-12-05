@@ -22,6 +22,8 @@ class SchoolFilterTableVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        selectedSchoolLevels += [SchoolLevel.HighSchool]
     }
 
     func tappedSchoolLevels(recognizer: UITapGestureRecognizer) {
@@ -54,14 +56,10 @@ class SchoolFilterTableVC: UITableViewController {
 
         if indexPath.section == 0 {    // School Levels
             if cell.accessoryType == .None {
-                cell.accessoryType = .Checkmark
-
+                selectedSchoolLevels.removeAll()
                 selectedSchoolLevels += [(SchoolLevel(rawValue:(cell.textLabel?.text)!))!]
-            }else{
-                cell.accessoryType = .None
 
-                let typeIndex = selectedSchoolLevels.indexOf(SchoolLevel(rawValue: (cell.textLabel?.text)!)!)
-                selectedSchoolLevels.removeAtIndex(typeIndex!)
+                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
             }
         }
     }
