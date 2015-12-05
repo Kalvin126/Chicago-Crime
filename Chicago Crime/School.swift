@@ -117,9 +117,9 @@ internal class School : NSObject, MKAnnotation {
         schoolType = info["elementary_or_high_school"] as! String
         address = info["street_address"] as! String
         
-        print(name)
-        print("school type \(schoolType)")
-        print("")
+//        print(name)
+//        print("school type \(schoolType)")
+//        print("")
         
         
         // college things
@@ -216,12 +216,23 @@ internal class School : NSObject, MKAnnotation {
             break
         }
     }
-    
+    static let imgBorder:UIImage = UIImage(named: "School_Icon_Border")!
+    static let img:UIImage = UIImage(named: "School_Icon")!
     func mapAnnotationView() -> MKAnnotationView {
         let annot = MKAnnotationView(annotation: self, reuseIdentifier: "annot")
         annot.enabled = true
         annot.canShowCallout = false
-        annot.image = UIImage(named: "School_Icon")
+        
+        
+        let subBorder = UIImageView(image: School.imgBorder)
+        subBorder.userInteractionEnabled = false
+        annot.addSubview(subBorder)
+        
+        let sub = UIImageView(image: School.img)
+        sub.userInteractionEnabled = false
+        annot.addSubview(sub)
+        
+        annot.frame = subBorder.bounds
         
         // disclosure button
         let discButton = UIButton(type:.DetailDisclosure)
