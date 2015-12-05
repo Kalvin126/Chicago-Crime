@@ -13,7 +13,7 @@ class SchoolFilterTableVC: UITableViewController {
     var selectedSchoolLevels:[SchoolLevel] = []
 
     required init?(coder aDecoder: NSCoder) {
-        schoolLevelsDropped = false
+        schoolLevelsDropped = true
 
         super.init(coder: aDecoder)
     }

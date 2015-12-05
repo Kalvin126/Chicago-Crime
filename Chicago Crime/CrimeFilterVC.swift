@@ -66,22 +66,14 @@ class CrimeFilterVC: UIViewController {
         }
 
         let calendar = NSCalendar.currentCalendar()
-        let l = NSDateComponents()
-        let u = NSDateComponents()
-
-        l.year = calendar.component(.Year, fromDate: (tableVC?.startTimeWindow)!)
-        l.month = calendar.component(.Month, fromDate: (tableVC?.startTimeWindow)!)
-        l.day = calendar.component(.Day, fromDate: (tableVC?.startTimeWindow)!)
-        l.hour = calendar.component(.Hour, fromDate: (tableVC?.startTimeWindow)!)
-
-        u.year = calendar.component(.Year, fromDate: (tableVC?.endTimeWindow)!)
-        u.month = calendar.component(.Month, fromDate: (tableVC?.endTimeWindow)!)
-        u.day = calendar.component(.Day, fromDate: (tableVC?.endTimeWindow)!)
-        u.hour = calendar.component(.Hour, fromDate: (tableVC?.endTimeWindow)!)
+        let l = calendar.components([.Month, .Day, .Hour], fromDate: (tableVC?.startTimeWindow)!)
+        let u = calendar.components([.Month, .Day, .Hour], fromDate: (tableVC?.endTimeWindow)!)
+        
+        l.year = Int((tableVC?.startYearTextField.text)!)!
+        u.year = Int((tableVC?.endYearTextField.text)!)!
 
         filter.setLimit(Int(limitTextField.text!)!)
         filter.setDateWindow(lowerBound: l, upperBound: u)
-        filter.setYear(Int(tableVC!.yearTextField.text!)!)
 
         filter.setPrimaryType(primarytypes: (tableVC?.selectedCrimeTypes)!)
 

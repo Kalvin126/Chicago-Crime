@@ -9,19 +9,20 @@
 import UIKit
 
 class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
-    var crimeTypesDropped:Bool
+    var crimeTypesDropped:Bool = true
+
     var selectedCrimeTypes:[PrimaryType] = []
 
     var startTimeWindow:NSDate
     var endTimeWindow:NSDate
 
     @IBOutlet weak var startWindowCell: UITableViewCell!
+    @IBOutlet weak var startYearTextField: UITextField!
+
     @IBOutlet weak var endWindowCell: UITableViewCell!
-    @IBOutlet weak var yearTextField: UITextField!
+    @IBOutlet weak var endYearTextField: UITextField!
 
     required init?(coder aDecoder: NSCoder) {
-        crimeTypesDropped = false
-
         // OK to hard code time since it is not being used for record
         startTimeWindow = NSDate().dateByAddingTimeInterval(-31536000)
         endTimeWindow = NSDate()
@@ -35,7 +36,8 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
         startWindowCell.detailTextLabel?.text = stringForDate(startTimeWindow)
         endWindowCell.detailTextLabel?.text = stringForDate(endTimeWindow)
 
-        yearTextField.delegate = self
+        startYearTextField.delegate = self
+        endYearTextField.delegate = self
     }
 
     func tappedCrimeTypes(recognizer: UITapGestureRecognizer) {
@@ -80,11 +82,14 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.section == 0 {
-            if indexPath.row == 2 {
+            if indexPath.row == 1 {
                 return
             }
 
             let dateDialog = DatePickerDialog()
+            dateDialog.datePicker.minimumDate = NSDate(timeIntervalSince1970: 86400)
+            dateDialog.datePicker.maximumDate = NSDate(timeIntervalSince1970: 31536000)
+
             dateDialog.show("Select a \((cell.textLabel?.text!.lowercaseString)!) time",  doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: (cell.textLabel?.text == "Start" ? startTimeWindow : endTimeWindow), datePickerMode: UIDatePickerMode.DateAndTime)
                 { (date) -> Void in
                     cell.detailTextLabel?.text = "\(date)"
