@@ -49,8 +49,10 @@ class Server {
                 let info:Dictionary = (root as? Dictionary<String,AnyObject>)!
                 self.schoolArray.append(School(info: info))
             }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                complete(result: self.schoolArray, interval: interval)
+            })
             
-            complete(result: self.schoolArray, interval: interval)
         }
         datatask.resume()
     }
@@ -83,7 +85,9 @@ class Server {
                 self.crimeArray = filter(self.crimeArray)
             }
 
-            complete(result: self.crimeArray, interval: interval)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                complete(result: self.crimeArray, interval: interval)
+            })
         }
         datatask.resume()
     }
