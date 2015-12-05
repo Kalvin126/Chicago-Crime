@@ -34,8 +34,6 @@ internal extension CALayer {
         let blue:CGFloat = CGFloat(pixel[2])/255.0
         let alpha:CGFloat = CGFloat(pixel[3])/255.0
         
-        //println("red:\(red) green:\(green) blue:\(blue)")
-        
         return UIColor(red:red, green: green, blue:blue, alpha:alpha)
     }
 }
@@ -93,10 +91,8 @@ internal class School : NSObject, MKAnnotation {
             //print("opps, Report has no lat/long for case \(caseNumber)")
             return CLLocationCoordinate2D(latitude: 0, longitude: 0);
         }
-        
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
-    
     
     init(info:Dictionary<String,AnyObject>) {
         func textToDouble(text:String?) -> Double? {

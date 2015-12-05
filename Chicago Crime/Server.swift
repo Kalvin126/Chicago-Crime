@@ -42,8 +42,7 @@ class Server {
                 return
             }
             
-            let timeStop:NSDate = NSDate()
-            let interval:NSTimeInterval = timeStop.timeIntervalSinceDate(timeStart)
+            let interval:NSTimeInterval = NSDate().timeIntervalSinceDate(timeStart)
             print("\(json!.count) schools returned in \(interval) seconds")
             
             for root in json! {
