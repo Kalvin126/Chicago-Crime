@@ -121,10 +121,11 @@ class MapVC: UIViewController, MKMapViewDelegate {
             return (annotation as! Report).mapAnnotationView()
 
         case is School:
-            let annoView:MKPinAnnotationView = (annotation as! School).mapAnnotationView() as! MKPinAnnotationView
+            let annoView:MKAnnotationView = (annotation as! School).mapAnnotationView()
 
-            let pinColor:UIColor = schoolGradient!.colorForRatio((annotation as! School).selectedAttributeFloat())
-            annoView.pinTintColor = pinColor
+            let colorTint:UIColor = schoolGradient!.colorForRatio((annotation as! School).selectedAttributeFloat())
+            
+            annoView.tintColor = colorTint
             return annoView
 
         default:
@@ -134,7 +135,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     func mapView(mapView: MKMapView, didSelectAnnotationView annotView: MKAnnotationView) {
         delegate?.mapVC(self, showDetailVCForAnnotation: annotView.annotation!)
-
+        print("selected school annot")
         annotView.highlighted = true
     }
 

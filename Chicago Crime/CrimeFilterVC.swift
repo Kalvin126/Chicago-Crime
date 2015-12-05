@@ -42,7 +42,7 @@ class CrimeFilterVC: UIViewController {
 
         tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? CrimeFilterTableVC
 
-        limitTextField.text = "100"
+        limitTextField.text = "10"
 
         commitFilter()
     }

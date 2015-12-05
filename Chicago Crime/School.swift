@@ -51,6 +51,7 @@ internal class School : NSObject, MKAnnotation {
     var schoolType:String
     var address:String
     var phone:String
+    var networkManager:String
     
     // student report
     var actScore:Double?
@@ -116,10 +117,11 @@ internal class School : NSObject, MKAnnotation {
         name = info["name_of_school"] as! String
         schoolType = info["elementary_or_high_school"] as! String
         address = info["street_address"] as! String
+        networkManager = info["network_manager"] as! String
         
-        print(name)
-        print("school type \(schoolType)")
-        print("")
+//        print(name)
+//        print("school type \(schoolType)")
+//        print("")
         
         
         // college things
@@ -216,12 +218,23 @@ internal class School : NSObject, MKAnnotation {
             break
         }
     }
-    
+    static let imgBorder:UIImage = UIImage(named: "School_Icon_Border")!
+    static let img:UIImage = UIImage(named: "School_Icon")!
     func mapAnnotationView() -> MKAnnotationView {
-        let annot = MKPinAnnotationView(annotation: self, reuseIdentifier: "annot")
+        let annot = MKAnnotationView(annotation: self, reuseIdentifier: "annot")
         annot.enabled = true
         annot.canShowCallout = false
-        annot.pinTintColor = UIColor.blueColor()
+        
+        
+        let subBorder = UIImageView(image: School.imgBorder)
+        subBorder.userInteractionEnabled = false
+        annot.addSubview(subBorder)
+        
+        let sub = UIImageView(image: School.img)
+        sub.userInteractionEnabled = false
+        annot.addSubview(sub)
+        
+        annot.frame = subBorder.bounds
         
         // disclosure button
         let discButton = UIButton(type:.DetailDisclosure)
