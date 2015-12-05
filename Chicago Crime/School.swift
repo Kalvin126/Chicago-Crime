@@ -13,6 +13,10 @@ import MapKit
 internal extension CALayer {
     func colorForRatio(ratio:CGFloat)->UIColor {
         
+        if ratio == -1 {
+            return UIColor.blueColor()
+        }
+        
         let point:CGPoint = CGPoint(x: self.frame.width*ratio, y: 2)
         
         var pixel:[CUnsignedChar] = [0,0,0,0]
@@ -37,6 +41,8 @@ internal extension CALayer {
 }
 
 internal class School : NSObject, MKAnnotation {
+    
+    var selectedFloat:CGFloat?
     
     // basic info
     var lat:Double?
@@ -153,8 +159,63 @@ internal class School : NSObject, MKAnnotation {
         
         cpsPerformanceLvl = info["cps_performance_policy_level"] as! String
         
+        
+        if safetyScore != nil {
+            selectedFloat = CGFloat(safetyScore!/100)
+        } else {
+            selectedFloat = CGFloat(-1)
+        }
     }
     
+    func selectedAttributeFloat()-> CGFloat {
+        
+        if selectedFloat == nil { return CGFloat(-1) }
+        
+        return selectedFloat!
+    }
+    
+    func setAttribute(SelectedAttribute s: SchoolAttribute) {
+        switch s {
+        case .SAFETY_SCORE:
+            if safetyScore != nil {
+                selectedFloat = CGFloat(safetyScore!/100)
+            }
+            break
+        case .PARENT_ENG_SCORE:
+            if parentEngScore != nil {
+                selectedFloat = CGFloat(parentEngScore!/100)
+            }
+            break
+        case .FAMILY_INVOLV_SCORE:
+            if familyInvolveScore != nil {
+                selectedFloat = CGFloat(familyInvolveScore!/100)
+            }
+            break
+        case .INSTRUCTION_SCORE:
+            if instructionScore != nil {
+                selectedFloat = CGFloat(instructionScore!/100)
+            }
+            break
+        case .TEACHER_SCORE:
+            if teacherScore != nil {
+                selectedFloat = CGFloat(teacherScore!/100)
+            }
+            break
+        case .STUDENT_ATD_SCORE:
+            if avgStudentAttend != nil {
+                selectedFloat = CGFloat(avgStudentAttend!/100)
+            }
+            break
+        case .TEACHER_ATD_SCORE:
+            selectedFloat = CGFloat(teacherAttend/100)
+            break
+        case .ALGEBRA_PASSING:
+            if algebraPassing != nil {
+                selectedFloat = CGFloat(algebraPassing!/100)
+            }
+            break
+        }
+    }
     
     func mapAnnotationView() -> MKAnnotationView {
         let annot = MKPinAnnotationView(annotation: self, reuseIdentifier: "annot")

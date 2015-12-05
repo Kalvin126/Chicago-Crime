@@ -202,11 +202,11 @@ class SplitViewController: UISplitViewController, MKMapViewDelegate, CrimeFilter
             return (annotation as! Report).mapAnnotationView()
 
         case is School:
-            let anno:MKPinAnnotationView = (annotation as! School).mapAnnotationView() as! MKPinAnnotationView
+            let annoView:MKPinAnnotationView = (annotation as! School).mapAnnotationView() as! MKPinAnnotationView
             
-            //var pinColor:UIColor = schoolGradient?.colorForRatio(getFloatForAttribute())
-            //anno.pinTintColor = pinColor
-            return anno
+            let pinColor:UIColor = schoolGradient!.colorForRatio((annotation as! School).selectedAttributeFloat())
+            annoView.pinTintColor = pinColor
+            return annoView
 
         default:
             return nil

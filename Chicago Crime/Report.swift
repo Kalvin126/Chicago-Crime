@@ -41,7 +41,7 @@ class Report: NSObject, MKAnnotation {
         desc = info["description"] as! String
         block = info["block"] as! String
         primaryType = info["primary_type"] as! String
-        print(primaryType)
+        //print(primaryType)
         
         // Date
         var dateString:String = (info["date"] as! String)
@@ -53,7 +53,7 @@ class Report: NSObject, MKAnnotation {
             cal.timeZone = NSTimeZone(abbreviation: "GMT")!
             dateComp = cal.components([.Weekday,.Day,.Hour,.Minute,.Year], fromDate: date!)
         }
-        print(date)
+        //print(date)
         
         arrest = info["arrest"] as! Bool
         domestic = info["domestic"] as! Bool
