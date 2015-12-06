@@ -41,6 +41,13 @@ class SchoolDetailVC: UIViewController {
         modalPresentationStyle = .CurrentContext
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if school != nil {
+            setup()
+        }
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -51,15 +58,13 @@ class SchoolDetailVC: UIViewController {
         }
     }
 
-    func setup(withSchool school:School) {
-        self.school = school
+    func setup() {
+        schoolNameLabel.text = school!.name
+        addressLabel.text = school!.address
+        phoneNumberLabel.text = school!.phone
+        districtLabel.text = school!.networkManager
 
-        schoolNameLabel.text = school.name
-        addressLabel.text = school.address
-        phoneNumberLabel.text = school.phone
-        districtLabel.text = school.networkManager
-
-        if let score = school.safetyScore {
+        if let score = school!.safetyScore {
             safetyLabel.text = "\(Int(score))"
             safetyLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -67,7 +72,7 @@ class SchoolDetailVC: UIViewController {
             safetyLabel.backgroundColor = UIColor.blackColor()
         }
 
-//        if let score = school.avgStudentAttend {
+//        if let score = school!.avgStudentAttend {
 //            attendenceLabel.text = "\(Int(score))"
 //            attendenceLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
 //        } else {
@@ -75,7 +80,7 @@ class SchoolDetailVC: UIViewController {
 //            attendenceLabel.backgroundColor = UIColor.blackColor()
 //        }
 
-        if let score = school.avgStudentAttend {
+        if let score = school!.avgStudentAttend {
             attendenceLabel.text = "\(Int(score))"
             attendenceLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -83,7 +88,7 @@ class SchoolDetailVC: UIViewController {
             attendenceLabel.backgroundColor = UIColor.blackColor()
         }
 
-        if let score = school.familyInvolveScore {
+        if let score = school!.familyInvolveScore {
             familyLabel.text = "\(Int(score))"
             familyLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -91,7 +96,7 @@ class SchoolDetailVC: UIViewController {
             familyLabel.backgroundColor = UIColor.blackColor()
         }
 
-        if let score = school.parentEngScore {
+        if let score = school!.parentEngScore {
             parentLabel.text = "\(Int(score))"
             parentLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -99,7 +104,7 @@ class SchoolDetailVC: UIViewController {
             parentLabel.backgroundColor = UIColor.blackColor()
         }
 
-        if let score = school.teacherScore {
+        if let score = school!.teacherScore {
             teacherLabel.text = "\(Int(score))"
             teacherLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -107,7 +112,7 @@ class SchoolDetailVC: UIViewController {
             teacherLabel.backgroundColor = UIColor.blackColor()
         }
 
-        if let score = school.algebraPassing {
+        if let score = school!.algebraPassing {
             passAlgebraLabel.text = "\(Int(score))"
             passAlgebraLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -115,7 +120,7 @@ class SchoolDetailVC: UIViewController {
             passAlgebraLabel.backgroundColor = UIColor.blackColor()
         }
 
-        if let score = school.graduationRate {
+        if let score = school!.graduationRate {
             graduationLabel.text = "\(Int(score))"
             graduationLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -123,7 +128,7 @@ class SchoolDetailVC: UIViewController {
             graduationLabel.backgroundColor = UIColor.blackColor()
         }
 
-        if let score = school.collegeEnrollRate {
+        if let score = school!.collegeEnrollRate {
             collegeEnrollLabel.text = "\(Int(score))"
             collegeEnrollLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
         } else {
@@ -131,9 +136,9 @@ class SchoolDetailVC: UIViewController {
             collegeEnrollLabel.backgroundColor = UIColor.blackColor()
         }
 
-        actLabel.text = school.actScore != nil ? "\(Int(school.actScore!))" : "NDA"
-        cpsPerfLabel.text = school.cpsPerformanceLvl
-        misconductLabel.text = school.misconduct100 != nil ? "\(Int(school.misconduct100!))" : "NDA"
+        actLabel.text = school!.actScore != nil ? "\(Int(school!.actScore!))" : "NDA"
+        cpsPerfLabel.text = school!.cpsPerformanceLvl != "Not Enough Data" ? school!.cpsPerformanceLvl : "NDA"
+        misconductLabel.text = school!.misconduct100 != nil ? "\(Int(school!.misconduct100!))" : "NDA"
     }
 
     @IBAction func pressedClose(sender: AnyObject) {
