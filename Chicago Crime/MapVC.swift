@@ -24,16 +24,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var schools:Array<School> = []
     var schoolRadius:Double = 1609 // meters
 
-    var schoolGradient:CAGradientLayer?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        schoolGradient = CAGradientLayer()
-        schoolGradient!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
-        schoolGradient!.locations = [0.0 ,0.3,0.65,0.68, 1.0]
-        schoolGradient?.startPoint = CGPoint(x: 0.0, y: 0.5)
-        schoolGradient?.endPoint = CGPoint(x: 1.0, y: 0.5)
 
         mapView.delegate = self
         mapView.showsScale = true
@@ -52,8 +44,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
         super.viewWillAppear(animated)
         let gradientView:UIView = UIView(frame: CGRect(x: 0, y: view.frame.size.height-30, width: 400, height: 30))
         gradientView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.1)
-        schoolGradient?.frame = gradientView.bounds
-        gradientView.layer.insertSublayer(schoolGradient!, above: view.layer)
+        gradLayer?.frame = gradientView.bounds
+        gradientView.layer.insertSublayer(gradLayer!, above: view.layer)
 
         view.insertSubview(gradientView, aboveSubview: view)
     }
@@ -143,7 +135,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         case is School:
             let annoView:MKAnnotationView = (annotation as! School).mapAnnotationView()
 
-            let colorTint:UIColor = schoolGradient!.colorForRatio((annotation as! School).selectedAttributeFloat())
+            let colorTint:UIColor = gradLayer!.colorForRatio((annotation as! School).selectedAttributeFloat())
             
             annoView.tintColor = colorTint
             return annoView

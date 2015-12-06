@@ -9,6 +9,8 @@
 import MapKit
 import UIKit
 
+var gradLayer:CAGradientLayer?
+
 class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDelegate, School1FilterDelegate {
 
     var mapVC:MapVC?
@@ -20,8 +22,11 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-        
+        gradLayer = CAGradientLayer()
+        gradLayer!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
+        gradLayer!.locations = [0.0 ,0.3,0.65,0.68, 1.0]
+        gradLayer?.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradLayer?.endPoint = CGPoint(x: 1.0, y: 0.5)
         
         mapVC = self.viewControllers[0] as? MapVC
         mapVC!.delegate = self
