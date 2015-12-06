@@ -23,6 +23,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var crimes:Array<Report> = []
     var schools:Array<School> = []
     var schoolRadius:Double = 1609 // meters
+    var radiusOverlays:[MKCircle] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,12 @@ class MapVC: UIViewController, MKMapViewDelegate {
     }
 
     func addSchools(schools: Array<School>) {
+        // remove overlays
+        for c in radiusOverlays {
+            mapView.removeOverlay(c)
+        }
+        radiusOverlays.removeAll()
+        
         clearSchools()
 
         self.schools += schools
@@ -109,20 +116,20 @@ class MapVC: UIViewController, MKMapViewDelegate {
     }
     
     func addRadiusCircle(location: CLLocationCoordinate2D){
-        
-        for over:MKOverlay in mapView.overlays {
-            if over is MKCircle {
-                let c = (over as! MKCircle).coordinate
-                if c.latitude == location.latitude && c.longitude == location.longitude  {
-                    // we found an overlay equal to the one we're trying to add so remove
-                    mapView.removeOverlay(over)
-                    return
-                }
+        let circle = MKCircle(centerCoordinate: location, radius: schoolRadius as CLLocationDistance)
+        let lat = circle.coordinate.latitude
+        let lon = circle.coordinate.longitude
+        for i in 0..<radiusOverlays.count {
+            let c = radiusOverlays[i].coordinate
+            if lat == c.latitude && lon == c.longitude {
+                // overlay is already on screen
+                mapView.removeOverlay(radiusOverlays[i])
+                radiusOverlays.removeAtIndex(i)
+                return
             }
         }
-        
-        let circle = MKCircle(centerCoordinate: location, radius: schoolRadius as CLLocationDistance)
         self.mapView.addOverlay(circle)
+        radiusOverlays.append(circle)
     }
 
     // MARK: MKMapViewDelegate
