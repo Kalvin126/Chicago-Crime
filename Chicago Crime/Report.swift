@@ -21,7 +21,6 @@ class Report: NSObject, MKAnnotation {
     var date:NSDate?
     var dateComp:NSDateComponents?
     
-    
     var arrest:Bool
     var domestic:Bool
     var locationDescription:String?
