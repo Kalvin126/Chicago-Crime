@@ -36,8 +36,9 @@ class MapVC: UIViewController, MKMapViewDelegate {
         schoolGradient?.endPoint = CGPoint(x: 1.0, y: 0.5)
 
         mapView.delegate = self
-//        mapView.mapType = .Hybrid
-        //mapView.pitchEnabled = false
+        mapView.showsScale = true
+        
+        
 
         // set initial mapView position
         let center = CLLocationCoordinate2DMake(41.8570092871228, -87.6975366951543)
@@ -49,7 +50,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let gradientView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 30))
+        let gradientView:UIView = UIView(frame: CGRect(x: 0, y: view.frame.size.height-30, width: 400, height: 30))
         gradientView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.1)
         schoolGradient?.frame = gradientView.bounds
         gradientView.layer.insertSublayer(schoolGradient!, above: view.layer)
