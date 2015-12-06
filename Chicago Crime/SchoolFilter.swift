@@ -33,8 +33,6 @@ class SchoolFilter : NSObject {
         
         return url
     }
-    
-    
 }
 
 

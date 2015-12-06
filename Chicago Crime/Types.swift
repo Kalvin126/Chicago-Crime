@@ -17,8 +17,19 @@ enum Icon : String {
     case NDA = "NDA"
 }
 
-enum SchoolAttribute {
-    case SAFETY_SCORE, PARENT_ENG_SCORE, FAMILY_INVOLV_SCORE, INSTRUCTION_SCORE, TEACHER_SCORE, STUDENT_ATD_SCORE, TEACHER_ATD_SCORE, ALGEBRA_PASSING, GRADUATION_RATE
+enum SchoolAttribute : String {
+    case SAFETY_SCORE           = "Safety"
+    case PARENT_ENG_SCORE       = "Parent Engagement"
+    case FAMILY_INVOLV_SCORE    = "Family Involvement"
+    case INSTRUCTION_SCORE      = "Instruction"
+    case TEACHER_SCORE          = "Teacher Score"
+    case STUDENT_ATD_SCORE      = "Student Attendence"
+    case TEACHER_ATD_SCORE      = "Teacher Attendence"
+    case ALGEBRA_PASSING        = "Students Passing Algebra"
+    case GRADUATION_RATE        = "Gradiation Rate"
+
+    static let allValues = [SAFETY_SCORE, PARENT_ENG_SCORE, FAMILY_INVOLV_SCORE, INSTRUCTION_SCORE, TEACHER_SCORE, STUDENT_ATD_SCORE, TEACHER_ATD_SCORE, ALGEBRA_PASSING, GRADUATION_RATE]
+    static let allRawValues = SchoolAttribute.allValues.map{ $0.rawValue }
 }
 
 enum PrimaryType : String {

@@ -21,17 +21,19 @@ protocol MapVCDelegate {
 
 class MapVC: UIViewController, MKMapViewDelegate {
 
-    @IBOutlet weak var mapView: MKMapView!
-
     var delegate: MapVCDelegate?
 
     var cityBoundary: ChicagoBoundary = .City
     var boundaryOverlays: [MKPolygon] = []
 
     var crimes:Array<Report> = []
+
     var schools:Array<School> = []
+    var schoolHeatMapAttrib: SchoolAttribute?
     var schoolRadius:Double = 1609 // meters
     var radiusOverlays:[MKCircle] = []
+
+    @IBOutlet weak var mapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,12 +199,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
             return (annotation as! Report).mapAnnotationView()
 
         case is School:
-            let annoView:MKAnnotationView = (annotation as! School).mapAnnotationView()
-
-            let colorTint:UIColor = gradLayer!.colorForRatio((annotation as! School).selectedAttributeFloat())
-            
-            annoView.tintColor = colorTint
-            return annoView
+            if schoolHeatMapAttrib != nil {
+                (annotation as! School).setAttribute(SelectedAttribute: schoolHeatMapAttrib!)
+            }
+            return (annotation as! School).mapAnnotationView()
             
         default:
             return nil
@@ -217,9 +217,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
             let school:School = annotView.annotation as! School
             addRadiusCircle(school.coordinate)
         }
-        
-        
-        
+
         annotView.highlighted = true
     }
 

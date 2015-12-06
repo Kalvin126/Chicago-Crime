@@ -182,6 +182,12 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     // MARK: SchoolFilterVC Delegate
 
     func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results: Array<School>) {
+        if filterVC.tableVC!.heatmapAttribOn {
+            mapVC?.schoolHeatMapAttrib = filterVC.tableVC?.selectedHeatmapAttrib
+        } else {
+            mapVC?.schoolHeatMapAttrib = nil
+        }
+
         mapVC?.addSchools(results)
     }
 

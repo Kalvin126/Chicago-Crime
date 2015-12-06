@@ -113,8 +113,8 @@
                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="UqO-aq-KAE" kind="relationship" relationship="viewControllers" id="ZYD-ay-8iB"/>
                         <segue destination="Ito-Sa-LBn" kind="relationship" relationship="viewControllers" id="BkR-4L-oxR"/>
+                        <segue destination="UqO-aq-KAE" kind="relationship" relationship="viewControllers" id="ZYD-ay-8iB"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4uE-GA-WmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -675,6 +675,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection headerTitle="School Level" id="ezz-gM-Hkm">
+                                <cells/>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Heat Map Attribute" id="UXH-SD-BdE">
                                 <cells/>
                             </tableViewSection>
                         </sections>

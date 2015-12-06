@@ -9,14 +9,15 @@
 import UIKit
 
 class SchoolFilterTableVC: UITableViewController {
-    var schoolLevelsDropped:Bool
-
+    var schoolLevelsDropped:Bool = true
     var selectedSchoolLevels:[SchoolLevel] = []
-    var levelFilterOn = true
+    var levelFilterOn:Bool = true
+
+    var heatmapAttribDropped: Bool = true
+    var selectedHeatmapAttrib: SchoolAttribute?
+    var heatmapAttribOn: Bool = false
 
     required init?(coder aDecoder: NSCoder) {
-        schoolLevelsDropped = true
-
         super.init(coder: aDecoder)
     }
 
@@ -44,8 +45,30 @@ class SchoolFilterTableVC: UITableViewController {
         }
     }
 
+    func tappedHeatMapAttrib(recognizer: UITapGestureRecognizer) {
+        let button = recognizer.view!.viewWithTag(3) as! UIButton
+
+        heatmapAttribDropped = !heatmapAttribDropped
+        UIView.animateWithDuration(0.3) { () -> Void in
+            button.transform = CGAffineTransformMakeRotation((self.heatmapAttribDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
+        }
+
+        let heatmapAttribCells = (0...SchoolAttribute.allRawValues.count-1).map{ NSIndexPath(forRow: $0, inSection: 1) }
+
+        if heatmapAttribDropped {
+            tableView.insertRowsAtIndexPaths(heatmapAttribCells, withRowAnimation: .Fade)
+        }
+        else {
+            tableView.deleteRowsAtIndexPaths(heatmapAttribCells, withRowAnimation: .Fade)
+        }
+    }
+
     func toggledLevelFilter(sender: UISwitch!) {
         levelFilterOn = sender.on
+    }
+
+    func toggledHeatMapAttrib(sender: UISwitch!) {
+        heatmapAttribOn = sender.on
     }
 
     // MARK: UITableViewDelegate
@@ -62,6 +85,13 @@ class SchoolFilterTableVC: UITableViewController {
                 tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
             }
         }
+        else if indexPath.section == 1 {    // HeatMap Attribs
+            if cell.accessoryType == .None {
+                selectedHeatmapAttrib = SchoolAttribute(rawValue:(cell.textLabel!.text)!)
+
+                tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+            }
+        }
     }
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -76,7 +106,7 @@ class SchoolFilterTableVC: UITableViewController {
 
         if section == 0 {
             label.text = "School Levels"
-            discButton.transform = CGAffineTransformMakeRotation((self.schoolLevelsDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
+            discButton.transform = CGAffineTransformMakeRotation((schoolLevelsDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
 
             let tapRecog = UITapGestureRecognizer(target: self, action: "tappedSchoolLevels:")
             headerView!.addGestureRecognizer(tapRecog)
@@ -84,7 +114,17 @@ class SchoolFilterTableVC: UITableViewController {
             querySwitch.addTarget(self, action: "toggledLevelFilter:", forControlEvents: .TouchUpInside)
 
             return headerView
+        }
+        else if section == 1 {
+            label.text = "Heat Map Attribute"
+            discButton.transform = CGAffineTransformMakeRotation((heatmapAttribDropped ? 1 : -1)*CGFloat(M_PI / 2.0))
 
+            let tapRecog = UITapGestureRecognizer(target: self, action: "tappedHeatMapAttrib:")
+            headerView!.addGestureRecognizer(tapRecog)
+
+            querySwitch.addTarget(self, action: "toggledHeatMapAttrib:", forControlEvents: .TouchUpInside)
+
+            return headerView
         }
 
         return nil
@@ -108,6 +148,9 @@ class SchoolFilterTableVC: UITableViewController {
         if section == 0 {
             return (schoolLevelsDropped ? SchoolLevel.allRawValues.count : 0)
         }
+        else if section == 1 {
+            return (heatmapAttribDropped ? SchoolAttribute.allRawValues.count : 0)
+        }
 
         return super.tableView(tableView, numberOfRowsInSection: section)
     }
@@ -120,7 +163,17 @@ class SchoolFilterTableVC: UITableViewController {
             if selectedSchoolLevels.contains(SchoolLevel.allValues[indexPath.row]) {
                 cell.accessoryType = .Checkmark
             }
-            
+
+            return cell
+        }
+        else if indexPath.section == 1 {
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "heatmapAttribCell")
+            cell.textLabel?.text = SchoolAttribute.allRawValues[indexPath.row]
+
+            if selectedHeatmapAttrib == SchoolAttribute.allValues[indexPath.row] {
+                cell.accessoryType = .Checkmark
+            }
+
             return cell
         }
         

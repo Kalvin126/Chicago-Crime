@@ -13,7 +13,7 @@ import MapKit
 internal extension CALayer {
     func colorForRatio(ratio:CGFloat)->UIColor {
         
-        if ratio == -1 {
+        if ratio == CGFloat(-1) {
             return UIColor.blueColor()
         }
         
@@ -128,12 +128,7 @@ internal class School : NSObject, MKAnnotation {
         state = info["state"] as! String
         city = info["city"] as! String
         zip = info["zip_code"] as! String
-        
-//        print(name)
-//        print("school type \(schoolType)")
-//        print("")
-        
-        
+
         // college things
         
         collegeEligibility = textToDouble(info["college_eligibility_"] as? String)
@@ -173,17 +168,9 @@ internal class School : NSObject, MKAnnotation {
         
         cpsPerformanceLvl = info["cps_performance_policy_level"] as! String
         actScore = textToDouble(info["_th_grade_average_act_2011_"] as? String)
-        
-        
-        if safetyScore != nil {
-            selectedFloat = CGFloat(safetyScore!/100)
-        } else {
-            selectedFloat = CGFloat(-1)
-        }
     }
     
     func selectedAttributeFloat()-> CGFloat {
-        
         if selectedFloat == nil { return CGFloat(-1) }
         
         return selectedFloat!
@@ -235,13 +222,14 @@ internal class School : NSObject, MKAnnotation {
             }
         }
     }
+
     static let imgBorder:UIImage = UIImage(named: "School_Icon_Border")!
     static let img:UIImage = UIImage(named: "School_Icon")!
     func mapAnnotationView() -> MKAnnotationView {
         let annot = MKAnnotationView(annotation: self, reuseIdentifier: "annot")
         annot.enabled = true
         annot.canShowCallout = false
-        
+        annot.tintColor = selectedFloat != nil ? gradLayer!.colorForRatio(selectedAttributeFloat()) : UIColor.blueColor()
         
         let subBorder = UIImageView(image: School.imgBorder)
         subBorder.userInteractionEnabled = false
@@ -263,43 +251,3 @@ internal class School : NSObject, MKAnnotation {
     
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
