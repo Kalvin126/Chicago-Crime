@@ -157,8 +157,8 @@ internal class School : NSObject, MKAnnotation {
         safetyScore = textToDouble(info["safety_score"] as? String)
         safetyIcon = Icon(rawValue: info["safety_icon_"] as! String)!
         
-        environmentScore = info["environment_score"] as? Double
-
+        environmentScore = textToDouble(info["environment_score"] as? String)
+        print(environmentScore)
         // non score icon duos
         
         adequateYearlyProgress = info["adequate_yearly_progress_made_"] as! String
