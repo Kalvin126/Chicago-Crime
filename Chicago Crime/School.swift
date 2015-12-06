@@ -50,6 +50,13 @@ internal class School : NSObject, MKAnnotation {
     var address:String
     var phone:String
     var networkManager:String
+    var fullAddress:String {
+        return "\(address) \(city), \(state) \(zip)"
+    }
+    
+    var state:String
+    var city:String
+    var zip:String
     
     // student report
     var actScore:Double?
@@ -82,10 +89,13 @@ internal class School : NSObject, MKAnnotation {
     var avgStudentAttend:Double?
     var misconduct100:Double?
     
+    var environmentScore:Double?
     var teacherAttend:Double
     
     var algebraTaking:Int?
     var algebraPassing:Double?
+    
+    
     var coordinate: CLLocationCoordinate2D {
         guard let latitude = lat, longitude = lon else {
             //print("opps, Report has no lat/long for case \(caseNumber)")
@@ -115,6 +125,10 @@ internal class School : NSObject, MKAnnotation {
         address = info["street_address"] as! String
         networkManager = info["network_manager"] as! String
         
+        state = info["state"] as! String
+        city = info["city"] as! String
+        zip = info["zip_code"] as! String
+        
 //        print(name)
 //        print("school type \(schoolType)")
 //        print("")
@@ -142,6 +156,8 @@ internal class School : NSObject, MKAnnotation {
         
         safetyScore = textToDouble(info["safety_score"] as? String)
         safetyIcon = Icon(rawValue: info["safety_icon_"] as! String)!
+        
+        environmentScore = info["environment_score"] as? Double
 
         // non score icon duos
         
@@ -151,11 +167,13 @@ internal class School : NSObject, MKAnnotation {
         algebraTaking = Int(info["students_taking_algebra"] as! String)
         
         misconduct100 = Double(info["rate_of_misconducts_per_100_students_"] as! String)
+        
         avgStudentAttend = textToDouble(info["average_student_attendance"] as? String)
         teacherAttend = Double(info["average_teacher_attendance"] as! String)!
         
         
         cpsPerformanceLvl = info["cps_performance_policy_level"] as! String
+        actScore = textToDouble(info["_th_grade_average_act_2011_"] as? String)
         
         
         if safetyScore != nil {
