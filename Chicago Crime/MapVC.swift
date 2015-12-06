@@ -77,12 +77,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
     }
 
     func addSchools(schools: Array<School>) {
-        // remove overlays
-        for c in radiusOverlays {
-            mapView.removeOverlay(c)
-        }
-        radiusOverlays.removeAll()
-        
         clearSchools()
 
         self.schools += schools
@@ -90,6 +84,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
     }
 
     func clearSchools() {
+        // remove overlays
+        radiusOverlays.forEach{ self.mapView.removeOverlay($0) }
+        radiusOverlays.removeAll()
+
         mapView.removeAnnotations(schools)
         schools.removeAll()
     }

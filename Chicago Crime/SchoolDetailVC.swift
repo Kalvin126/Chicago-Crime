@@ -64,77 +64,35 @@ class SchoolDetailVC: UIViewController {
         phoneNumberLabel.text = school!.phone
         districtLabel.text = school!.networkManager
 
-        if let score = school!.safetyScore {
-            safetyLabel.text = "\(Int(score))"
-            safetyLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            safetyLabel.text = "NDA"
-            safetyLabel.backgroundColor = UIColor.blackColor()
+        let setScoreLabel = { (let label: UILabel, let val: Double?) -> Void in
+            label.textColor = UIColor.whiteColor()
+
+            if let score = val {
+                label.text = "\(Int(score))"
+
+                let ratio = score/100.0
+                label.backgroundColor = gradLayer?.colorForRatio(CGFloat(ratio))
+
+                if ratio > 0.6 && ratio < 0.8 {
+                    label.textColor = UIColor.blackColor()
+                }
+            } else {
+                label.text = "NDA"
+                label.backgroundColor = UIColor.blackColor()
+            }
         }
 
-        if let score = school!.environmentScore {
-            environmentLabel.text = "\(Int(score))"
-            environmentLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            environmentLabel.text = "NDA"
-            environmentLabel.backgroundColor = UIColor.blackColor()
-        }
+        setScoreLabel(safetyLabel, school!.safetyScore)
+        setScoreLabel(environmentLabel, school!.environmentScore)
+        setScoreLabel(attendenceLabel, school!.avgStudentAttend)
 
-        if let score = school!.avgStudentAttend {
-            attendenceLabel.text = "\(Int(score))"
-            attendenceLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            attendenceLabel.text = "NDA"
-            attendenceLabel.backgroundColor = UIColor.blackColor()
-        }
+        setScoreLabel(familyLabel, school!.familyInvolveScore)
+        setScoreLabel(parentLabel, school!.parentEngScore)
+        setScoreLabel(teacherLabel, school!.teacherScore)
 
-        if let score = school!.familyInvolveScore {
-            familyLabel.text = "\(Int(score))"
-            familyLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            familyLabel.text = "NDA"
-            familyLabel.backgroundColor = UIColor.blackColor()
-        }
-
-        if let score = school!.parentEngScore {
-            parentLabel.text = "\(Int(score))"
-            parentLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            parentLabel.text = "NDA"
-            parentLabel.backgroundColor = UIColor.blackColor()
-        }
-
-        if let score = school!.teacherScore {
-            teacherLabel.text = "\(Int(score))"
-            teacherLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            teacherLabel.text = "NDA"
-            teacherLabel.backgroundColor = UIColor.blackColor()
-        }
-
-        if let score = school!.algebraPassing {
-            passAlgebraLabel.text = "\(Int(score))"
-            passAlgebraLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            passAlgebraLabel.text = "NDA"
-            passAlgebraLabel.backgroundColor = UIColor.blackColor()
-        }
-
-        if let score = school!.graduationRate {
-            graduationLabel.text = "\(Int(score))"
-            graduationLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            graduationLabel.text = "NDA"
-            graduationLabel.backgroundColor = UIColor.blackColor()
-        }
-
-        if let score = school!.collegeEnrollRate {
-            collegeEnrollLabel.text = "\(Int(score))"
-            collegeEnrollLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-        } else {
-            collegeEnrollLabel.text = "NDA"
-            collegeEnrollLabel.backgroundColor = UIColor.blackColor()
-        }
+        setScoreLabel(passAlgebraLabel, school!.algebraPassing)
+        setScoreLabel(graduationLabel, school!.graduationRate)
+        setScoreLabel(collegeEnrollLabel, school!.collegeEnrollRate)
 
         actLabel.text = school!.actScore != nil ? "\(Int(school!.actScore!))" : "NDA"
         cpsPerfLabel.text = school!.cpsPerformanceLvl != "Not Enough Data" ? school!.cpsPerformanceLvl : "NDA"
