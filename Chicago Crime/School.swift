@@ -51,7 +51,7 @@ internal class School : NSObject, MKAnnotation {
     var phone:String
     var networkManager:String
     var fullAddress:String {
-        return "\(address) \(city), \(state) \(zip)"
+        return "\(address), \(city), \(state) \(zip)"
     }
     
     var state:String

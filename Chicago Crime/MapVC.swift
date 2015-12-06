@@ -9,6 +9,11 @@
 import MapKit
 import UIKit
 
+enum ChicagoBoundary : String {
+    case City = "City"
+    case Neighborhood = "Neighborhood"
+    case None = "None"
+}
 
 protocol MapVCDelegate {
     func mapVC(mapVC: MapVC, showDetailVCForAnnotation annotation:MKAnnotation)
@@ -20,6 +25,9 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     var delegate: MapVCDelegate?
 
+    var cityBoundary: ChicagoBoundary = .City
+    var boundaryOverlays: [MKPolygon] = []
+
     var crimes:Array<Report> = []
     var schools:Array<School> = []
     var schoolRadius:Double = 1609 // meters
@@ -29,15 +37,13 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
         mapView.delegate = self
         mapView.showsScale = true
-        
-        
 
         // set initial mapView position
         let center = CLLocationCoordinate2DMake(41.8570092871228, -87.6975366951543)
         let span = MKCoordinateSpanMake(0.4, 0.7)
         mapView.setRegion(MKCoordinateRegionMake(center, span), animated: false)
 
-        showBoundaryWithDataSet("chicago_boundaries_neighborhood")
+        showBoundaryWithDataSet("chicago_boundaries")
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -81,29 +87,33 @@ class MapVC: UIViewController, MKMapViewDelegate {
         schools.removeAll()
     }
 
+    func clearBoundaries() {
+        mapView.removeOverlays(boundaryOverlays)
+        boundaryOverlays.removeAll()
+    }
+
     func showBoundaryWithDataSet(set: String) {
+        clearBoundaries()
+
         let path = NSBundle.mainBundle().pathForResource(set, ofType: "json")
         let json = JSON(data: NSData(contentsOfFile: path!)!)
 
-        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
-        dispatch_async(backgroundQueue) {
-            var communities:[[CLLocationCoordinate2D]] = []
-
+        let timeStart:NSDate = NSDate()
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
             for (_, sJson) in json {
                 var points:[CLLocationCoordinate2D] = []
                 for (_, ssJson) in sJson["the_geom"]["coordinates"][0][0] {
                     points += [CLLocationCoordinate2DMake(ssJson[1].double!, ssJson[0].double!)]
                 }
 
-                communities += [points]
+                self.boundaryOverlays += [MKPolygon(coordinates: &points, count: points.count)]
             }
 
-            dispatch_async(dispatch_get_main_queue()){
-                communities.forEach { (var community) -> () in
-                    let poly = MKPolygon(coordinates: &community, count: community.count)
+            dispatch_async(dispatch_get_main_queue()) {
+                self.mapView.addOverlays(self.boundaryOverlays)
 
-                    self.mapView.addOverlay(poly)
-                }
+                let interval:NSTimeInterval = NSDate().timeIntervalSinceDate(timeStart)
+                print("Boundary load and plot finished in \(interval) seconds")
             }
         }
     }
@@ -123,6 +133,55 @@ class MapVC: UIViewController, MKMapViewDelegate {
         
         let circle = MKCircle(centerCoordinate: location, radius: schoolRadius as CLLocationDistance)
         self.mapView.addOverlay(circle)
+    }
+
+    // MARK: IBActions
+
+    @IBAction func tappedBoundaryButton(sender: UIButton) {
+        cityBoundary = { () -> ChicagoBoundary in
+            switch self.cityBoundary {
+            case .City:
+                showBoundaryWithDataSet("chicago_boundaries_neighborhood")
+                return .Neighborhood
+
+            case .Neighborhood:
+                clearBoundaries()
+                return .None
+
+            case .None:
+                showBoundaryWithDataSet("chicago_boundaries")
+                return .City
+            }
+        }()
+
+        sender.setTitle(cityBoundary.rawValue, forState: .Normal)
+    }
+
+    @IBAction func tappedMapTypeButton(sender: UIButton) {
+        let nextType = MKMapType(rawValue: mapView.mapType.rawValue + UInt(1))!
+        mapView.mapType = mapView.mapType == .HybridFlyover ? .Standard : nextType
+
+        switch mapView.mapType {
+        case .Standard:
+            sender.setTitle("Standard", forState: .Normal)
+            break
+
+        case .Satellite:
+            sender.setTitle("Satellite", forState: .Normal)
+            break
+
+        case .Hybrid:
+            sender.setTitle("Hybrid", forState: .Normal)
+            break
+
+        case .SatelliteFlyover:
+            sender.setTitle("Satellite Flyover", forState: .Normal)
+            break
+
+        case .HybridFlyover:
+            sender.setTitle("Hybrid Flyover", forState: .Normal)
+            break
+        }
     }
 
     // MARK: MKMapViewDelegate

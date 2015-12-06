@@ -25,14 +25,42 @@
                                     <outlet property="delegate" destination="dlw-4b-0E1" id="O6F-RL-gVp"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af5-rV-mEc">
+                                <rect key="frame" x="564" y="730" width="110" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="k9o-3T-QTM"/>
+                                    <constraint firstAttribute="width" constant="110" id="rjH-DB-K4j"/>
+                                </constraints>
+                                <state key="normal" title="City"/>
+                                <connections>
+                                    <action selector="tappedBoundaryButton:" destination="dlw-4b-0E1" eventType="touchUpInside" id="VHg-gi-mnz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIy-ee-BGZ">
+                                <rect key="frame" x="446" y="730" width="110" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="17d-Qb-0uS"/>
+                                    <constraint firstAttribute="height" constant="30" id="Pkl-Ot-gIK"/>
+                                </constraints>
+                                <state key="normal" title="Standard"/>
+                                <connections>
+                                    <action selector="tappedMapTypeButton:" destination="dlw-4b-0E1" eventType="touchUpInside" id="9Ma-Vu-vZI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="daF-V2-JJd" secondAttribute="trailing" id="1SL-G3-SMy"/>
                             <constraint firstItem="daF-V2-JJd" firstAttribute="top" secondItem="JfG-we-xav" secondAttribute="bottom" constant="-20" id="5AM-4b-ALC"/>
+                            <constraint firstItem="af5-rV-mEc" firstAttribute="leading" secondItem="bIy-ee-BGZ" secondAttribute="trailing" constant="8" id="Bbt-iI-f5V"/>
                             <constraint firstItem="daF-V2-JJd" firstAttribute="leading" secondItem="GJl-XC-DmF" secondAttribute="leading" id="TL1-1F-BOg"/>
+                            <constraint firstItem="aRZ-6K-I9o" firstAttribute="top" secondItem="af5-rV-mEc" secondAttribute="bottom" constant="8" id="c1T-3e-SUb"/>
                             <constraint firstItem="aRZ-6K-I9o" firstAttribute="top" secondItem="daF-V2-JJd" secondAttribute="bottom" id="gPU-P5-8vH"/>
+                            <constraint firstItem="af5-rV-mEc" firstAttribute="trailing" secondItem="GJl-XC-DmF" secondAttribute="trailingMargin" id="gT5-gB-lFg"/>
+                            <constraint firstItem="aRZ-6K-I9o" firstAttribute="top" secondItem="bIy-ee-BGZ" secondAttribute="bottom" constant="8" id="kPE-Dx-oYk"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -85,8 +113,8 @@
                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Ito-Sa-LBn" kind="relationship" relationship="viewControllers" id="BkR-4L-oxR"/>
                         <segue destination="UqO-aq-KAE" kind="relationship" relationship="viewControllers" id="ZYD-ay-8iB"/>
+                        <segue destination="Ito-Sa-LBn" kind="relationship" relationship="viewControllers" id="BkR-4L-oxR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4uE-GA-WmD" userLabel="First Responder" sceneMemberID="firstResponder"/>

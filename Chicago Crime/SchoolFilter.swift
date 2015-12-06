@@ -13,11 +13,6 @@ class SchoolFilter : NSObject {
     private var schoolLvl:SchoolLevel?
     private var cpsLvl:String?
     
-    override init() {
-        super.init()
-        schoolLvl = SchoolLevel.HighSchool
-    }
-    
     func setSchoolLevel(lvl:SchoolLevel) {
         schoolLvl = lvl;
     }

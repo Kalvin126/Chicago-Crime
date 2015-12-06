@@ -16,7 +16,6 @@ protocol CrimeFilterDelegate {
 }
 
 class CrimeFilterVC: UIViewController {
-    var filter: CrimeFilter
     var delegate: CrimeFilterDelegate?
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
@@ -28,12 +27,6 @@ class CrimeFilterVC: UIViewController {
     @IBOutlet weak var commitActivtyView: UIActivityIndicatorView!
 
     var tableVC:CrimeFilterTableVC?
-
-    required init?(coder aDecoder: NSCoder) {
-        filter = CrimeFilter()
-
-        super.init(coder: aDecoder)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +49,8 @@ class CrimeFilterVC: UIViewController {
         commitButton.titleLabel?.removeFromSuperview()
         commitButton.userInteractionEnabled = false
         commitActivtyView.startAnimating()
+
+        let filter = CrimeFilter()
 
         if tableVC?.startTimeWindow.timeIntervalSinceDate((tableVC?.endTimeWindow)!) > 0 {
             let alertController = UIAlertController(title: "Filter", message: "ERROR: Start time must be before end time", preferredStyle: .Alert)

@@ -60,7 +60,7 @@ class SchoolDetailVC: UIViewController {
 
     func setup() {
         schoolNameLabel.text = school!.name
-        addressLabel.text = school!.address
+        addressLabel.text = school!.fullAddress
         phoneNumberLabel.text = school!.phone
         districtLabel.text = school!.networkManager
 
@@ -72,13 +72,13 @@ class SchoolDetailVC: UIViewController {
             safetyLabel.backgroundColor = UIColor.blackColor()
         }
 
-//        if let score = school!.avgStudentAttend {
-//            attendenceLabel.text = "\(Int(score))"
-//            attendenceLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
-//        } else {
-//            attendenceLabel.text = "NDA"
-//            attendenceLabel.backgroundColor = UIColor.blackColor()
-//        }
+        if let score = school!.environmentScore {
+            environmentLabel.text = "\(Int(score))"
+            environmentLabel.backgroundColor = gradLayer?.colorForRatio(CGFloat(score/100.0))
+        } else {
+            environmentLabel.text = "NDA"
+            environmentLabel.backgroundColor = UIColor.blackColor()
+        }
 
         if let score = school!.avgStudentAttend {
             attendenceLabel.text = "\(Int(score))"

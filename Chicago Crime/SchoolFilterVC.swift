@@ -14,7 +14,7 @@ protocol School1FilterDelegate {
 }
 
 class SchoolFilterVC: UIViewController {
-    var filter: SchoolFilter
+
     var delegate: School1FilterDelegate?
 
     @IBOutlet weak var resultButton: UIBarButtonItem!
@@ -24,12 +24,6 @@ class SchoolFilterVC: UIViewController {
     @IBOutlet weak var commitActivtyView: UIActivityIndicatorView!
 
     var tableVC:SchoolFilterTableVC?
-
-    required init?(coder aDecoder: NSCoder) {
-        filter = SchoolFilter()
-
-        super.init(coder: aDecoder)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +45,9 @@ class SchoolFilterVC: UIViewController {
         commitButton.userInteractionEnabled = false
         commitActivtyView.startAnimating()
 
-        if tableVC?.selectedSchoolLevels.count != 0 {
+        let filter = SchoolFilter()
+
+        if tableVC!.levelFilterOn {
             filter.setSchoolLevel((tableVC?.selectedSchoolLevels[0])!)
         }
         

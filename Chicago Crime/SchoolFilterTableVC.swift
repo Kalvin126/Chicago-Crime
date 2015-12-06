@@ -81,7 +81,7 @@ class SchoolFilterTableVC: UITableViewController {
             let tapRecog = UITapGestureRecognizer(target: self, action: "tappedSchoolLevels:")
             headerView!.addGestureRecognizer(tapRecog)
 
-            querySwitch.addTarget(self, action: "toggledLevelFilter", forControlEvents: .TouchUpInside)
+            querySwitch.addTarget(self, action: "toggledLevelFilter:", forControlEvents: .TouchUpInside)
 
             return headerView
 
