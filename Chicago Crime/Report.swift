@@ -20,6 +20,8 @@ class Report: NSObject, MKAnnotation {
     var primaryType:String
     var date:NSDate?
     var dateComp:NSDateComponents?
+    var updatedDate:NSDate?
+    var updatedDateComp:NSDateComponents?
     
     var arrest:Bool
     var domestic:Bool
@@ -52,7 +54,18 @@ class Report: NSObject, MKAnnotation {
             cal.timeZone = NSTimeZone(abbreviation: "GMT")!
             dateComp = cal.components([.Weekday,.Day,.Hour,.Minute,.Year], fromDate: date!)
         }
-        //print(date)
+        
+        
+        var updatedDateString:String = (info["date"] as! String)
+        let updatedDateIndex = updatedDateString.endIndex.advancedBy(-4)
+        updatedDateString = updatedDateString.substringToIndex(updatedDateIndex)
+        updatedDate = Server.shared.formatter().dateFromString(updatedDateString)!
+        if date != nil {
+            let cal:NSCalendar = NSCalendar.currentCalendar()
+            cal.timeZone = NSTimeZone(abbreviation: "GMT")!
+            updatedDateComp = cal.components([.Weekday,.Day,.Hour,.Minute,.Year], fromDate: date!)
+        }
+        //print(updatedDate)
         
         arrest = info["arrest"] as! Bool
         domestic = info["domestic"] as! Bool
