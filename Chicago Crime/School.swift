@@ -218,7 +218,7 @@ internal class School : NSObject, MKAnnotation {
             break
         case .GRADUATION_RATE:
             if graduationRate != nil {
-                selectedFloat = CGFloat(algebraPassing!/100)
+                selectedFloat = CGFloat(graduationRate!/100)
             }
         }
     }

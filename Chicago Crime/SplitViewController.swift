@@ -102,7 +102,8 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
         let keyboard = notification.userInfo!["UIKeyboardFrameEndUserInfoKey"]?.CGRectValue
 
         frame.origin.y = keyboard!.origin.y - frame.size.height
-        UIView.animateWithDuration(Double((notification.userInfo!["UIKeyboardAnimationDurationUserInfoKey"]?.floatValue)!)) { () -> Void in
+        UIView.animateWithDuration(Double((notification.userInfo!["UIKeyboardAnimationDurationUserInfoKey"]?.floatValue)!)) {
+            () -> Void in
             self.tabBarC?.tabBar.frame = frame
         }
     }
@@ -182,17 +183,19 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     // MARK: SchoolFilterVC Delegate
 
     func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results: Array<School>) {
-        if filterVC.tableVC!.heatmapAttribOn {
-            mapVC?.schoolHeatMapAttrib = filterVC.tableVC?.selectedHeatmapAttrib
-        } else {
-            mapVC?.schoolHeatMapAttrib = nil
-        }
-
+        mapVC?.schoolHeatMapAttrib = filterVC.tableVC!.heatmapAttribOn ? filterVC.tableVC?.selectedHeatmapAttrib : nil
         mapVC?.addSchools(results)
     }
 
     func schoolFilterVCDidClearFilter() {
         mapVC?.clearSchools()
+    }
+
+    func schoolFilterVC(filterVC: SchoolFilterVC, didChangeHeatMapAttrib attrib: SchoolAttribute) {
+        mapVC?.schoolHeatMapAttrib = filterVC.tableVC!.heatmapAttribOn ? attrib : nil
+
+        mapVC?.mapView.removeAnnotations(mapVC!.schools)
+        mapVC?.mapView.addAnnotations(mapVC!.schools)
     }
 
     /*

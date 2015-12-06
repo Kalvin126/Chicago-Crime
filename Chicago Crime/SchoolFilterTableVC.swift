@@ -15,7 +15,7 @@ class SchoolFilterTableVC: UITableViewController {
 
     var heatmapAttribDropped: Bool = true
     var selectedHeatmapAttrib: SchoolAttribute?
-    var heatmapAttribOn: Bool = false
+    var heatmapAttribOn: Bool = true
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -90,6 +90,9 @@ class SchoolFilterTableVC: UITableViewController {
                 selectedHeatmapAttrib = SchoolAttribute(rawValue:(cell.textLabel!.text)!)
 
                 tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+
+                let schoolFilterVC = parentViewController as! SchoolFilterVC
+                schoolFilterVC.delegate?.schoolFilterVC(schoolFilterVC, didChangeHeatMapAttrib: selectedHeatmapAttrib!)
             }
         }
     }

@@ -11,6 +11,8 @@ import UIKit
 protocol School1FilterDelegate {
     func schoolFilterVC(filterVC: SchoolFilterVC, didCommitFilterWithResults results:Array<School>)
     func schoolFilterVCDidClearFilter()
+
+    func schoolFilterVC(filterVC: SchoolFilterVC, didChangeHeatMapAttrib attrib: SchoolAttribute)
 }
 
 class SchoolFilterVC: UIViewController {
