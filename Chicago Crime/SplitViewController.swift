@@ -192,10 +192,12 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     }
 
     func schoolFilterVC(filterVC: SchoolFilterVC, didChangeHeatMapAttrib attrib: SchoolAttribute) {
-        mapVC?.schoolHeatMapAttrib = filterVC.tableVC!.heatmapAttribOn ? attrib : nil
-
-        mapVC?.mapView.removeAnnotations(mapVC!.schools)
-        mapVC?.mapView.addAnnotations(mapVC!.schools)
+        mapVC?.schools.forEach({ (school) -> () in
+            school.setAttribute(SelectedAttribute: attrib)
+            
+            let annot = mapVC?.mapView.viewForAnnotation(school)
+            annot?.tintColor = school.tintColor()
+        })
     }
 
     /*

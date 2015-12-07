@@ -28,11 +28,17 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af5-rV-mEc">
                                 <rect key="frame" x="564" y="730" width="110" height="30"/>
                                 <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.15172413793103448" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="k9o-3T-QTM"/>
                                     <constraint firstAttribute="width" constant="110" id="rjH-DB-K4j"/>
                                 </constraints>
                                 <state key="normal" title="City"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tappedBoundaryButton:" destination="dlw-4b-0E1" eventType="touchUpInside" id="VHg-gi-mnz"/>
                                 </connections>
@@ -40,11 +46,17 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIy-ee-BGZ">
                                 <rect key="frame" x="446" y="730" width="110" height="30"/>
                                 <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14824892241379312" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="17d-Qb-0uS"/>
                                     <constraint firstAttribute="height" constant="30" id="Pkl-Ot-gIK"/>
                                 </constraints>
                                 <state key="normal" title="Standard"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tappedMapTypeButton:" destination="dlw-4b-0E1" eventType="touchUpInside" id="9Ma-Vu-vZI"/>
                                 </connections>

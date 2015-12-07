@@ -179,48 +179,36 @@ internal class School : NSObject, MKAnnotation {
     func setAttribute(SelectedAttribute s: SchoolAttribute) {
         switch s {
         case .SAFETY_SCORE:
-            if safetyScore != nil {
-                selectedFloat = CGFloat(safetyScore!/100)
-            }
+            selectedFloat = safetyScore != nil ? CGFloat(safetyScore!/100) : nil
             break
         case .PARENT_ENG_SCORE:
-            if parentEngScore != nil {
-                selectedFloat = CGFloat(parentEngScore!/100)
-            }
+            selectedFloat = parentEngScore != nil ? CGFloat(parentEngScore!/100) : nil
             break
         case .FAMILY_INVOLV_SCORE:
-            if familyInvolveScore != nil {
-                selectedFloat = CGFloat(familyInvolveScore!/100)
-            }
+            selectedFloat = familyInvolveScore != nil ? CGFloat(familyInvolveScore!/100) : nil
             break
         case .INSTRUCTION_SCORE:
-            if instructionScore != nil {
-                selectedFloat = CGFloat(instructionScore!/100)
-            }
+            selectedFloat = instructionScore != nil ? CGFloat(instructionScore!/100) : nil
             break
         case .TEACHER_SCORE:
-            if teacherScore != nil {
-                selectedFloat = CGFloat(teacherScore!/100)
-            }
+            selectedFloat = teacherScore != nil ? CGFloat(teacherScore!/100) : nil
             break
         case .STUDENT_ATD_SCORE:
-            if avgStudentAttend != nil {
-                selectedFloat = CGFloat(avgStudentAttend!/100)
-            }
+            selectedFloat = avgStudentAttend != nil ? CGFloat(avgStudentAttend!/100) : nil
             break
         case .TEACHER_ATD_SCORE:
             selectedFloat = CGFloat(teacherAttend/100)
             break
         case .ALGEBRA_PASSING:
-            if algebraPassing != nil {
-                selectedFloat = CGFloat(algebraPassing!/100)
-            }
+            selectedFloat = algebraPassing != nil ? CGFloat(algebraPassing!/100) : nil
             break
         case .GRADUATION_RATE:
-            if graduationRate != nil {
-                selectedFloat = CGFloat(graduationRate!/100)
-            }
+            selectedFloat = graduationRate != nil ? CGFloat(graduationRate!/100) : nil
         }
+    }
+
+    func tintColor() -> UIColor {
+        return selectedFloat != nil ? gradLayer!.colorForRatio(selectedAttributeFloat()) : UIColor.blueColor()
     }
 
     static let imgBorder:UIImage = UIImage(named: "School_Icon_Border")!
@@ -229,7 +217,7 @@ internal class School : NSObject, MKAnnotation {
         let annot = MKAnnotationView(annotation: self, reuseIdentifier: "annot")
         annot.enabled = true
         annot.canShowCallout = false
-        annot.tintColor = selectedFloat != nil ? gradLayer!.colorForRatio(selectedAttributeFloat()) : UIColor.blueColor()
+        annot.tintColor = tintColor()
         
         let subBorder = UIImageView(image: School.imgBorder)
         subBorder.userInteractionEnabled = false
