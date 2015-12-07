@@ -30,8 +30,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     var schools:Array<School> = []
     var schoolHeatMapAttrib: SchoolAttribute?
-    var schoolRadius:Double = 1609 // meters
-    var radiusOverlays:[MKCircle] = []
+    var schoolRadius:Double = 1609.0 // 1609 meters = 1 mile
+
+    var selectedSchool: School?
+    var selectedSchoolOverlay:MKCircle?
 
     @IBOutlet weak var mapView: MKMapView!
 
@@ -87,8 +89,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     func clearSchools() {
         // remove overlays
-        radiusOverlays.forEach{ self.mapView.removeOverlay($0) }
-        radiusOverlays.removeAll()
+        if selectedSchoolOverlay != nil {
+            mapView.removeOverlay(selectedSchoolOverlay!)
+            selectedSchoolOverlay = nil
+        }
 
         mapView.removeAnnotations(schools)
         schools.removeAll()
@@ -125,21 +129,37 @@ class MapVC: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func addRadiusCircle(location: CLLocationCoordinate2D){
-        let circle = MKCircle(centerCoordinate: location, radius: schoolRadius as CLLocationDistance)
+    func addRadiusCircleForSchool(school: School){
+        let circle = MKCircle(centerCoordinate: school.coordinate, radius: (Double(schoolRadius))*1609.0 as CLLocationDistance)
         let lat = circle.coordinate.latitude
         let lon = circle.coordinate.longitude
-        for i in 0..<radiusOverlays.count {
-            let c = radiusOverlays[i].coordinate
-            if lat == c.latitude && lon == c.longitude {
-                // overlay is already on screen
-                mapView.removeOverlay(radiusOverlays[i])
-                radiusOverlays.removeAtIndex(i)
-                return
-            }
+        if lat == selectedSchoolOverlay?.coordinate.latitude &&
+            lon == selectedSchoolOverlay?.coordinate.longitude {
+            // overlay is already on screen
+            mapView.removeOverlay(selectedSchoolOverlay!)
+
+            selectedSchool = nil
+            selectedSchoolOverlay = nil
+            return
         }
-        self.mapView.addOverlay(circle)
-        radiusOverlays.append(circle)
+
+        if selectedSchoolOverlay != nil {
+            mapView.removeOverlay(selectedSchoolOverlay!)
+        }
+
+        mapView.addOverlay(circle)
+        selectedSchool = school
+        selectedSchoolOverlay = circle
+    }
+
+    func changeSelectCircleRadius(radius: Double) {
+        if selectedSchoolOverlay != nil {
+            let newCircle = MKCircle(centerCoordinate: selectedSchool!.coordinate, radius: radius*1609.0 as CLLocationDistance)
+            mapView.addOverlay(newCircle)
+
+            mapView.removeOverlay(selectedSchoolOverlay!)
+            selectedSchoolOverlay = newCircle
+        }
     }
 
     // MARK: IBActions
@@ -214,11 +234,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
         let anno:MKAnnotation = annotView.annotation!
         
         if anno is School {
-            let school:School = annotView.annotation as! School
-            addRadiusCircle(school.coordinate)
+            addRadiusCircleForSchool(annotView.annotation as! School)
         }
 
-        annotView.highlighted = true
+        mapView.deselectAnnotation(anno, animated: false)
     }
 
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {

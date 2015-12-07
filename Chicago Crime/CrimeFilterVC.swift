@@ -13,6 +13,10 @@ import UIKit
 protocol CrimeFilterDelegate {
     func crimeFilter(filterVC: CrimeFilterVC, didCommitFilterWithResult results:Array<Report>)
     func crimeFilterVCDidClearFilter()
+
+    func schoolForCrimeFilter(filterVC: CrimeFilterVC) -> School?
+
+    func radiusDidChange(radius: Double)
 }
 
 class CrimeFilterVC: UIViewController {
@@ -35,7 +39,7 @@ class CrimeFilterVC: UIViewController {
 
         tableVC = (view.viewWithTag(10) as? UITableView)?.delegate as? CrimeFilterTableVC
 
-        limitTextField.text = "10"
+        limitTextField.text = "50"
 
         commitFilter()
     }
@@ -75,6 +79,10 @@ class CrimeFilterVC: UIViewController {
         if tableVC!.typeFilterOn {
             filter.setPrimaryType(primarytypes: tableVC!.selectedCrimeTypes)
         }
+
+        if let school = delegate?.schoolForCrimeFilter(self) {
+            filter.setSchoolWithRadius(school: school, radius: 1609.0*Double(tableVC!.schoolRadiusTextField.text!)!)
+        }
         
         Server.shared.getCrimes(filter) { (result: Array<Report>, interval: NSTimeInterval) -> Void in
             if result.count > 0 {
@@ -92,6 +100,10 @@ class CrimeFilterVC: UIViewController {
             self.commitButton.addSubview(self.commitButton.titleLabel!)
             self.commitButton.userInteractionEnabled = true
         }
+    }
+
+    @IBAction func pressedLimitStepper(sender: UIStepper) {
+        limitTextField.text = "\(Int(sender.value))"
     }
 
     @IBAction func pressedClearFilter(sender: AnyObject) {

@@ -250,7 +250,7 @@
                                     <action selector="pressedCommit:" destination="3nQ-9y-iVK" eventType="touchUpInside" id="6Pe-Nz-ToZ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HO1-Ha-jTZ">
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HO1-Ha-jTZ">
                                 <rect key="frame" x="71" y="270" width="82" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -281,6 +281,13 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" maximumValue="50000" stepValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="8tH-as-9Ba">
+                                <rect key="frame" x="169" y="270" width="94" height="29"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="pressedLimitStepper:" destination="3nQ-9y-iVK" eventType="valueChanged" id="j2h-xr-osd"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -297,7 +304,9 @@
                             <constraint firstItem="fFo-wX-bzT" firstAttribute="leading" secondItem="52e-c4-Pgl" secondAttribute="leading" id="QlM-ba-59t"/>
                             <constraint firstItem="fFo-wX-bzT" firstAttribute="width" secondItem="bHX-EZ-bUE" secondAttribute="width" id="S9P-6h-17C"/>
                             <constraint firstItem="lXv-Il-MhE" firstAttribute="leading" secondItem="52e-c4-Pgl" secondAttribute="leadingMargin" id="Wat-k7-TV4"/>
+                            <constraint firstItem="8tH-as-9Ba" firstAttribute="centerY" secondItem="HO1-Ha-jTZ" secondAttribute="centerY" id="XF9-JK-AFq"/>
                             <constraint firstItem="fFo-wX-bzT" firstAttribute="centerY" secondItem="bHX-EZ-bUE" secondAttribute="centerY" id="Znc-9Z-wIl"/>
+                            <constraint firstItem="8tH-as-9Ba" firstAttribute="leading" secondItem="HO1-Ha-jTZ" secondAttribute="trailing" constant="16" id="gkv-KZ-drM"/>
                             <constraint firstItem="HO1-Ha-jTZ" firstAttribute="leading" secondItem="akZ-31-PEK" secondAttribute="trailing" constant="8" id="knk-NW-3Bg"/>
                             <constraint firstItem="HO1-Ha-jTZ" firstAttribute="centerY" secondItem="akZ-31-PEK" secondAttribute="centerY" id="ouW-hP-oYh"/>
                             <constraint firstItem="akZ-31-PEK" firstAttribute="leading" secondItem="52e-c4-Pgl" secondAttribute="leadingMargin" id="qaf-7B-h9R"/>
@@ -387,7 +396,7 @@
             <objects>
                 <tableViewController id="ji8-0i-eG5" customClass="CrimeFilterTableVC" customModule="Chicago_Crime" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" tag="10" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="NMu-rc-GVf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -529,6 +538,53 @@
                             <tableViewSection headerTitle="Crime Types" id="XUC-xm-A4b">
                                 <cells/>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Settings" id="BM4-Nb-hiG">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="nRM-BS-uoh">
+                                        <rect key="frame" x="0.0" y="260" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nRM-BS-uoh" id="gMm-bX-dTn">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Radius (miles)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ql-hy-qha">
+                                                    <rect key="frame" x="16" y="12" width="102" height="20"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.5" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mHD-11-uDs">
+                                                    <rect key="frame" x="262" y="7" width="50" height="30"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="KUK-44-c0i"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="rcf-WT-stj">
+                                                    <rect key="frame" x="160" y="7" width="94" height="29"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <action selector="tappedRadiusStepper:" destination="ji8-0i-eG5" eventType="valueChanged" id="SX4-gy-CWk"/>
+                                                    </connections>
+                                                </stepper>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="mHD-11-uDs" firstAttribute="centerY" secondItem="gMm-bX-dTn" secondAttribute="centerY" id="KIh-WO-iIe"/>
+                                                <constraint firstItem="rcf-WT-stj" firstAttribute="centerY" secondItem="gMm-bX-dTn" secondAttribute="centerY" id="KLG-WA-eZJ"/>
+                                                <constraint firstItem="mHD-11-uDs" firstAttribute="leading" secondItem="rcf-WT-stj" secondAttribute="trailing" constant="8" id="TiH-lC-slz"/>
+                                                <constraint firstItem="mHD-11-uDs" firstAttribute="trailing" secondItem="gMm-bX-dTn" secondAttribute="trailingMargin" id="ZXN-ec-oap"/>
+                                                <constraint firstItem="2Ql-hy-qha" firstAttribute="leading" secondItem="gMm-bX-dTn" secondAttribute="leadingMargin" constant="8" id="p0v-Ea-SSu"/>
+                                                <constraint firstItem="2Ql-hy-qha" firstAttribute="centerY" secondItem="gMm-bX-dTn" secondAttribute="centerY" id="vZg-sb-eSn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="ji8-0i-eG5" id="UHV-U9-3qo"/>
@@ -536,10 +592,11 @@
                         </connections>
                     </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="320"/>
+                    <size key="freeformSize" width="320" height="400"/>
                     <connections>
                         <outlet property="endWindowCell" destination="pe6-Q3-lTo" id="1TX-lw-jQ1"/>
                         <outlet property="endYearTextField" destination="R0u-QE-Djh" id="bgt-e6-ZGs"/>
+                        <outlet property="schoolRadiusTextField" destination="mHD-11-uDs" id="3Vc-ly-4NN"/>
                         <outlet property="startWindowCell" destination="JHV-ut-H95" id="LaT-Pk-xrT"/>
                         <outlet property="startYearTextField" destination="BeI-2K-Soe" id="bK2-ow-2ew"/>
                     </connections>

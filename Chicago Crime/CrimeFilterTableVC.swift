@@ -9,7 +9,7 @@
 import UIKit
 
 class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
-    var crimeTypesDropped:Bool = true
+    var crimeTypesDropped:Bool = false
 
     var selectedCrimeTypes:[PrimaryType] = []
     var typeFilterOn:Bool = false
@@ -22,6 +22,8 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var endWindowCell: UITableViewCell!
     @IBOutlet weak var endYearTextField: UITextField!
+
+    @IBOutlet weak var schoolRadiusTextField: UITextField!
 
     required init?(coder aDecoder: NSCoder) {
         // OK to hard code time since it is not being used for record
@@ -68,6 +70,16 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
 
     func toggledTypeFilter(sender: UISwitch!) {
         typeFilterOn = sender.on
+    }
+
+    // MARK: IBActions
+
+    @IBAction func tappedRadiusStepper(sender: UIStepper) {
+        schoolRadiusTextField.text = "\((sender.value)/2.0)"
+
+        let crimeFilterVC = parentViewController as! CrimeFilterVC
+        crimeFilterVC.delegate?.radiusDidChange(Double((sender.value)/2.0))
+
     }
 
     // MARK: UITextFieldDelegate

@@ -65,7 +65,7 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let screenWidth = self.view.frame.width
+        let screenWidth = view.frame.width
         let kMasterViewWidth:CGFloat = screenWidth - (screenWidth)/3.5
 
         let masterViewController = mapVC!
@@ -173,11 +173,20 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     // MARK: CrimeFilterVCDelegate
 
     func crimeFilter(filterVC: CrimeFilterVC, didCommitFilterWithResult results: Array<Report>) {
-        mapVC?.addReports(results)
+        mapVC!.schoolRadius = Double((filterVC.tableVC!.schoolRadiusTextField.text)!)!
+        mapVC!.addReports(results)
     }
 
     func crimeFilterVCDidClearFilter() {
         mapVC?.clearReports()
+    }
+
+    func schoolForCrimeFilter(filterVC: CrimeFilterVC) -> School? {
+        return mapVC?.selectedSchool
+    }
+
+    func radiusDidChange(radius: Double) {
+        mapVC!.changeSelectCircleRadius(radius)
     }
 
     // MARK: SchoolFilterVC Delegate

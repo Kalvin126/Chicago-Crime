@@ -18,7 +18,7 @@ class CrimeFilter: NSObject {
     var dayOfWeekFilter:((Array<Report>)->Array<Report>)?
     
     private var buffer:School?
-    private var radius:Int?
+    private var radius:Double?
     
     func url() -> String {
         
@@ -72,7 +72,7 @@ class CrimeFilter: NSObject {
         return url
     }
     
-    func setSchoolWithRadius(school s:School, radius r:Int) {
+    func setSchoolWithRadius(school s:School, radius r:Double) {
         buffer = s
         radius = r
     }
