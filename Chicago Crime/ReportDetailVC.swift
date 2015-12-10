@@ -47,7 +47,7 @@ class ReportDetailVC: UIViewController {
 
         dateLabel.text = "\(formatter.stringFromDate((report?.date!)!))"
 
-        crimeImageView.tintColor = (report!.arrest ? UIColor.purpleColor() : UIColor.blackColor())
+        crimeImageView.tintColor = (report!.arrest ? UIColor.blackColor() : UIColor.darkGrayColor())
         primaryTypeLabel.text = report?.primaryType
         descLabel.text = report?.desc
 
