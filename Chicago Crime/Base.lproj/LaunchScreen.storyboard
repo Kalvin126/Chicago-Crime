@@ -16,21 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spatial Project" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJN-oW-A2D">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag" translatesAutoresizingMaskIntoConstraints="NO" id="iKG-MX-aKX">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="85"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="EJN-oW-A2D" secondAttribute="trailing" id="4Ew-Tv-Waq"/>
-                            <constraint firstItem="EJN-oW-A2D" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="MAR-0f-fYr"/>
-                            <constraint firstItem="EJN-oW-A2D" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="UsC-wb-zgG"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="EJN-oW-A2D" secondAttribute="bottom" id="xVg-H8-WEt"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="iKG-MX-aKX" secondAttribute="bottom" id="9tK-DD-brx"/>
+                            <constraint firstItem="iKG-MX-aKX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="KPh-Et-Een"/>
+                            <constraint firstItem="iKG-MX-aKX" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="TvB-up-UNt"/>
+                            <constraint firstAttribute="trailing" secondItem="iKG-MX-aKX" secondAttribute="trailing" id="eBi-32-AXC"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -39,4 +36,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="flag" width="739" height="492"/>
+    </resources>
 </document>

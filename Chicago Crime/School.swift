@@ -178,7 +178,7 @@ internal class School : NSObject, MKAnnotation {
         return selectedFloat!
     }
     
-    func setAttribute(SelectedAttribute s: SchoolAttribute) {
+    func setAttribute(SelectedAttribute s: SchoolAttribute, scale:Int? = nil) {
         switch s {
         case .SAFETY_SCORE:
             selectedFloat = safetyScore != nil ? CGFloat(safetyScore!/100) : nil
@@ -206,6 +206,9 @@ internal class School : NSObject, MKAnnotation {
             break
         case .GRADUATION_RATE:
             selectedFloat = graduationRate != nil ? CGFloat(graduationRate!/100) : nil
+        case .CRIMES_NEARBY:
+            selectedFloat = CGFloat(1.0 - Double(crimesInAreaCount)/Double(scale!))
+            break;
         }
     }
 

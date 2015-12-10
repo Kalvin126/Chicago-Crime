@@ -17,6 +17,7 @@ enum ChicagoBoundary : String {
 
 protocol MapVCDelegate {
     func mapVC(mapVC: MapVC, showDetailVCForAnnotation annotation:MKAnnotation)
+    func countCrimes()
 }
 
 class MapVC: UIViewController, MKMapViewDelegate {
@@ -89,6 +90,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         clearReports()
 
         crimes += reports
+        delegate?.countCrimes()
         evaluateBuffer()
     }
 
@@ -109,9 +111,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         var reportsInRegion: [Report] = []
         if oldRegion != nil {
             let newRegion = mapView.region
-            if zoomLevelForRegion(newRegion) < zoomLevelForRegion(oldRegion!) {
-                // Zoom out
-                print("Zoomed out")
+            if zoomLevelForRegion(newRegion) < zoomLevelForRegion(oldRegion!) { // Zoom out
                 mapView.removeAnnotations(crimeBuffer)
                 crimeBuffer.removeAll()
             }
@@ -149,6 +149,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         clearSchools()
 
         self.schools += schools
+        delegate?.countCrimes()
         mapView.addAnnotations(schools)
     }
 
@@ -285,7 +286,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
         case is School:
             if schoolHeatMapAttrib != nil {
-                (annotation as! School).setAttribute(SelectedAttribute: schoolHeatMapAttrib!)
+                (annotation as! School).setAttribute(SelectedAttribute: schoolHeatMapAttrib!, scale: (delegate as! SplitViewController).maxCrime)
             }
             return (annotation as! School).mapAnnotationView()
             

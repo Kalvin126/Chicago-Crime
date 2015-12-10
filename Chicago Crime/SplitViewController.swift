@@ -19,6 +19,8 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     weak var reportDVC:ReportDetailVC?
     weak var schoolDVC:SchoolDetailVC?
 
+    var maxCrime: Int?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -156,8 +158,11 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     }
 
     func countCrimesForSchools() {
+        maxCrime = 0
         mapVC!.schools.forEach {
             $0.crimesInAreaCount = mapVC!.crimesArroundLocation($0.coordinate)
+
+            if $0.crimesInAreaCount > maxCrime { maxCrime = $0.crimesInAreaCount }
         }
     }
 
@@ -175,6 +180,10 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
 
         default: break
         }
+    }
+
+    func countCrimes() {
+        countCrimesForSchools()
     }
 
     // MARK: CrimeFilterVCDelegate
@@ -209,7 +218,7 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
 
     func schoolFilterVC(filterVC: SchoolFilterVC, didChangeHeatMapAttrib attrib: SchoolAttribute) {
         mapVC?.schools.forEach({ (school) -> () in
-            school.setAttribute(SelectedAttribute: attrib)
+            school.setAttribute(SelectedAttribute: attrib, scale: maxCrime)
             
             let annot = mapVC?.mapView.viewForAnnotation(school)
             annot?.tintColor = school.tintColor()

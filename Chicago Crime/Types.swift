@@ -27,8 +27,9 @@ enum SchoolAttribute : String {
     case TEACHER_ATD_SCORE      = "Teacher Attendence"
     case ALGEBRA_PASSING        = "Students Passing Algebra"
     case GRADUATION_RATE        = "Gradiation Rate"
+    case CRIMES_NEARBY          = "Crimes Nearby"
 
-    static let allValues = [SAFETY_SCORE, PARENT_ENG_SCORE, FAMILY_INVOLV_SCORE, INSTRUCTION_SCORE, TEACHER_SCORE, STUDENT_ATD_SCORE, TEACHER_ATD_SCORE, ALGEBRA_PASSING, GRADUATION_RATE]
+    static let allValues = [SAFETY_SCORE, PARENT_ENG_SCORE, FAMILY_INVOLV_SCORE, INSTRUCTION_SCORE, TEACHER_SCORE, STUDENT_ATD_SCORE, TEACHER_ATD_SCORE, ALGEBRA_PASSING, GRADUATION_RATE, CRIMES_NEARBY]
     static let allRawValues = SchoolAttribute.allValues.map{ $0.rawValue }
 }
 
