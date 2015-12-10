@@ -25,11 +25,12 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
         super.viewDidLoad()
 
         gradLayer = CAGradientLayer()
-        gradLayer!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
+        gradLayer!.colors = [UIColor.redColor().CGColor, UIColor.orangeColor().CGColor,UIColor.yellowColor().CGColor,
+            UIColor.yellowColor().CGColor,UIColor.greenColor().CGColor]
         gradLayer!.locations = [0.0 ,0.3,0.65,0.68, 1.0]
         gradLayer?.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradLayer?.endPoint = CGPoint(x: 1.0, y: 0.5)
-        
+
         mapVC = self.viewControllers[0] as? MapVC
         mapVC!.delegate = self
 
@@ -53,8 +54,9 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillHideNotification, object: nil)
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillShowNotification, object: nil)
+        center.addObserver(self, selector: "keyboardWillToggle:", name: UIKeyboardWillHideNotification, object: nil)
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -114,19 +116,17 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
         if reportDVC == nil {
             reportDVC = storyboard!.instantiateViewControllerWithIdentifier("reportDetail") as? ReportDetailVC
         }
+        reportDVC?.report = report
 
         let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
         if let _ = selectedNav.presentedViewController as? SchoolDetailVC {
             selectedNav.dismissViewControllerAnimated(true, completion: nil)
-            selectedNav.presentViewController(reportDVC!, animated: true) { () -> Void in
-                self.reportDVC?.setup(withReport: report)
-            }
-        }else if selectedNav.presentedViewController == nil {
-            selectedNav.presentViewController(reportDVC!, animated: true) { () -> Void in
-                self.reportDVC?.setup(withReport: report)
-            }
+            selectedNav.presentViewController(reportDVC!, animated: true, completion: nil)
+        }
+        else if selectedNav.presentedViewController == nil {
+            selectedNav.presentViewController(reportDVC!, animated: true, completion: nil)
         }else{
-            reportDVC?.setup(withReport: report)
+            reportDVC?.setup()
         }
 
         tabBarC?.tabBar.hidden = true // can't animate this :(
@@ -137,21 +137,18 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
             schoolDVC = storyboard!.instantiateViewControllerWithIdentifier("schoolDetail") as? SchoolDetailVC
             schoolDVC?.delegate = self
         }
+        schoolDVC?.school = school
 
         let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
 
         if let _ = selectedNav.presentedViewController as? ReportDetailVC {
-            self.schoolDVC?.school = school
-
             selectedNav.dismissViewControllerAnimated(true, completion: nil)
             selectedNav.presentViewController(schoolDVC!, animated: true, completion: nil)
-        }else if selectedNav.presentedViewController == nil {
-            self.schoolDVC?.school = school
-
+        }
+        else if selectedNav.presentedViewController == nil {
             selectedNav.presentViewController(schoolDVC!, animated: true, completion: nil)
         }else{
-            schoolDVC?.school = school
-            schoolDVC?.setup()
+            schoolDVC?.setup()  // SchoolDVC already shown
         }
 
         tabBarC?.tabBar.hidden = true // can't UIView animate this :(
@@ -219,7 +216,7 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     func schoolFilterVC(filterVC: SchoolFilterVC, didChangeHeatMapAttrib attrib: SchoolAttribute) {
         mapVC?.schools.forEach({ (school) -> () in
             school.setAttribute(SelectedAttribute: attrib, scale: maxCrime)
-            
+
             let annot = mapVC?.mapView.viewForAnnotation(school)
             annot?.tintColor = school.tintColor()
         })
@@ -231,7 +228,7 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
         guard let school = schoolDVC.school else {
             return 0
         }
-
+        
         return mapVC!.crimesArroundLocation(school.coordinate)
     }
 

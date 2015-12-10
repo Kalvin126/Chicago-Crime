@@ -96,7 +96,7 @@ class Report: NSObject, MKAnnotation {
         let annot = MKPinAnnotationView(annotation: self, reuseIdentifier: "annot")
         annot.enabled = true
         annot.canShowCallout = false
-        annot.pinTintColor = UIColor.blackColor()
+        annot.pinTintColor = (arrest ? UIColor.purpleColor() : UIColor.blackColor())
         
         // disclosure button
         let discButton = UIButton(type:.DetailDisclosure)

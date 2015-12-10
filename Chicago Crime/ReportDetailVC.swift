@@ -12,12 +12,17 @@ class ReportDetailVC: UIViewController {
     var report: Report?
 
     @IBOutlet weak var caseNumberLabel: UILabel!
+
+    @IBOutlet weak var crimeImageView: UIImageView!
     @IBOutlet weak var primaryTypeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 
+    @IBOutlet weak var blockLabel: UILabel!
     @IBOutlet weak var locationDesc: UILabel!
 
     @IBOutlet weak var descLabel: UILabel!
+
+    @IBOutlet weak var lastUpdatedLabel: UILabel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,16 +31,33 @@ class ReportDetailVC: UIViewController {
         modalPresentationStyle = .CurrentContext
     }
 
-    func setup(withReport report:Report) {
-        self.report = report
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
 
-        caseNumberLabel.text = report.caseNumber
-        primaryTypeLabel.text = report.primaryType
+        if report != nil {
+            setup()
+        }
+    }
 
-        dateLabel.text = "\(report.date!)"
+    func setup() {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "MM/d/yyyy, h:mm a"
 
-        locationDesc.text = report.locationDescription
-        descLabel.text = report.desc
+        caseNumberLabel.text = report?.caseNumber
+
+        dateLabel.text = "\(formatter.stringFromDate((report?.date!)!))"
+
+        crimeImageView.tintColor = (report!.arrest ? UIColor.purpleColor() : UIColor.blackColor())
+        primaryTypeLabel.text = report?.primaryType
+        descLabel.text = report?.desc
+
+        blockLabel.text = report?.block
+        locationDesc.text = report?.locationDescription
+
+        lastUpdatedLabel.text = "\(formatter.stringFromDate((report?.updatedDate!)!))"
+
+        descLabel.sizeToFit()
+        locationDesc.sizeToFit()
     }
 
     @IBAction func pressedClose(sender: AnyObject) {
