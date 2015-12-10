@@ -11,10 +11,10 @@ import UIKit
 
 var gradLayer:CAGradientLayer?
 
-class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDelegate, School1FilterDelegate {
+class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDelegate, School1FilterDelegate, SchoolDetailVCDataSource {
 
-    var mapVC:MapVC?
-    var tabBarC:UITabBarController?
+    private var mapVC:MapVC?
+    private var tabBarC:UITabBarController?
 
     weak var reportDVC:ReportDetailVC?
     weak var schoolDVC:SchoolDetailVC?
@@ -133,6 +133,7 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
     func showSchoolDVC(forSchool school:School) {
         if schoolDVC == nil {
             schoolDVC = storyboard!.instantiateViewControllerWithIdentifier("schoolDetail") as? SchoolDetailVC
+            schoolDVC?.delegate = self
         }
 
         let selectedNav = tabBarC?.viewControllers![(tabBarC?.selectedIndex)!] as! UINavigationController
@@ -152,6 +153,12 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
         }
 
         tabBarC?.tabBar.hidden = true // can't UIView animate this :(
+    }
+
+    func countCrimesForSchools() {
+        mapVC!.schools.forEach {
+            $0.crimesInAreaCount = mapVC!.crimesArroundLocation($0.coordinate)
+        }
     }
 
     // MARK: MapVCDelegate
@@ -207,6 +214,16 @@ class SplitViewController: UISplitViewController, MapVCDelegate, CrimeFilterDele
             let annot = mapVC?.mapView.viewForAnnotation(school)
             annot?.tintColor = school.tintColor()
         })
+    }
+
+    // MARK: SchoolDetailVCDataSource
+
+    func crimesInArea(schoolDVC: SchoolDetailVC) -> Int {
+        guard let school = schoolDVC.school else {
+            return 0
+        }
+
+        return mapVC!.crimesArroundLocation(school.coordinate)
     }
 
     /*

@@ -94,7 +94,9 @@ internal class School : NSObject, MKAnnotation {
     
     var algebraTaking:Int?
     var algebraPassing:Double?
-    
+
+    // Filter Commit Time var
+    var crimesInAreaCount: Int = 0
     
     var coordinate: CLLocationCoordinate2D {
         guard let latitude = lat, longitude = lon else {

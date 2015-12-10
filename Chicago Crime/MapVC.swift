@@ -27,6 +27,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var boundaryOverlays: [MKPolygon] = []
 
     var crimes:Array<Report> = []
+    var crimeBuffer:Array<Report> = []
 
     var schools:Array<School> = []
     var schoolHeatMapAttrib: SchoolAttribute?
@@ -34,6 +35,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     var selectedSchool: School?
     var selectedSchoolOverlay:MKCircle?
+
+    var oldRegion: MKCoordinateRegion?
 
     @IBOutlet weak var mapView: MKMapView!
 
@@ -68,16 +71,78 @@ class MapVC: UIViewController, MKMapViewDelegate {
 
     // MARK: Helper
 
+    func crimesArroundLocation(location: CLLocationCoordinate2D) -> Int {
+        let thisLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        var count = 0
+
+        crimes.forEach {
+            let crimeLocation = CLLocation(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
+            if schoolRadius*1609.0 >= thisLocation.distanceFromLocation(crimeLocation) {
+                count++
+            }
+        }
+
+        return count
+    }
+
     func addReports(reports: Array<Report>) {
         clearReports()
 
         crimes += reports
-        mapView.addAnnotations(reports)
+        evaluateBuffer()
     }
 
     func clearReports() {
         mapView.removeAnnotations(crimes)
+        crimeBuffer.removeAll()
         crimes.removeAll()
+    }
+
+    func zoomLevelForRegion(region: MKCoordinateRegion) -> Int {
+        let MERCATOR_RADIUS = 85445659.44705395
+        return Int(21.0 - round(log2(region.span.longitudeDelta * MERCATOR_RADIUS * M_PI / Double(180.0 * mapView.bounds.size.width))));
+    }
+
+    func evaluateBuffer() {
+        if crimes.count == 0 { return }
+        var reportsOutOfRegion: [Report] = []
+        var reportsInRegion: [Report] = []
+        if oldRegion != nil {
+            let newRegion = mapView.region
+            if zoomLevelForRegion(newRegion) < zoomLevelForRegion(oldRegion!) {
+                // Zoom out
+                print("Zoomed out")
+                mapView.removeAnnotations(crimeBuffer)
+                crimeBuffer.removeAll()
+            }
+        }
+
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+            self.crimeBuffer.forEach {
+                let pointForCrime = MKMapPointForCoordinate($0.coordinate)
+                if !MKMapRectContainsPoint(self.mapView.visibleMapRect, pointForCrime) {
+                    reportsOutOfRegion += [$0]
+                    self.crimeBuffer.removeAtIndex(self.crimeBuffer.indexOf($0)!)
+                }
+            }
+
+            for cr in self.crimes {
+                if self.crimeBuffer.count >= 800 {
+                    break
+                }
+
+                let pointForCrime = MKMapPointForCoordinate(cr.coordinate)
+                if MKMapRectContainsPoint(self.mapView.visibleMapRect, pointForCrime) {
+                    reportsInRegion += [cr]
+                    self.crimeBuffer += [cr]
+                }
+            }
+
+            dispatch_async(dispatch_get_main_queue()) {
+                self.mapView.removeAnnotations(reportsOutOfRegion)
+                self.mapView.addAnnotations(reportsInRegion)
+            }
+        }
     }
 
     func addSchools(schools: Array<School>) {
@@ -248,14 +313,26 @@ class MapVC: UIViewController, MKMapViewDelegate {
             renderer.lineWidth = 2
 
             return renderer
-        } else  if overlay is MKCircle {
+        }
+        else if overlay is MKCircle {
             let circle = MKCircleRenderer(overlay: overlay)
             circle.strokeColor = UIColor.redColor()
             circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
             circle.lineWidth = 1
+
             return circle
         }
         
         return MKOverlayRenderer()
+    }
+
+    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        oldRegion = mapView.region
+    }
+
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        evaluateBuffer()
+
+        oldRegion = nil
     }
 }

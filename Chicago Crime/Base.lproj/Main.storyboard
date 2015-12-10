@@ -250,7 +250,7 @@
                                     <action selector="pressedCommit:" destination="3nQ-9y-iVK" eventType="touchUpInside" id="6Pe-Nz-ToZ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HO1-Ha-jTZ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HO1-Ha-jTZ">
                                 <rect key="frame" x="71" y="270" width="82" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -1035,6 +1035,27 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xu-ri-jIC">
+                                <rect key="frame" x="154" y="678" width="150" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="g95-ql-5uL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crimes Arround:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3se-t4-SGG">
+                                <rect key="frame" x="16" y="678" width="130" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="VNP-9m-ug6"/>
+                                    <constraint firstAttribute="width" constant="130" id="yij-wP-mRe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1051,10 +1072,12 @@
                             <constraint firstItem="OQe-Xh-bJj" firstAttribute="leading" secondItem="dkw-4e-EjE" secondAttribute="trailing" constant="30" id="8Rf-fF-Lto"/>
                             <constraint firstItem="wew-WK-vZL" firstAttribute="leading" secondItem="OQe-Xh-bJj" secondAttribute="leading" id="8af-dt-H5F"/>
                             <constraint firstItem="aLf-yt-yIW" firstAttribute="trailing" secondItem="Hfq-p5-bGc" secondAttribute="trailing" id="8qL-C4-zkR"/>
+                            <constraint firstItem="9xu-ri-jIC" firstAttribute="centerY" secondItem="3se-t4-SGG" secondAttribute="centerY" id="AAE-HR-CKW"/>
                             <constraint firstItem="aLf-yt-yIW" firstAttribute="centerY" secondItem="ZZz-zj-yPd" secondAttribute="centerY" id="ACY-f0-baE"/>
                             <constraint firstItem="Xkl-5n-8jv" firstAttribute="leading" secondItem="jbL-Ir-l2L" secondAttribute="leading" id="AkJ-QI-quY"/>
                             <constraint firstItem="ZZz-zj-yPd" firstAttribute="trailing" secondItem="xvp-Kn-AdV" secondAttribute="trailing" id="Apj-p9-gd6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="h8I-KP-Svv" secondAttribute="trailing" id="B3f-TM-zxc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9xu-ri-jIC" secondAttribute="trailing" id="BRD-ss-HrM"/>
                             <constraint firstItem="xOV-MU-Z6G" firstAttribute="trailing" secondItem="jbS-PP-pnT" secondAttribute="trailing" id="Bt8-ID-hqY"/>
                             <constraint firstItem="Xkl-5n-8jv" firstAttribute="centerY" secondItem="vDa-ri-Mkz" secondAttribute="centerY" id="E9E-ej-ial"/>
                             <constraint firstItem="OHL-pW-BqX" firstAttribute="height" secondItem="xvp-Kn-AdV" secondAttribute="height" id="Esj-H5-27C"/>
@@ -1099,9 +1122,12 @@
                             <constraint firstItem="RQR-vr-Yl3" firstAttribute="width" secondItem="xvp-Kn-AdV" secondAttribute="width" id="enU-Yf-8iA"/>
                             <constraint firstItem="tfU-nD-GQR" firstAttribute="leading" secondItem="OBq-Es-xbW" secondAttribute="trailing" constant="8" id="f2H-ma-LKu"/>
                             <constraint firstItem="jbS-PP-pnT" firstAttribute="height" secondItem="xvp-Kn-AdV" secondAttribute="height" id="fNg-nT-PoR"/>
+                            <constraint firstItem="3se-t4-SGG" firstAttribute="top" secondItem="Ym0-7x-fDW" secondAttribute="bottom" constant="8" id="fOk-oU-OPk"/>
                             <constraint firstItem="ZZz-zj-yPd" firstAttribute="leading" secondItem="xvp-Kn-AdV" secondAttribute="leading" id="fp3-RM-Zr4"/>
                             <constraint firstItem="dkw-4e-EjE" firstAttribute="top" secondItem="ZZz-zj-yPd" secondAttribute="bottom" constant="6" id="gog-aH-jmd"/>
+                            <constraint firstItem="9xu-ri-jIC" firstAttribute="leading" secondItem="3se-t4-SGG" secondAttribute="trailing" constant="8" id="gxJ-hp-xkt"/>
                             <constraint firstItem="1M9-Z6-VxN" firstAttribute="centerY" secondItem="OHL-pW-BqX" secondAttribute="centerY" id="gza-Wr-y2P"/>
+                            <constraint firstItem="3se-t4-SGG" firstAttribute="leading" secondItem="AVW-WZ-i35" secondAttribute="leadingMargin" id="h1f-CZ-Ebh"/>
                             <constraint firstItem="W6X-79-dl5" firstAttribute="leading" secondItem="dXl-Um-ewb" secondAttribute="trailing" constant="8" id="hLJ-hX-dfC"/>
                             <constraint firstItem="tG0-lZ-ODD" firstAttribute="trailing" secondItem="AVW-WZ-i35" secondAttribute="trailingMargin" id="hs0-kx-wgg"/>
                             <constraint firstItem="W6X-79-dl5" firstAttribute="centerY" secondItem="dXl-Um-ewb" secondAttribute="centerY" id="hwe-F7-Nam"/>
@@ -1140,6 +1166,7 @@
                         <outlet property="attendenceLabel" destination="Hfq-p5-bGc" id="TBp-TO-HAB"/>
                         <outlet property="collegeEnrollLabel" destination="jbS-PP-pnT" id="NAF-ML-ci1"/>
                         <outlet property="cpsPerfLabel" destination="W6X-79-dl5" id="9Qf-1j-NDd"/>
+                        <outlet property="crimesArroundLabel" destination="9xu-ri-jIC" id="o0T-jh-sJX"/>
                         <outlet property="districtLabel" destination="X8s-Nc-mqQ" id="U6F-B0-Ztj"/>
                         <outlet property="environmentLabel" destination="RQR-vr-Yl3" id="stI-WP-J1s"/>
                         <outlet property="familyLabel" destination="dkw-4e-EjE" id="W5G-Jp-O16"/>

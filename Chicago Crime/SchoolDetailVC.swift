@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol SchoolDetailVCDataSource {
+    func crimesInArea(schoolDVC: SchoolDetailVC) -> Int;
+}
+
 class SchoolDetailVC: UIViewController {
     var school: School?
+    var delegate: SchoolDetailVCDataSource?
 
     @IBOutlet weak var schoolNameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
@@ -34,6 +39,7 @@ class SchoolDetailVC: UIViewController {
     @IBOutlet weak var cpsPerfLabel: UILabel!
     @IBOutlet weak var misconductLabel: UILabel!
 
+    @IBOutlet weak var crimesArroundLabel: UILabel!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
@@ -97,6 +103,10 @@ class SchoolDetailVC: UIViewController {
         actLabel.text = school!.actScore != nil ? "\(Int(school!.actScore!))" : "NDA"
         cpsPerfLabel.text = school!.cpsPerformanceLvl != "Not Enough Data" ? school!.cpsPerformanceLvl : "NDA"
         misconductLabel.text = school!.misconduct100 != nil ? "\(Int(school!.misconduct100!))" : "NDA"
+
+        if delegate != nil {
+            crimesArroundLabel.text = "\(delegate!.crimesInArea(self))";
+        }
     }
 
     @IBAction func pressedClose(sender: AnyObject) {

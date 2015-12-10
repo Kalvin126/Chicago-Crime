@@ -12,7 +12,7 @@ class CrimeFilterTableVC: UITableViewController, UITextFieldDelegate {
     var crimeTypesDropped:Bool = false
 
     var selectedCrimeTypes:[PrimaryType] = []
-    var typeFilterOn:Bool = false
+    var typeFilterOn:Bool = true
 
     var startTimeWindow:NSDate
     var endTimeWindow:NSDate

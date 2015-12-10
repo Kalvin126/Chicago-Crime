@@ -42,7 +42,6 @@ class Report: NSObject, MKAnnotation {
         desc = info["description"] as! String
         block = info["block"] as! String
         primaryType = info["primary_type"] as! String
-        //print(primaryType)
         
         // Date
         var dateString:String = (info["date"] as! String)
@@ -54,8 +53,7 @@ class Report: NSObject, MKAnnotation {
             cal.timeZone = NSTimeZone(abbreviation: "GMT")!
             dateComp = cal.components([.Weekday,.Day,.Hour,.Minute,.Year], fromDate: date!)
         }
-        
-        
+
         var updatedDateString:String = (info["date"] as! String)
         let updatedDateIndex = updatedDateString.endIndex.advancedBy(-4)
         updatedDateString = updatedDateString.substringToIndex(updatedDateIndex)
@@ -65,7 +63,6 @@ class Report: NSObject, MKAnnotation {
             cal.timeZone = NSTimeZone(abbreviation: "GMT")!
             updatedDateComp = cal.components([.Weekday,.Day,.Hour,.Minute,.Year], fromDate: date!)
         }
-        //print(updatedDate)
         
         arrest = info["arrest"] as! Bool
         domestic = info["domestic"] as! Bool
@@ -85,7 +82,7 @@ class Report: NSObject, MKAnnotation {
             let geocoder = CLGeocoder()
             geocoder.geocodeAddressString(self.block + ", Chicago, IL", completionHandler: {(placemarks, error) -> Void in
                 if((error) != nil){
-                    print("Error", error)
+                    print("Geocode Error", error)
                 }
                 if let location = placemarks?.first?.location?.coordinate {
                     self.lat = location.latitude
