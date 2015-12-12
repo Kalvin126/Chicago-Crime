@@ -109,7 +109,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         if crimes.count == 0 { return }
         var reportsOutOfRegion: [Report] = []
         var reportsInRegion: [Report] = []
-        if oldRegion != nil {
+        if oldRegion != nil && oldRegion?.center.latitude != 0 {
             let newRegion = mapView.region
             if zoomLevelForRegion(newRegion) < zoomLevelForRegion(oldRegion!) { // Zoom out
                 mapView.removeAnnotations(crimeBuffer)
@@ -117,32 +117,28 @@ class MapVC: UIViewController, MKMapViewDelegate {
             }
         }
 
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-            self.crimeBuffer.forEach {
-                let pointForCrime = MKMapPointForCoordinate($0.coordinate)
-                if !MKMapRectContainsPoint(self.mapView.visibleMapRect, pointForCrime) {
-                    reportsOutOfRegion += [$0]
-                    self.crimeBuffer.removeAtIndex(self.crimeBuffer.indexOf($0)!)
-                }
-            }
-
-            for cr in self.crimes {
-                if self.crimeBuffer.count >= 800 {
-                    break
-                }
-
-                let pointForCrime = MKMapPointForCoordinate(cr.coordinate)
-                if MKMapRectContainsPoint(self.mapView.visibleMapRect, pointForCrime) {
-                    reportsInRegion += [cr]
-                    self.crimeBuffer += [cr]
-                }
-            }
-
-            dispatch_async(dispatch_get_main_queue()) {
-                self.mapView.removeAnnotations(reportsOutOfRegion)
-                self.mapView.addAnnotations(reportsInRegion)
+        self.crimeBuffer.forEach {
+            let pointForCrime = MKMapPointForCoordinate($0.coordinate)
+            if !MKMapRectContainsPoint(self.mapView.visibleMapRect, pointForCrime) {
+                reportsOutOfRegion += [$0]
+                self.crimeBuffer.removeAtIndex(self.crimeBuffer.indexOf($0)!)
             }
         }
+
+        for cr in self.crimes {
+            if self.crimeBuffer.count >= 800 {
+                break
+            }
+
+            let pointForCrime = MKMapPointForCoordinate(cr.coordinate)
+            if MKMapRectContainsPoint(self.mapView.visibleMapRect, pointForCrime) {
+                reportsInRegion += [cr]
+                self.crimeBuffer += [cr]
+            }
+        }
+
+        self.mapView.removeAnnotations(reportsOutOfRegion)
+            self.mapView.addAnnotations(reportsInRegion)
     }
 
     func addSchools(schools: Array<School>) {
