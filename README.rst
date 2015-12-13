@@ -1,4 +1,6 @@
-# Chicago-Crime
+Brightness Menulet
+==================
+
 iOS based Navigator for City of Chicago crime occurrences
 
 Spatial analysis tool to map and analyze Chicago Crime and School attributes.
